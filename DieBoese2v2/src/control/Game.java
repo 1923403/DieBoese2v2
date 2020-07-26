@@ -14,4 +14,11 @@ public class Game {
 	private boolean player1Next;
 	private Player player2;
 	private int turnCount;
+	
+	protected Game() {
+//		board = new Board();
+//		menu = new Menu();
+//		move = new Move();
+//		player1 =
+	}
 }
