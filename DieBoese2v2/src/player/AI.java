@@ -1,13 +1,16 @@
 package player;
 
-import model.Move;
+import java.awt.Point;
 
 public class AI extends Player {
 
-	private Move move;
+	private Point enemyMove;
 
-	public AI(char figure, Move move) {
+	public AI(final char figure) {
 		super(figure);
-		this.move = move;
+	}
+
+	public void setEnemyMove(final Point move) {
+		this.enemyMove = move;
 	}
 }
