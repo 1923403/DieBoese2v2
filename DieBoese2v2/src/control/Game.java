@@ -25,7 +25,7 @@ public class Game {
 			player1 = new Player('X');
 			player2 = new Player('O');
 		} else {
-			if (menu.isStart()) {
+			if (menu.getStart()) {
 				player1 = new Player('X');
 				player2 = new AI('O');
 			} else {

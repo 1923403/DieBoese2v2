@@ -96,7 +96,7 @@ public class Menu {
 		return pvp;
 	}
 
-	public boolean isStart() {
+	public boolean getStart() {
 		return start;
 	}
 
