@@ -10,11 +10,6 @@ public class Move {
 		this.board = board.getBoard();
 	}
 
-	// checks if space is empty
-	public boolean emptySpace(Point coordinates) {
-		return this.board[coordinates.x][coordinates.y] == ' ';
-	}
-
 	// checks if there is an empty space on the board
 	public boolean movePossible() {
 		for (var x = 0; x < this.board.length; x++) {
@@ -27,7 +22,39 @@ public class Move {
 	}
 
 	// places given figure at given coordinates on the board
-	public void setMove(Point coordinates, char figure) {
+	public void setMove(Point coordinates, char figure, int turnCount) throws InvalidMoveException {
+		if (!this.isValidMove(coordinates))
+			throw new InvalidMoveException("Field is not empty!");
+
+		if (turnCount < 7) {
+			this.block(coordinates);
+		} else if (turnCount == 9) {
+			this.secondMove(coordinates);
+		} else {
+			this.setMove(coordinates, figure);
+		}
+
+		this.capture(coordinates);
+	}
+
+	private void block(Point coordinates) {
+	}
+
+	private void capture(Point coordinates) {
+
+	}
+
+	// checks if space is empty
+	private boolean isValidMove(Point coordinates) {
+		return this.board[coordinates.x][coordinates.y] == ' ';
+	}
+
+	private void secondMove(Point coordinates) {
+
+	}
+
+	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
+	private void setMove(Point coordinates, char figure) {
 		this.board[coordinates.x][coordinates.y] = figure;
 	}
 }
