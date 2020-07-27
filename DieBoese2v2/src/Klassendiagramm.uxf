@@ -71,11 +71,13 @@
 + Move(board : Board)
 + hasWon() : boolean
 + movePossible() : boolean
-+ setMove(coordinates : Point, figure : char) : void
++ setMove(coordinates : Point, figure : char, turnCount : int) : void
 - block(coordinates : Point) : void
 - capture() : void
+- copyBoard() : char[][]
 - isValidMove(coordinates : Point) : boolean
-- secondMove(coordinate : Point) : void</panel_attributes>
+- secondMove(coordinate : Point, figure : char) : void
+- setMove(coordinates : Point, figure : char) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
