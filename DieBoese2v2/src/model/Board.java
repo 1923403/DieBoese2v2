@@ -42,6 +42,7 @@ public class Board {
 			}
 			if(y != 0 && y != board.length + 1) System.out.print((char)(97+board.length-(y)));
 		}
+		System.out.println("\n");
 	}
 
 	
