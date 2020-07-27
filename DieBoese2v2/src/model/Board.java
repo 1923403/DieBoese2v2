@@ -28,7 +28,6 @@ public class Board {
 		return board;
 	}
 
-	//not working yet
 	public void printBoard() {
 		for (int y = 0; y <= board.length+1; y++) {
 			System.out.println();
@@ -36,7 +35,8 @@ public class Board {
 			for (int x = 0; x < board.length; x++) {
 				if(y == 0 || y== board.length +1) { 
 					if(x == 0) System.out.print(" ");
-					System.out.print(" "+(x+1)+" ");
+					if(x < 10) System.out.print(" ");
+					System.out.print((x+1)+" ");
 				}
 				else System.out.print("["+board[x][y-1] + "]");
 			}
@@ -48,6 +48,8 @@ public class Board {
 	//for testing only
 	public static void main(String[] args) {
 		new Board(10).printBoard();
+		System.out.println();
+		new Board(15).printBoard();
 
 	}
 }
