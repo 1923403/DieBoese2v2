@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 public class Player {
 
 	private final char figure;
+	private Point myMove;
 
 	public Player(final char figure) {
 		this.figure = figure;
@@ -17,7 +18,11 @@ public class Player {
 		return this.figure;
 	}
 
-	public Point move(final int boardSize) {
+	public Point getMyMove() {
+		return this.myMove;
+	}
+
+	public void move(final int boardSize) {
 		var coordinates = "";
 		var point = new Point();
 
@@ -36,7 +41,7 @@ public class Player {
 			this.move(boardSize);
 		}
 
-		return point;
+		this.setMyMove(point);
 	}
 
 	private Point convertCoordinates(final int boardSize, final String coordinates) {
@@ -94,5 +99,9 @@ public class Player {
 			return false;
 
 		return true;
+	}
+
+	private void setMyMove(final Point move) {
+		this.myMove = move;
 	}
 }

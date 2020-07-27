@@ -41,7 +41,7 @@
 + Player(figure : char)
 + getFigure() : char
 + getMyMove() : Point
-+ move(boardSize : int) : Point
++ move(boardSize : int) : void
 - convertCoordinate(boardSize : int, coordinates : String) : Point
 - isValidString(boardSize : int, coordinates : String) : boolean
 - setMyMove(move : Point) : void</panel_attributes>
@@ -60,8 +60,7 @@
 - enemyMove: Point
 -
 + AI(figure : char)
-+ getEnemeyMove() : Point
-- setEnemyMove(move : Point) : void</panel_attributes>
++ setEnemyMove(move : Point) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
