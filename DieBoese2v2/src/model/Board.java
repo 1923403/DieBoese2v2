@@ -17,8 +17,8 @@ public class Board {
 	public boolean isFull() {
 		for (var x = 0; x < board.length; x++) {
 			for (var y = 0; y < board.length; y++) {
-				if (board[x][y] != ' ')
-					return false;
+				if (board[x][y] != ' ') // at least one empty field left
+					return false; 
 			}
 		}
 		return true;
