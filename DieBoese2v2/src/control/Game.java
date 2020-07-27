@@ -33,6 +33,8 @@ public class Game {
 			turnCount++;
 			
 		}
+		if(whoWon()) System.out.println("Spieler1 hat gewonnen....."); //toDO
+		else System.out.println("Spieler2 hat gewonnen....");//to do
 	}
 	/**
 	 * loads settings (default / new)
@@ -63,9 +65,7 @@ public class Game {
 	 * @return	true if player1 has won, false if player2 has won
 	 * @throws 	Exception if game is still running
 	 */
-	private boolean whoWon() throws Exception {
-		if (this.isRunning())
-			throw new Exception();
+	private boolean whoWon(){
 		if (turnCount % 2 == 0)
 			return false;
 		else
