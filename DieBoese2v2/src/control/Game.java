@@ -63,7 +63,6 @@ public class Game {
 	/**
 	 * 
 	 * @return	true if player1 has won, false if player2 has won
-	 * @throws 	Exception if game is still running
 	 */
 	private boolean whoWon(){
 		if (turnCount % 2 == 0)
