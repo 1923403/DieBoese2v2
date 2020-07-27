@@ -70,6 +70,7 @@
 -
 + Move(board : Board)
 + capture() : void
++ emptySpace(coordinates : Point) : boolean
 + hasWon() : boolean
 + isValidMove(coordinates : Point, figure : char, turnCount : int) : boolean
 + movePossible() : boolean
