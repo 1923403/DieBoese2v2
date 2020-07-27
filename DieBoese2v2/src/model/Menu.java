@@ -11,7 +11,7 @@ public class Menu {
 
 	public boolean settingsChoosen() {
 		Scanner in = new Scanner(System.in);
-		System.out.println("AusgabeMenü........"); // to do
+		System.out.println("AusgabeMenü........\n0: start game\n1: boardSize\n2: schwierigkeit\n3: start\n4: pvp/pvAI"); // to do
 		var change = 0;
 		change = in.nextInt();
 		switch (change) {
