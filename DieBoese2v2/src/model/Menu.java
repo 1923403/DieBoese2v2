@@ -39,17 +39,32 @@ public class Menu {
 
 	private void setBoardSize(Scanner in) {
 		System.out.println("Frage nach spielfeldgröße... eingabe erwartet"); // to do
-		this.boardSize = in.nextInt(); // wrong input possible... has to be changed
+		var input = in.nextInt();
+		while(input < 15 || input > 19) {
+			System.out.println("eingabe nur zwischen 15 und 19 erlaubt!"); // to do
+			input = in.nextInt();
+		}
+		this.boardSize = input;
 	}
 
 	private void setDifficulty(Scanner in) {
 		System.out.println("frage nach schwierigkeit...eingabe erwartet"); // to do
-		this.difficulty = in.nextInt(); // wrong input possible... has to be changed
+		var diff = in.nextInt();
+		while(diff < 0 || diff > 2) {
+			System.out.println("schwierigkeit nur zwischen 0 und 2 erlaubt!"); //to do
+			diff = in.nextInt();
+		}
+		this.difficulty = diff;
 	}
 
 	private void setStart(Scanner in) {
 		System.out.println("frage wer beginnen soll... eingabe erwartet"); // to do
-		if (in.nextInt() == 0)
+		var start = in.nextInt();
+		while(start != 0 || start != 1) {
+			System.out.println("start erwartet 0 oder 1"); // to do
+			start = in.nextInt();
+		}
+		if (start == 0)
 			this.start = true;
 		else
 			this.start = false;
@@ -57,11 +72,16 @@ public class Menu {
 	}
 
 	private void setPvp(Scanner in) {
-		System.out.println("frage nach spielmodus... eingabe erwartet");
-		if (in.nextInt() == 0)
-			pvp = true;
+		System.out.println("frage nach spielmodus... eingabe erwartet"); // to do
+		var pvp = in.nextInt();
+		while(pvp != 0 || pvp != 1) {
+			System.out.println("pvp erwartet 0 oder 1"); //to do
+			pvp = in.nextInt();
+		}
+		if (pvp == 0)
+			this.pvp = true;
 		else
-			pvp = false;
+			this.pvp = false;
 	}
 
 	public int getBoardSize() {
