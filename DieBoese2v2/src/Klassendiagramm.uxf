@@ -69,14 +69,15 @@
 - board : Board
 -
 + Move(board : Board)
-+ capture() : void
-+ emptySpace(coordinates : Point) : boolean
 + hasWon() : boolean
-+ isValidMove(coordinates : Point, figure : char, turnCount : int) : boolean
 + movePossible() : boolean
-+ setMove(coordinates : Point, figure : char) : void
-- block(coordinates : Point)
-- secondMove(coordinate : Point) : boolean</panel_attributes>
++ setMove(coordinates : Point, figure : char, turnCount : int) : void
+- block(coordinates : Point) : void
+- capture() : void
+- copyBoard() : char[][]
+- isValidMove(coordinates : Point) : boolean
+- secondMove(coordinate : Point, figure : char) : void
+- setMove(coordinates : Point, figure : char) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
