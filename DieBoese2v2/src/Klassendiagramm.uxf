@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>297</x>
-      <y>207</y>
+      <x>225</x>
+      <y>45</y>
       <w>279</w>
       <h>153</h>
     </coordinates>
@@ -21,17 +21,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-<<<<<<< HEAD
-      <x>738</x>
-      <y>513</y>
-      <w>360</w>
-      <h>135</h>
-=======
       <x>666</x>
       <y>351</y>
       <w>369</w>
       <h>189</h>
->>>>>>> branch 'master' of https://github.com/JohnDoe2209/DieBoese2v2
     </coordinates>
     <panel_attributes>Player
 -
@@ -50,8 +43,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1143</x>
-      <y>513</y>
+      <x>1071</x>
+      <y>351</y>
       <w>189</w>
       <h>108</h>
     </coordinates>
@@ -66,8 +59,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>585</x>
-      <y>207</y>
+      <x>513</x>
+      <y>45</y>
       <w>423</w>
       <h>216</h>
     </coordinates>
@@ -88,8 +81,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>90</x>
-      <y>207</y>
+      <x>18</x>
+      <y>45</y>
       <w>198</w>
       <h>225</h>
     </coordinates>
@@ -114,8 +107,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>387</x>
-      <y>513</y>
+      <x>315</x>
+      <y>351</y>
       <w>198</w>
       <h>198</h>
     </coordinates>
@@ -138,8 +131,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>387</x>
-      <y>747</y>
+      <x>315</x>
+      <y>585</y>
       <w>198</w>
       <h>27</h>
     </coordinates>
@@ -149,15 +142,9 @@
   <element>
     <id>Relation</id>
     <coordinates>
-<<<<<<< HEAD
-      <x>1089</x>
-      <y>585</y>
-      <w>72</w>
-=======
       <x>1026</x>
       <y>423</y>
       <w>63</w>
->>>>>>> branch 'master' of https://github.com/JohnDoe2209/DieBoese2v2
       <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
@@ -166,8 +153,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>477</x>
-      <y>702</y>
+      <x>405</x>
+      <y>540</y>
       <w>63</w>
       <h>63</h>
     </coordinates>
@@ -178,8 +165,8 @@ erstellt</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>189</x>
-      <y>423</y>
+      <x>117</x>
+      <y>261</y>
       <w>216</w>
       <h>189</h>
     </coordinates>
@@ -190,8 +177,8 @@ erstellt</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>72</x>
-      <y>639</y>
+      <x>0</x>
+      <y>477</y>
       <w>270</w>
       <h>63</h>
     </coordinates>
@@ -204,8 +191,8 @@ getSettings() erstellt Player 1 und 2 und Board</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>333</x>
-      <y>657</y>
+      <x>261</x>
+      <y>495</y>
       <w>72</w>
       <h>36</h>
     </coordinates>
@@ -215,8 +202,8 @@ getSettings() erstellt Player 1 und 2 und Board</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>423</x>
-      <y>351</y>
+      <x>351</x>
+      <y>189</y>
       <w>63</w>
       <h>180</h>
     </coordinates>
@@ -227,8 +214,8 @@ erstellt</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>540</x>
-      <y>414</y>
+      <x>468</x>
+      <y>252</y>
       <w>135</w>
       <h>117</h>
     </coordinates>
@@ -239,8 +226,8 @@ erstellt</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
-      <y>576</y>
+      <x>504</x>
+      <y>414</y>
       <w>180</w>
       <h>36</h>
     </coordinates>
@@ -251,8 +238,8 @@ erstellt</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>702</x>
-      <y>477</y>
+      <x>630</x>
+      <y>315</y>
       <w>648</w>
       <h>279</h>
     </coordinates>
@@ -264,8 +251,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>369</x>
-      <y>477</y>
+      <x>297</x>
+      <y>315</y>
       <w>234</w>
       <h>315</h>
     </coordinates>
@@ -277,8 +264,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>72</x>
-      <y>171</y>
+      <x>0</x>
+      <y>9</y>
       <w>954</w>
       <h>288</h>
     </coordinates>
@@ -290,13 +277,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-<<<<<<< HEAD
-      <x>702</x>
-      <y>684</y>
-=======
       <x>585</x>
       <y>666</y>
->>>>>>> branch 'master' of https://github.com/JohnDoe2209/DieBoese2v2
       <w>198</w>
       <h>63</h>
     </coordinates>
@@ -308,13 +290,8 @@ setMove() ruft capture() auf</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-<<<<<<< HEAD
-      <x>702</x>
-      <y>765</y>
-=======
       <x>594</x>
       <y>756</y>
->>>>>>> branch 'master' of https://github.com/JohnDoe2209/DieBoese2v2
       <w>261</w>
       <h>63</h>
     </coordinates>
@@ -326,13 +303,8 @@ Game greift auf isFull() nach jedem Zug zu</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-<<<<<<< HEAD
-      <x>1035</x>
-      <y>729</y>
-=======
       <x>954</x>
       <y>657</y>
->>>>>>> branch 'master' of https://github.com/JohnDoe2209/DieBoese2v2
       <w>252</w>
       <h>108</h>
     </coordinates>
@@ -346,8 +318,8 @@ move() ruft convertCoordinates auf</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1197</x>
-      <y>207</y>
+      <x>1125</x>
+      <y>45</y>
       <w>153</w>
       <h>108</h>
     </coordinates>
@@ -361,8 +333,8 @@ move() ruft convertCoordinates auf</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>1179</x>
-      <y>162</y>
+      <x>1107</x>
+      <y>0</y>
       <w>234</w>
       <h>315</h>
     </coordinates>
