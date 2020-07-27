@@ -68,11 +68,12 @@
 -
 - board : Board
 -
-+ Game(board : Board)
++ Move(board : Board)
 + capture() : void
++ emptySpace(coordinates : Point) : boolean
 + hasWon() : boolean
-+ isFull() : boolean
 + isValidMove(coordinates : Point, figure : char, turnCount : int) : boolean
++ movePossible() : boolean
 + setMove(coordinates : Point, figure : char) : void
 - block(coordinates : Point)
 - secondMove(coordinate : Point) : boolean</panel_attributes>
