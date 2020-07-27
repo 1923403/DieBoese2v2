@@ -12,6 +12,7 @@ public class Move {
 
 	public boolean hasWon() {
 		// under construction
+		//if(board.isFull()) return true;
 		return false;
 	}
 
