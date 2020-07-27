@@ -60,7 +60,8 @@ public class Player {
 		return point;
 	}
 
-	private boolean isValidString(final int boardSize, final String coordinates) {
+	//private, for testing default
+	boolean isValidString(final int boardSize, final String coordinates) {
 		var letterCount = 0;
 		var number = 0;
 
