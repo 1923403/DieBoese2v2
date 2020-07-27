@@ -23,6 +23,7 @@ public class Game {
 		getSettings();
 		
 		while(isRunning()) {
+			board.printBoard();
 			if(player1Next) {
 				player1.move(menu.getBoardSize());
 			} else {
@@ -33,14 +34,16 @@ public class Game {
 			
 		}
 	}
-
+	/**
+	 * loads settings (default / new)
+	 */
 	private void getSettings() {
 		board = new Board(menu.getBoardSize());
 		if (menu.isPvp()) {
 			player1 = new Player('X');
 			player2 = new Player('O');
 		} else {
-			if (menu.getStart()) {
+			if (menu.getStart()) {//if order changes
 				player1 = new Player('X');
 				player2 = new AI('O');
 			} else {
