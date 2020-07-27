@@ -48,6 +48,6 @@ public class Board {
 	//for testing only
 	public static void main(String[] args) {
 		new Board(10).printBoard();
-		System.out.println("\ntest");
+
 	}
 }
