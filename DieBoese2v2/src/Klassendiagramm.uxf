@@ -10,15 +10,12 @@
       <h>153</h>
     </coordinates>
     <panel_attributes>Board
---
+-
 - board : char[][]
---
+-
 + Board(boardSize: int)
-+ printBoard() : void
 + getBoard() : char[][]
-+ setMove(coordinates : Point, figure : char) : void
-+ isFull() : boolean
-</panel_attributes>
++ printBoard() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -26,19 +23,21 @@
     <coordinates>
       <x>666</x>
       <y>351</y>
-      <w>360</w>
-      <h>135</h>
+      <w>369</w>
+      <h>189</h>
     </coordinates>
     <panel_attributes>Player
 -
 - figure : char
+- myMove : Point
 -
 + Player(figure : char)
 + getFigure() : char
-+ getMyMove() : String
++ getMyMove() : Point
 + move(boardSize : int) : Point
 - convertCoordinate(boardSize : int, coordinates : String) : Point
-- isValidString(boardSize : int, coordinates : String) : boolean</panel_attributes>
+- isValidString(boardSize : int, coordinates : String) : boolean
+- setMyMove(move : Point) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -51,9 +50,11 @@
     </coordinates>
     <panel_attributes>AI
 -
-- move : Move
+- enemyMove: Point
 -
-+ AI(figure : char, move : Move)</panel_attributes>
++ AI(figure : char)
++ getEnemeyMove() : Point
+- setEnemyMove(move : Point) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -65,19 +66,15 @@
       <h>216</h>
     </coordinates>
     <panel_attributes>Move
---
+-
 - board : Board
-- myMove : Point
-- enemyMove: Point
---
+-
 + Game(board : Board)
-+ isValidMove(coordinates : Point, figure : char, turnCount : int) : boolean
-- setMyMove(move : Point) : void
-- setEnemyMove(move : Point) : void
-+ hasWon() : boolean
 + capture() : void
-+ getMyMove() : Point
-+ getEnemeyMove() : Point
++ hasWon() : boolean
++ isFull() : boolean
++ isValidMove(coordinates : Point, figure : char, turnCount : int) : boolean
++ setMove(coordinates : Point, figure : char) : void
 - block(coordinates : Point)
 - secondMove(coordinate : Point) : boolean</panel_attributes>
     <additional_attributes/>
@@ -94,18 +91,18 @@
 -
 - boardSize : int
 - difficulty : int
-- start : boolean
 - pvp : boolean
+- start : boolean
 -
-+ settingsChosen() : boolean
 + getBoardSize : int
 + getDifficulty : int
 + getPlayer1Starts : boolean
 + getPvp : boolean
++ settingsChosen() : boolean
 - setBoardSize() : void
 - setDifficulty : void
-- setStart : void
-- setPvp : void</panel_attributes>
+- setPvp : void
+- setStart : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -117,7 +114,7 @@
       <h>198</h>
     </coordinates>
     <panel_attributes>Game
---
+-
 - board : Board
 - menu : Menu
 - move : Move
@@ -125,11 +122,11 @@
 - player2 : Player
 - player1Next: boolean
 - turnCount : int
---
+-
 # Game()
+- getSettings() : void
 - isRunning() : boolean
-- whoWon() : boolean
-- getSettings() : void</panel_attributes>
+- whoWon() : boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -146,13 +143,13 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1017</x>
+      <x>1026</x>
       <y>423</y>
-      <w>72</w>
+      <w>63</w>
       <h>27</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -245,7 +242,7 @@ erstellt</panel_attributes>
       <x>630</x>
       <y>315</y>
       <w>648</w>
-      <h>180</h>
+      <h>279</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -281,8 +278,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>630</x>
-      <y>522</y>
+      <x>585</x>
+      <y>666</y>
       <w>198</w>
       <h>63</h>
     </coordinates>
@@ -294,8 +291,8 @@ setMove() ruft capture() auf</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>630</x>
-      <y>603</y>
+      <x>594</x>
+      <y>756</y>
       <w>261</w>
       <h>63</h>
     </coordinates>
@@ -307,8 +304,8 @@ Game greift auf isFull() nach jedem Zug zu</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>963</x>
-      <y>567</y>
+      <x>954</x>
+      <y>657</y>
       <w>252</w>
       <h>108</h>
     </coordinates>
