@@ -44,7 +44,8 @@ public class Player {
 		this.setMyMove(point);
 	}
 
-	private Point convertCoordinates(final int boardSize, final String coordinates) {
+	//privat, for testing default
+	Point convertCoordinates(final int boardSize, final String coordinates) {
 		final var point = new Point();
 		var number = "";
 
