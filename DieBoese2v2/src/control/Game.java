@@ -8,7 +8,7 @@ import player.Player;
 public class Game {
 
 	private Board board;
-	private Menu menu;
+	private Menu menu = new Menu();
 	private Move move;
 	private Player player1;
 	private boolean player1Next;
@@ -16,9 +16,9 @@ public class Game {
 	private int turnCount;
 	
 	protected Game() {
-//		board = new Board();
-//		menu = new Menu();
-//		move = new Move();
-//		player1 =
+		do {
+			//wait
+		}while(!menu.settingsChoosen());
+		board = new Board(menu.getBoardSize());
 	}
 }
