@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Point;
+
 public class Board {
 
 	private char[][] board;
@@ -8,10 +10,8 @@ public class Board {
 		board = new char[boardSize][boardSize];
 	}
 
-	public void setMove(int[] coordinates, char figure) {
-		var x = coordinates[0];
-		var y = coordinates[1];
-		this.board[x][y] = figure;
+	public void setMove(Point coordinates, char figure) {
+		this.board[coordinates.x][coordinates.y] = figure;
 	}
 
 	public boolean isFull() {
@@ -30,11 +30,17 @@ public class Board {
 
 	//not working yet
 	public void printBoard() {
-		for (int y = 0; y < board.length; y++) {
+		for (int y = 0; y <= board.length+1; y++) {
 			System.out.println();
+			if(y != 0 && y != board.length + 1) System.out.print((char)(97+board.length-(y)));
 			for (int x = 0; x < board.length; x++) {
-				System.out.print(board[x][y] + " ");
+				if(y == 0 || y== board.length +1) { 
+					if(x == 0) System.out.print(" ");
+					System.out.print(" "+(x+1)+" ");
+				}
+				else System.out.print("["+board[x][y-1] + "]");
 			}
+			if(y != 0 && y != board.length + 1) System.out.print((char)(97+board.length-(y)));
 		}
 	}
 
@@ -42,5 +48,6 @@ public class Board {
 	//for testing only
 	public static void main(String[] args) {
 		new Board(10).printBoard();
+		System.out.println("\ntest");
 	}
 }
