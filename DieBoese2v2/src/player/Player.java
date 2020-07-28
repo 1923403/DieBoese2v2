@@ -4,8 +4,10 @@ import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Player {
+	private final boolean DEBUG = false;
 
 	private final char figure;
 	private Point myMove;
@@ -22,21 +24,42 @@ public class Player {
 		return this.myMove;
 	}
 
+//	public void move(final int boardSize) {
+//		var coordinates = "";
+//		var point = new Point();
+//
+//		System.out.println("Please enter coordinates:");
+//
+//		try (var in = new BufferedReader(new InputStreamReader(System.in))) {
+//			coordinates = in.readLine();
+//		} catch (final IOException e) {
+//			System.err.println("There seems to be a problem with your input device!");
+//		}
+//
+//		if (this.isValidString(boardSize, coordinates)) {
+//			if(DEBUG) System.out.println("valid String "+ coordinates);
+//			point = this.convertCoordinates(boardSize, coordinates);
+//		}else {
+//			if(DEBUG) System.out.println("no valid String " + coordinates);
+//			System.out.println("You have entered invalid coordinates!");
+//			this.move(boardSize);
+//		}
+//
+//		this.setMyMove(point);
+//	}
 	public void move(final int boardSize) {
 		var coordinates = "";
 		var point = new Point();
 
 		System.out.println("Please enter coordinates:");
+		Scanner in = new Scanner(System.in);
 
-		try (var in = new BufferedReader(new InputStreamReader(System.in))) {
-			coordinates = in.readLine();
-		} catch (final IOException e) {
-			System.err.println("There seems to be a problem with your input device!");
-		}
-
-		if (this.isValidString(boardSize, coordinates))
+		coordinates = in.nextLine();
+		if (this.isValidString(boardSize, coordinates)) {
+			if(DEBUG) System.out.println("valid String "+ coordinates);
 			point = this.convertCoordinates(boardSize, coordinates);
-		else {
+		}else {
+			if(DEBUG) System.out.println("no valid String " + coordinates);
 			System.out.println("You have entered invalid coordinates!");
 			this.move(boardSize);
 		}
