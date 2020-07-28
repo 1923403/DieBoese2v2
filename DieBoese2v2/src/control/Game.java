@@ -15,6 +15,8 @@ public class Game {
 	private boolean player1Next = true;
 	private Player player2;
 	private int turnCount = 0;
+	private int debugRun = 5;
+	private final boolean DEBUG = false;
 	
 	
 	protected Game() {
@@ -62,6 +64,7 @@ public class Game {
 	}
 
 	private boolean isRunning() {
+		if(DEBUG) return 0 < debugRun--;
 		return move.hasWon();
 	}
 
