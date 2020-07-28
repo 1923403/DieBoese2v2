@@ -15,13 +15,18 @@ public class Game {
 	private boolean player1Next = true;
 	private Player player2;
 	private int turnCount = 0;
-
+	
+	
 	protected Game() {
 		do {
 			// wait
-		} while (!menu.settingsChoosen());
+		} while (!menu.settingsChoosen()); //if no changes are made (0 pressed)
 		getSettings();
-		
+		move = new Move(board);
+		runGame();
+	}
+	
+	private void runGame(){
 		while(isRunning()) {
 			board.printBoard();
 			if(player1Next) {
@@ -36,6 +41,7 @@ public class Game {
 		if(whoWon()) System.out.println("Spieler1 hat gewonnen....."); //toDO
 		else System.out.println("Spieler2 hat gewonnen....");//to do
 	}
+	
 	/**
 	 * loads settings (default / new)
 	 */
@@ -56,8 +62,7 @@ public class Game {
 	}
 
 	private boolean isRunning() {
-		// to do
-		return true;
+		return move.hasWon();
 	}
 
 	/**
