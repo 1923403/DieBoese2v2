@@ -11,7 +11,7 @@ public class Menu {
 
 	public boolean settingsChoosen() {
 		Scanner in = new Scanner(System.in);
-		System.out.println("AusgabeMenü........\n0: start game\n1: boardSize\n2: schwierigkeit\n3: start\n4: pvp/pvAI"); // to do
+		System.out.println("AusgabeMenÃ¼........\n0: start game\n1: boardSize\n2: schwierigkeit\n3: start\n4: pvp/pvAI"); // to do
 		var change = 0;
 		change = in.nextInt();
 		switch (change) {
@@ -38,7 +38,7 @@ public class Menu {
 	}
 
 	private void setBoardSize(Scanner in) {
-		System.out.println("Frage nach spielfeldgröße... eingabe erwartet"); // to do
+		System.out.println("Frage nach spielfeldgrï¿½ï¿½e... eingabe erwartet"); // to do
 		var input = in.nextInt();
 		while(input < 15 || input > 19) {
 			System.out.println("eingabe nur zwischen 15 und 19 erlaubt!"); // to do
