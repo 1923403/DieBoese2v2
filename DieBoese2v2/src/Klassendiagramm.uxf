@@ -61,21 +61,21 @@
     <coordinates>
       <x>513</x>
       <y>45</y>
-      <w>423</w>
+      <w>495</w>
       <h>216</h>
     </coordinates>
     <panel_attributes>Move
 -
-- board : Board
+- board : char[][]
 -
 + Move(board : Board)
 + hasWon() : boolean
 + movePossible() : boolean
-+ setMove(coordinates : Point, figure : char, turnCount : int) : void
++ setMove(coordinates : Point, figure : char, enemyFigure : char, turnCount : int) : void
 - block(coordinates : Point) : void
-- capture() : void
+- capture(coordinates : Point, figure : char, enemyFigure : char) : void
 - copyBoard() : char[][]
-- isValidMove(coordinates : Point) : boolean
+- isValidMove(board : char[][], coordinates : Point) : boolean
 - secondMove(coordinate : Point, figure : char) : void
 - setMove(coordinates : Point, figure : char) : void</panel_attributes>
     <additional_attributes/>
@@ -268,7 +268,7 @@ bg=orange</panel_attributes>
     <coordinates>
       <x>0</x>
       <y>9</y>
-      <w>954</w>
+      <w>1044</w>
       <h>288</h>
     </coordinates>
     <panel_attributes>Model
