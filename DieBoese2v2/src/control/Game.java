@@ -1,5 +1,9 @@
 package control;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import model.Board;
 import model.Menu;
 import model.Move;
@@ -9,71 +13,80 @@ import player.Player;
 public class Game {
 
 	private Board board;
+
+	private final boolean DEBUG = false;
+	private int debugRun = 5;
 	private Menu menu = new Menu();
 	private Move move;
 	private Player player1;
 	private boolean player1Next = true;
 	private Player player2;
 	private int turnCount = 0;
-	private int debugRun = 5;
-	private final boolean DEBUG = false;
-	
-	
+
+	public static String readInput() throws IOException {
+		var in = new BufferedReader(new InputStreamReader(System.in));
+		var input = in.readLine();
+		return input;
+	}
+
 	protected Game() {
 		do {
 			// wait
-		} while (!menu.settingsChoosen()); //if no changes are made (0 pressed)
-		getSettings();
-		move = new Move(board);
-		runGame();
+		} while (!this.menu.settingsChoosen()); // if no changes are made (0 pressed)
+		this.getSettings();
+		this.move = new Move(this.board);
+		this.runGame();
 	}
-	
-	private void runGame(){
-		while(isRunning()) {
-			board.printBoard();
-			if(player1Next) {
-				player1.move(menu.getBoardSize());
-			} else {
-				player2.move(menu.getBoardSize());
-			}
-			player1Next = !player1Next;
-			turnCount++;
-			
-		}
-		if(whoWon()) System.out.println("Spieler1 hat gewonnen....."); //toDO
-		else System.out.println("Spieler2 hat gewonnen....");//to do
-	}
-	
+
 	/**
 	 * loads settings (default / new)
 	 */
 	private void getSettings() {
-		board = new Board(menu.getBoardSize());
-		if (menu.isPvp()) {
-			player1 = new Player('X');
-			player2 = new Player('O');
+		this.board = new Board(this.menu.getBoardSize());
+		if (this.menu.isPvp()) {
+			this.player1 = new Player('X');
+			this.player2 = new Player('O');
 		} else {
-			if (menu.getStart()) {//if order changes
-				player1 = new Player('X');
-				player2 = new AI('O');
+			if (this.menu.getStart()) {// if order changes
+				this.player1 = new Player('X');
+				this.player2 = new AI('O');
 			} else {
-				player1 = new AI('O');
-				player2 = new Player('X');
+				this.player1 = new AI('O');
+				this.player2 = new Player('X');
 			}
 		}
 	}
 
 	private boolean isRunning() {
-		if(DEBUG) return 0 < debugRun--;
-		return move.hasWon();
+		if (this.DEBUG)
+			return 0 < this.debugRun--;
+		return this.move.hasWon();
+	}
+
+	private void runGame() {
+		while (this.isRunning()) {
+			this.board.printBoard();
+			if (this.player1Next) {
+				this.player1.move(this.menu.getBoardSize());
+			} else {
+				this.player2.move(this.menu.getBoardSize());
+			}
+			this.player1Next = !this.player1Next;
+			this.turnCount++;
+
+		}
+		if (this.whoWon())
+			System.out.println("Spieler1 hat gewonnen....."); // toDO
+		else
+			System.out.println("Spieler2 hat gewonnen....");// to do
 	}
 
 	/**
-	 * 
-	 * @return	true if player1 has won, false if player2 has won
+	 *
+	 * @return true if player1 has won, false if player2 has won
 	 */
-	private boolean whoWon(){
-		if (turnCount % 2 == 0)
+	private boolean whoWon() {
+		if ((this.turnCount % 2) == 0)
 			return false;
 		else
 			return true;
