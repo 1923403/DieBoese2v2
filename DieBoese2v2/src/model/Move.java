@@ -9,10 +9,11 @@ public class Move {
 	public Move(final Board board) {
 		this.board = board;
 	}
-
+	
 	public boolean hasWon() {
 		// under construction
-		// if(!movePossible()) return true;
+		 if(!movePossible()) return true;
+		 
 		return false;
 	}
 
