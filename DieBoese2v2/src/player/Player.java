@@ -65,6 +65,7 @@ public class Player {
 		}
 
 		this.setMyMove(point);
+		//placing figure on board is missing
 	}
 
 	private void setMyMove(final Point move) {
