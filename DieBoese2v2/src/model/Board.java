@@ -49,4 +49,18 @@ public class Board {
 		}
 		System.out.println("\n"); // empty line after every board
 	}
+
+	// DEFAULT FOR TESTING
+	// makes a copy of the original board
+	char[][] copyBoard() {
+		final var copy = new char[this.board.length][this.board.length];
+
+		for (var x = 0; x < copy.length; x++)
+			for (var y = 0; y < copy.length; y++) {
+				final var tmp = this.board[x][y];
+				copy[x][y] = tmp;
+			}
+
+		return copy;
+	}
 }
