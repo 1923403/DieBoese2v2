@@ -23,9 +23,17 @@ public class Game {
 	private Player player2;
 	private int turnCount = 0;
 
-	public static String readInput() throws IOException {
+	public static String readInput() {
 		var in = new BufferedReader(new InputStreamReader(System.in));
-		var input = in.readLine();
+		var input = "";
+
+		try {
+			input = in.readLine();
+		} catch (IOException e) {
+			System.err.println("There seems to be a problem with your input device!");
+			System.exit(0);
+		}
+
 		return input;
 	}
 
