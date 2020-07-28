@@ -4,10 +4,10 @@ import java.awt.Point;
 
 public class Move {
 
-	private final char[][] board;
+	private Board board;
 
 	public Move(final Board board) {
-		this.board = board.getBoard();
+		this.board = board;
 	}
 
 	public boolean hasWon() {
@@ -18,8 +18,8 @@ public class Move {
 
 	// checks if there is an empty space on the board
 	public boolean movePossible() {
-		for (final char[] element : this.board)
-			for (var y = 0; y < this.board.length; y++)
+		for (final char[] element : this.board.getBoard())
+			for (var y = 0; y < this.board.getBoard().length; y++)
 				if (element[y] != ' ')
 					return false;
 		return true;
@@ -28,7 +28,7 @@ public class Move {
 	// places given figure at given coordinates on the board
 	public void setMove(final Point coordinates, final char figure, final char enemyFigure, final int turnCount)
 			throws InvalidMoveException {
-		this.isValidMove(this.board, coordinates);
+		this.isValidMove(this.board.getBoard(), coordinates);
 
 		if (turnCount < 7)
 			this.block(coordinates);
@@ -51,23 +51,9 @@ public class Move {
 	}
 
 	// DEFAULT FOR TESTING
-	// makes a copy of the original board
-	char[][] copyBoard() {
-		final var copy = new char[this.board.length][this.board.length];
-
-		for (var x = 0; x < copy.length; x++)
-			for (var y = 0; y < copy.length; y++) {
-				final var tmp = this.board[x][y];
-				copy[x][y] = tmp;
-			}
-
-		return copy;
-	}
-
-	// DEFAULT FOR TESTING
 	// checks if space is empty
 	boolean isValidMove(final char[][] board, final Point coordinates) throws InvalidMoveException {
-		if (this.board[coordinates.x][coordinates.y] == ' ')
+		if (this.board.getBoard()[coordinates.x][coordinates.y] == ' ')
 			return true;
 		else
 			throw new InvalidMoveException("Field is not empty!");
@@ -76,7 +62,7 @@ public class Move {
 	// DEFAULT FOR TESTING
 	// second regular move of first player where several fields are blocked
 	void secondMove(final Point coordinates, final char figure) throws InvalidMoveException {
-		final var tmpArray = this.copyBoard();
+		final var tmpArray = this.board.copyBoard();
 		final var block = 'B';
 
 		// up
@@ -110,6 +96,6 @@ public class Move {
 	// DEFAULT FOR TESTING
 	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
 	void setMove(final Point coordinates, final char figure) {
-		this.board[coordinates.x][coordinates.y] = figure;
+		this.board.getBoard()[coordinates.x][coordinates.y] = figure;
 	}
 }
