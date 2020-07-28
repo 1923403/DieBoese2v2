@@ -32,7 +32,7 @@ public class Board {
 		for (int y = 0; y <= (this.board.length + 1); y++) {
 			System.out.println();
 			if ((y != 0) && (y != (this.board.length + 1))) {
-				if (y > 6)
+				if (this.board.length - y < 9) //for alignment
 					System.out.print(" ");
 				System.out.print(((this.board.length - y) + 1)); // numbers on the left
 			}
