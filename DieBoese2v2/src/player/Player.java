@@ -1,7 +1,6 @@
 package player;
 
 import java.awt.Point;
-import java.io.IOException;
 
 import control.Game;
 
@@ -23,7 +22,7 @@ public class Player {
 		return this.myMove;
 	}
 
-	public void move(final int boardSize) throws IOException {
+	public void move(final int boardSize) {
 		var point = new Point();
 
 		System.out.println("Please enter coordinates:");
