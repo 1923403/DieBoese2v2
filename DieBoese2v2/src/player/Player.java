@@ -44,7 +44,11 @@ public class Player {
 		this.setMyMove(point);
 	}
 
-	//privat, for testing default
+	private void setMyMove(final Point move) {
+		this.myMove = move;
+	}
+
+	// privat, for testing default
 	Point convertCoordinates(final int boardSize, final String coordinates) {
 		final var point = new Point();
 		var number = "";
@@ -60,10 +64,10 @@ public class Player {
 		return point;
 	}
 
-	//private, for testing default
+	// private, for testing default
 	boolean isValidString(final int boardSize, final String coordinates) {
 		var letterCount = 0;
-		var number = 0;
+		var number = "";
 
 		if ((coordinates.length() < 2) || (coordinates.length() > 3))
 			return false;
@@ -101,9 +105,5 @@ public class Player {
 			return false;
 
 		return true;
-	}
-
-	private void setMyMove(final Point move) {
-		this.myMove = move;
 	}
 }
