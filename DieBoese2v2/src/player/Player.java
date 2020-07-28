@@ -1,10 +1,9 @@
 package player;
 
 import java.awt.Point;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Scanner;
+
+import control.Game;
 
 public class Player {
 	private final boolean DEBUG = false;
@@ -24,49 +23,47 @@ public class Player {
 		return this.myMove;
 	}
 
-//	public void move(final int boardSize) {
-//		var coordinates = "";
-//		var point = new Point();
-//
-//		System.out.println("Please enter coordinates:");
-//
-//		try (var in = new BufferedReader(new InputStreamReader(System.in))) {
-//			coordinates = in.readLine();
-//		} catch (final IOException e) {
-//			System.err.println("There seems to be a problem with your input device!");
-//		}
-//
-//		if (this.isValidString(boardSize, coordinates)) {
-//			if(DEBUG) System.out.println("valid String "+ coordinates);
-//			point = this.convertCoordinates(boardSize, coordinates);
-//		}else {
-//			if(DEBUG) System.out.println("no valid String " + coordinates);
-//			System.out.println("You have entered invalid coordinates!");
-//			this.move(boardSize);
-//		}
-//
-//		this.setMyMove(point);
-//	}
-	public void move(final int boardSize) {
-		var coordinates = "";
+	public void move(final int boardSize) throws IOException {
 		var point = new Point();
 
 		System.out.println("Please enter coordinates:");
-		Scanner in = new Scanner(System.in);
+		var coordinates = Game.readInput();
 
-		coordinates = in.nextLine();
 		if (this.isValidString(boardSize, coordinates)) {
-			if(DEBUG) System.out.println("valid String "+ coordinates);
+			if (this.DEBUG)
+				System.out.println("valid String " + coordinates);
 			point = this.convertCoordinates(boardSize, coordinates);
-		}else {
-			if(DEBUG) System.out.println("no valid String " + coordinates);
+		} else {
+			if (this.DEBUG)
+				System.out.println("no valid String " + coordinates);
 			System.out.println("You have entered invalid coordinates!");
 			this.move(boardSize);
 		}
 
 		this.setMyMove(point);
-		//placing figure on board is missing
 	}
+//	public void move(final int boardSize) {
+//		var coordinates = "";
+//		var point = new Point();
+//
+//		System.out.println("Please enter coordinates:");
+//		Scanner in = new Scanner(System.in);
+//
+//		coordinates = in.nextLine();
+//		if (this.isValidString(boardSize, coordinates)) {
+//			if (this.DEBUG)
+//				System.out.println("valid String " + coordinates);
+//			point = this.convertCoordinates(boardSize, coordinates);
+//		} else {
+//			if (this.DEBUG)
+//				System.out.println("no valid String " + coordinates);
+//			System.out.println("You have entered invalid coordinates!");
+//			this.move(boardSize);
+//		}
+//
+//		this.setMyMove(point);
+//		// placing figure on board is missing
+//	}
 
 	private void setMyMove(final Point move) {
 		this.myMove = move;
