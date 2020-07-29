@@ -75,9 +75,9 @@ public class Game {
 		while (this.isRunning()) {
 			this.board.printBoard();
 			if (this.player1Next) {
-				this.player1.move(this.menu.getBoardSize());
+				this.player1.move(this.menu.getBoardSize(), move, player2.getFigure(), turnCount);
 			} else {
-				this.player2.move(this.menu.getBoardSize());
+				this.player2.move(this.menu.getBoardSize(), move, player1.getFigure(), turnCount);
 			}
 			this.player1Next = !this.player1Next;
 			this.turnCount++;
