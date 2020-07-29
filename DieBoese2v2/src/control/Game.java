@@ -40,7 +40,7 @@ public class Game {
 	protected Game() {
 		do {
 			// wait
-		} while (!this.menu.settingsChoosen()); // if no changes are made (0 pressed)
+		} while (!this.menu.settingsChoosen()); // if no changes were made (0 pressed)
 		this.getSettings();
 		this.move = new Move(this.board);
 		this.runGame();
