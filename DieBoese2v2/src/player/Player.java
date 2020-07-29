@@ -3,6 +3,8 @@ package player;
 import java.awt.Point;
 
 import control.Game;
+import model.InvalidMoveException;
+import model.Move;
 
 public class Player {
 	private final boolean DEBUG = false;
@@ -22,7 +24,7 @@ public class Player {
 		return this.myMove;
 	}
 
-	public void move(final int boardSize) {
+	public void move(final int boardSize, Move move, char enemyFigure, int turnCount) {
 		var point = new Point();
 
 		System.out.println("Please enter coordinates:");
@@ -36,33 +38,15 @@ public class Player {
 			if (this.DEBUG)
 				System.out.println("no valid String " + coordinates);
 			System.out.println("You have entered invalid coordinates!");
-			this.move(boardSize);
+			this.move(boardSize, move, enemyFigure, turnCount);
 		}
-
-		this.setMyMove(point);
+		try {
+			move.setMove(point, this.figure, enemyFigure, turnCount);
+			this.setMyMove(point);
+		} catch (InvalidMoveException e) {
+			System.out.println("this is no valid move...try another field");
+		}
 	}
-//	public void move(final int boardSize) {
-//		var coordinates = "";
-//		var point = new Point();
-//
-//		System.out.println("Please enter coordinates:");
-//		Scanner in = new Scanner(System.in);
-//
-//		coordinates = in.nextLine();
-//		if (this.isValidString(boardSize, coordinates)) {
-//			if (this.DEBUG)
-//				System.out.println("valid String " + coordinates);
-//			point = this.convertCoordinates(boardSize, coordinates);
-//		} else {
-//			if (this.DEBUG)
-//				System.out.println("no valid String " + coordinates);
-//			System.out.println("You have entered invalid coordinates!");
-//			this.move(boardSize);
-//		}
-//
-//		this.setMyMove(point);
-//		// placing figure on board is missing
-//	}
 
 	private void setMyMove(final Point move) {
 		this.myMove = move;
