@@ -66,21 +66,25 @@ public class Game {
 	}
 
 	private boolean isRunning() {
-		if (this.DEBUG)
+		if (this.DEBUG) {
+			System.out.println("won: " + this.move.hasWon());
 			return 0 < this.debugRun--;
-		return this.move.hasWon();
+		}
+		return !this.move.hasWon();
 	}
 
 	private void runGame() {
 		while (this.isRunning()) {
 			this.board.printBoard();
+			this.turnCount++;
 			if (this.player1Next) {
+				System.out.println("Player 1: ");
 				this.player1.move(this.menu.getBoardSize(), move, player2.getFigure(), turnCount);
 			} else {
+				System.out.println("Player 2: ");
 				this.player2.move(this.menu.getBoardSize(), move, player1.getFigure(), turnCount);
 			}
 			this.player1Next = !this.player1Next;
-			this.turnCount++;
 
 		}
 		if (this.whoWon())

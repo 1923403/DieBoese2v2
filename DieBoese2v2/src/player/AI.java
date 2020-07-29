@@ -14,12 +14,12 @@ public class AI extends Player {
 		this.enemyMove = move;
 	}
 	
-	@Override
-	public void move(final int boardSize) {
-		//creates random move
+//	@Override
+//	public void move(final int boardSize) {
+//		//creates random move
 //		do {
 //			this.enemyMove.x = (int)(Math.random()*(boardSize-1));
 //			this.enemyMove.y = (int)(Math.random()*(boardSize-1));
 //		}while();
-	}
+//	}
 }

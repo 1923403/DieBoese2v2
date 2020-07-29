@@ -34,17 +34,18 @@ public class Player {
 			if (this.DEBUG)
 				System.out.println("valid String " + coordinates);
 			point = this.convertCoordinates(boardSize, coordinates);
+			try {
+				move.setMove(point, this.figure, enemyFigure, turnCount);
+				this.setMyMove(point);
+			} catch (InvalidMoveException e) {
+				System.out.println(coordinates +"("+point.toString()+") is no valid move...try another field  ");
+				this.move(boardSize, move, enemyFigure, turnCount);
+			}
 		} else {
 			if (this.DEBUG)
 				System.out.println("no valid String " + coordinates);
 			System.out.println("You have entered invalid coordinates!");
 			this.move(boardSize, move, enemyFigure, turnCount);
-		}
-		try {
-			move.setMove(point, this.figure, enemyFigure, turnCount);
-			this.setMyMove(point);
-		} catch (InvalidMoveException e) {
-			System.out.println("this is no valid move...try another field");
 		}
 	}
 
@@ -105,7 +106,7 @@ public class Player {
 			return false;
 
 		// checks if number is valid
-		if (Integer.valueOf(number) > (boardSize - 1))
+		if (Integer.valueOf(number) > (boardSize))
 			return false;
 
 		return true;

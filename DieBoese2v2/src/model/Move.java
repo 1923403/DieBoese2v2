@@ -12,7 +12,10 @@ public class Move {
 	
 	public boolean hasWon() {
 		// under construction
-		 if(!movePossible()) return true;
+		 if(!movePossible()) {
+			 System.out.println("no more move possible");
+			 return true;
+		 }
 		 
 		return false;
 	}
@@ -21,9 +24,9 @@ public class Move {
 	public boolean movePossible() {
 		for (final char[] element : this.board.getBoard())
 			for (var y = 0; y < this.board.getBoard().length; y++)
-				if (element[y] != ' ')
-					return false;
-		return true;
+				if (element[y] == ' ')//?
+					return true;
+		return false;
 	}
 
 	// places given figure at given coordinates on the board
@@ -63,6 +66,7 @@ public class Move {
 	// DEFAULT FOR TESTING
 	// second regular move of first player where several fields are blocked
 	void secondMove(final Point coordinates, final char figure) throws InvalidMoveException {
+		System.out.println("second move..."); //debug
 		final var tmpArray = this.board.copyBoard();
 		final var block = 'B';
 
