@@ -11,7 +11,8 @@ public class Menu {
 
 	public boolean settingsChoosen() {
 		Scanner in = new Scanner(System.in);
-		System.out.println("AusgabeMenü........\n0: start game\n1: boardSize (" + boardSize+" * "+ boardSize+")"+"\n2: schwierigkeit ("+ difficulty+")\n3: start\n4: pvp/pvAI"); // todo
+		System.out.println("AusgabeMenü........\n0: start game\n1: boardSize (" + boardSize + " * " + boardSize + ")"
+				+ "\n2: schwierigkeit (" + difficulty + ")\n3: start\n4: pvp/pvAI"); // todo
 		var change = 0;
 		change = in.nextInt();
 		switch (change) {
