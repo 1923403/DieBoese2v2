@@ -3,7 +3,7 @@ package model;
 import java.util.Scanner;
 
 public class Menu {
-	//default values
+	// default values
 	private int boardSize = 15;
 	private int difficulty = 3;
 	private boolean pvp = false;
@@ -11,7 +11,7 @@ public class Menu {
 
 	public boolean settingsChoosen() {
 		Scanner in = new Scanner(System.in);
-		System.out.println("AusgabeMenü........\n0: start game\n1: boardSize\n2: schwierigkeit\n3: start\n4: pvp/pvAI"); // to do
+		System.out.println("AusgabeMenü........\n0: start game\n1: boardSize (" + boardSize+" * "+ boardSize+")"+"\n2: schwierigkeit ("+ difficulty+")\n3: start\n4: pvp/pvAI"); // todo
 		var change = 0;
 		change = in.nextInt();
 		switch (change) {
@@ -40,7 +40,7 @@ public class Menu {
 	private void setBoardSize(Scanner in) {
 		System.out.println("Frage nach spielfeldgr��e... eingabe erwartet"); // to do
 		var input = in.nextInt();
-		while(input < 15 || input > 19) {
+		while (input < 15 || input > 19) {
 			System.out.println("eingabe nur zwischen 15 und 19 erlaubt!"); // to do
 			input = in.nextInt();
 		}
@@ -50,8 +50,8 @@ public class Menu {
 	private void setDifficulty(Scanner in) {
 		System.out.println("frage nach schwierigkeit...eingabe erwartet"); // to do
 		var diff = in.nextInt();
-		while(diff < 0 || diff > 2) {
-			System.out.println("schwierigkeit nur zwischen 0 und 2 erlaubt!"); //to do
+		while (diff < 0 || diff > 2) {
+			System.out.println("schwierigkeit nur zwischen 0 und 2 erlaubt!"); // to do
 			diff = in.nextInt();
 		}
 		this.difficulty = diff;
@@ -60,7 +60,7 @@ public class Menu {
 	private void setStart(Scanner in) {
 		System.out.println("frage wer beginnen soll... eingabe erwartet"); // to do
 		var start = in.nextInt();
-		while(start != 0 || start != 1) {
+		while (start != 0 || start != 1) {
 			System.out.println("start erwartet 0 oder 1"); // to do
 			start = in.nextInt();
 		}
@@ -74,8 +74,8 @@ public class Menu {
 	private void setPvp(Scanner in) {
 		System.out.println("frage nach spielmodus... eingabe erwartet"); // to do
 		var pvp = in.nextInt();
-		while(pvp != 0 || pvp != 1) {
-			System.out.println("pvp erwartet 0 oder 1"); //to do
+		while (pvp != 0 || pvp != 1) {
+			System.out.println("pvp erwartet 0 oder 1"); // to do
 			pvp = in.nextInt();
 		}
 		if (pvp == 0)
