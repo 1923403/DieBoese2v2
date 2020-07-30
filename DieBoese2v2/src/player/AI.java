@@ -2,6 +2,9 @@ package player;
 
 import java.awt.Point;
 
+import model.InvalidMoveException;
+import model.Move;
+
 public class AI extends Player {
 
 	private Point enemyMove;
@@ -13,13 +16,20 @@ public class AI extends Player {
 	public void setEnemyMove(final Point move) {
 		this.enemyMove = move;
 	}
-	
-//	@Override
-//	public void move(final int boardSize) {
-//		//creates random move
-//		do {
-//			this.enemyMove.x = (int)(Math.random()*(boardSize-1));
-//			this.enemyMove.y = (int)(Math.random()*(boardSize-1));
-//		}while();
-//	}
+
+	@Override
+	public void move(final int boardSize, Move move, char enemyFigure, int turnCount) {
+		// creates random move
+		System.out.println("AI starts move... boardSize: "+ boardSize);
+		Point aiMove = new Point();
+		aiMove.x = (int) ((Math.random() * (boardSize - 1)));
+		aiMove.y = (int) ((Math.random() * (boardSize - 1)));
+		System.out.println("AI: "+aiMove.toString());
+		try {
+			move.setMove(aiMove, this.getFigure(), enemyFigure, turnCount);
+		} catch (InvalidMoveException e) {
+			move(boardSize, move, enemyFigure, turnCount);
+		}
+
+	}
 }
