@@ -61,7 +61,7 @@ public class Menu {
 	private void setStart(Scanner in) {
 		System.out.println("frage wer beginnen soll... eingabe erwartet"); // to do
 		var start = in.nextInt();
-		while (start != 0 || start != 1) {
+		while (start != 0 && start != 1) {
 			System.out.println("start erwartet 0 oder 1"); // to do
 			start = in.nextInt();
 		}
@@ -75,7 +75,7 @@ public class Menu {
 	private void setPvp(Scanner in) {
 		System.out.println("frage nach spielmodus... eingabe erwartet"); // to do
 		var pvp = in.nextInt();
-		while (pvp != 0 || pvp != 1) {
+		while (pvp != 0 && pvp != 1) {
 			System.out.println("pvp erwartet 0 oder 1"); // to do
 			pvp = in.nextInt();
 		}
