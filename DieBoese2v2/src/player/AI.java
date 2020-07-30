@@ -22,8 +22,8 @@ public class AI extends Player {
 		// creates random move
 		System.out.println("AI starts move... boardSize: "+ boardSize);
 		Point aiMove = new Point();
-		aiMove.x = (int) ((Math.random() * (boardSize - 1)));
-		aiMove.y = (int) ((Math.random() * (boardSize - 1)));
+		aiMove.x = (int) ((Math.random() * (boardSize)));
+		aiMove.y = (int) ((Math.random() * (boardSize)));
 		System.out.println("AI: "+aiMove.toString());
 		try {
 			move.setMove(aiMove, this.getFigure(), enemyFigure, turnCount);

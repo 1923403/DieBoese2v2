@@ -86,6 +86,7 @@ public class Game {
 			this.player1Next = !this.player1Next;
 
 		}
+		this.board.printBoard();
 		if (this.whoWon())
 			System.out.println("Spieler1 hat gewonnen....."); // toDO
 		else
