@@ -51,16 +51,15 @@ public class Game {
 	 */
 	private void getSettings() {
 		this.board = new Board(this.menu.getBoardSize());
+		this.player1 = new Player('X');
 		if (this.menu.isPvp()) {
-			this.player1 = new Player('X');
 			this.player2 = new Player('O');
 		} else {
+			this.player2 = new AI('O');
 			if (this.menu.getStart()) {// if order changes
-				this.player1 = new Player('X');
-				this.player2 = new AI('O');
+				player1Next = true;
 			} else {
-				this.player1 = new AI('O');
-				this.player2 = new Player('X');
+				player1Next = false;
 			}
 		}
 	}
