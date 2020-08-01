@@ -33,6 +33,7 @@ public class Move {
 	private int longestRow(char figure, Point coordinates) {
 		// under construction, not working yet
 		// horizontal row
+		System.out.println(coordinates);
 		Point direction = new Point();
 		direction.x = 1;
 		direction.y = 0;
@@ -158,6 +159,7 @@ public class Move {
 	// DEFAULT FOR TESTING
 	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
 	void setMove(final Point coordinates, final char figure) {
+		System.out.println("places figure on: " + coordinates.x +", "+ coordinates.y);
 		this.board.getBoard()[coordinates.x][coordinates.y] = figure;
 	}
 }

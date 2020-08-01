@@ -2,6 +2,7 @@ package player;
 
 import java.awt.Point;
 
+import model.Board;
 import model.InvalidMoveException;
 import model.Move;
 
@@ -27,10 +28,15 @@ public class AI extends Player {
 		System.out.println("AI: "+aiMove.toString());
 		try {
 			move.setMove(aiMove, this.getFigure(), enemyFigure, turnCount);
+			myMove = aiMove;
 		} catch (InvalidMoveException e) {
 			move(boardSize, move, enemyFigure, turnCount);
 		}
-		myMove = aiMove;
 	}
-
+	
+	
+	public static void main(String[] args) {
+		var testAI = new AI('O');
+		testAI.move(15, new Move(new Board(15)), 'X', 0);
+	}
 }
