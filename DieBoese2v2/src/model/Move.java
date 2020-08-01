@@ -12,7 +12,8 @@ public class Move {
 
 	public boolean hasWon(char figure, Point coordinates) {
 		// under construction
-		if(coordinates != null) System.out.println("longest row: "+longestRow(figure, coordinates));
+//		if (coordinates != null)
+//			System.out.println("longest row: " + longestRow(figure, coordinates));
 		if (coordinates != null && longestRow(figure, coordinates) >= 5) {
 			return true;
 		}
@@ -56,8 +57,9 @@ public class Move {
 
 	// muss noch ins klassendiagramm
 	private int figuresInRow(char figure, Point coordinates, Point direction) {
-		//not working 
-		if(board.getBoard()[coordinates.x][coordinates.y] != figure) System.err.println("FEHLER!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		// not working
+//		if (board.getBoard()[coordinates.x][coordinates.y] != figure)
+//			System.err.println("FEHLER!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		var counter = 1;
 		var posX = coordinates.x + direction.x;
 		var posY = coordinates.y + direction.y;
@@ -74,7 +76,7 @@ public class Move {
 			posX -= direction.x;
 			posY -= direction.y;
 		}
-		System.out.println("direction: " + direction + ", length: " + counter);
+//		System.out.println("direction: " + direction + ", length: " + counter);
 		return counter;
 	}
 
@@ -110,6 +112,69 @@ public class Move {
 	// DEFAULT FOR TESTING
 	void capture(final Point coordinates, final char figure, final char enemyFigure) {
 		// under construction
+		var direction = new Point();
+		//right
+		direction.x = 1;
+		direction.y = 0;
+		captureDirections(coordinates, direction, figure, enemyFigure);
+		
+		//left
+		direction.x = -1;
+		direction.y = 0;
+		captureDirections(coordinates, direction, figure, enemyFigure);
+		
+		//top
+		direction.x = 0;
+		direction.y = 1;
+		captureDirections(coordinates, direction, figure, enemyFigure);
+		
+		//bottom
+		direction.x = 0;
+		direction.y = -1;
+		captureDirections(coordinates, direction, figure, enemyFigure);
+		
+		//top right
+		direction.x = 1;
+		direction.y = 1;
+		captureDirections(coordinates, direction, figure, enemyFigure);
+		
+		//bottom right
+		direction.x = 1;
+		direction.y = -1;
+		captureDirections(coordinates, direction, figure, enemyFigure);
+		
+		//bottom left
+		direction.x = -1;
+		direction.y = -1;
+		captureDirections(coordinates, direction, figure, enemyFigure);
+		
+		//top left
+		direction.x = -1;
+		direction.y = 1;
+		captureDirections(coordinates, direction, figure, enemyFigure);
+	}
+
+	// muss noch ins klassendiagramm
+	private void captureDirections(Point coordinates, Point direction, char figure, char enemyFigure) {
+		var point1 = new Point();
+		var point2 = new Point();
+		var point3 = new Point();
+		point1.x = coordinates.x + direction.x;
+		point1.y = coordinates.y + direction.y;
+		point2.x = point1.x + direction.x;
+		point2.y = point1.y + direction.y;
+		point3.x = point2.x + direction.x;
+		point3.y = point2.y + direction.y;
+		if ((point3.x < board.getBoard().length) && (point3.y < board.getBoard().length) && (point3.x >= 0)
+				&& (point3.y >= 0) && (point3.x >= 0)) {
+			if (board.getBoard()[point3.x][point3.y] == figure
+					&& board.getBoard()[point1.x][point1.y] == enemyFigure
+					&& board.getBoard()[point2.x][point2.y] == enemyFigure) {
+				System.out.println("captured...");
+				setMove(point1, ' ');
+				setMove(point2, ' ');
+			}
+		}
 	}
 
 	// DEFAULT FOR TESTING
@@ -159,7 +224,7 @@ public class Move {
 	// DEFAULT FOR TESTING
 	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
 	void setMove(final Point coordinates, final char figure) {
-		System.out.println("places figure on: " + coordinates.x +", "+ coordinates.y);
+		System.out.println("places figure on: " + coordinates.x + ", " + coordinates.y);
 		this.board.getBoard()[coordinates.x][coordinates.y] = figure;
 	}
 }
