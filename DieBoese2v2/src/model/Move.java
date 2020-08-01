@@ -12,8 +12,10 @@ public class Move {
 
 	public boolean hasWon(char figure, Point coordinates) {
 		// under construction
-		if (coordinates != null && figuresInRow(5, figure, coordinates))
+		if(coordinates != null) System.out.println("longest row: "+longestRow(figure, coordinates));
+		if (coordinates != null && longestRow(figure, coordinates) >= 5) {
 			return true;
+		}
 		if (!movePossible()) {
 			System.out.println("no more move possible");
 			return true;
@@ -22,50 +24,57 @@ public class Move {
 		return false;
 	}
 
-	private boolean figuresInRow(int figureCount, char figure, Point coordinates) {
+	/**
+	 * 
+	 * @param figure      figure which the algorithm is looking for
+	 * @param coordinates starting point
+	 * @return longest row
+	 */
+	private int longestRow(char figure, Point coordinates) {
 		// under construction, not working yet
-		//row
+		// horizontal row
+		Point direction = new Point();
+		direction.x = 1;
+		direction.y = 0;
+		var horizontalFigures = figuresInRow(figure, coordinates, direction);
+
+		direction.x = 0;
+		direction.y = 1;
+		var verticalFigures = figuresInRow(figure, coordinates, direction);
+
+		direction.x = 1;
+		direction.y = 1;
+		var diagonalFigures1 = figuresInRow(figure, coordinates, direction);
+
+		direction.x = 1;
+		direction.y = -1;
+		var diagonalFigures2 = figuresInRow(figure, coordinates, direction);
+
+		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2));
+	}
+
+	// muss noch ins klassendiagramm
+	private int figuresInRow(char figure, Point coordinates, Point direction) {
+		//not working 
+		if(board.getBoard()[coordinates.x][coordinates.y] != figure) System.err.println("FEHLER!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		var counter = 1;
-		var x = coordinates.x;
-		var y = coordinates.y;
-		Point firstP = new Point();
-		Point lastP = new Point();
-		
-		while(++x < this.board.getBoard().length && this.board.getBoard()[x][y] == figure) {
+		var posX = coordinates.x + direction.x;
+		var posY = coordinates.y + direction.y;
+		var boardLength = board.getBoard().length;
+		while (posX < boardLength && posY < boardLength && posY >= 0 && board.getBoard()[posX][posY] == figure) {
 			counter++;
-			lastP.x = x;
-			lastP.y = y;
+			posX += direction.x;
+			posY += direction.y;
 		}
-		x = coordinates.x;
-		while(--x > 0 && this.board.getBoard()[x][y] == figure) {
+		posX = coordinates.x - direction.x;
+		posY = coordinates.y - direction.y;
+		while (posX >= 0 && posY < boardLength && posY >= 0 && board.getBoard()[posX][posY] == figure) {
 			counter++;
-			firstP.x = x;
-			lastP.y = y;
+			posX -= direction.x;
+			posY -= direction.y;
 		}
-		if(counter>= figureCount) {
-			System.out.println("from: " + firstP.toString()+ " to: " + lastP.toString());
-			return true;
-		}
-		
-		//column
-		counter = 1;
-		x = coordinates.x;
-		while(++y < this.board.getBoard().length && this.board.getBoard()[x][y] == figure) {
-			counter++;
-			lastP.x = x;
-			lastP.y = y;
-		}
-		x = coordinates.x;
-		while(--y > 0 && this.board.getBoard()[x][y] == figure) {
-			counter++;
-			firstP.x = x;
-			lastP.y = y;
-		}
-		if(counter>= figureCount) {
-			System.out.println("from: " + firstP.toString()+ " to: " + lastP.toString());
-			return true;
-		}
-		return false;
+		System.out.println("direction: " + direction + ", length: " + counter);
+		return counter;
 	}
 
 	// checks if there is an empty space on the board

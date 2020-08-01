@@ -79,7 +79,7 @@
 - isValidMove(board : char[][], coordinates : Point) : boolean
 - secondMove(coordinate : Point, figure : char) : void
 - setMove(coordinates : Point, figure : char) : void
-- figuresInRow(figureCount : int, figure : char, coordinates : Point): boolean</panel_attributes>
+- longestRow(figureCount : int, figure : char, coordinates : Point): int</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
