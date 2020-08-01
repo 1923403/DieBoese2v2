@@ -62,7 +62,7 @@
     <coordinates>
       <x>513</x>
       <y>144</y>
-      <w>495</w>
+      <w>531</w>
       <h>216</h>
     </coordinates>
     <panel_attributes>Move
@@ -75,11 +75,13 @@
 + setMove(coordinates : Point, figure : char, enemyFigure : char, turnCount : int) : void
 - block(coordinates : Point) : void
 - capture(coordinates : Point, figure : char, enemyFigure : char) : void
+- captureDirections(coordinates: Point, direction: Point, figure: char, enemyFigure: char): void
 - copyBoard() : char[][]
 - isValidMove(board : char[][], coordinates : Point) : boolean
 - secondMove(coordinate : Point, figure : char) : void
 - setMove(coordinates : Point, figure : char) : void
-- longestRow(figureCount : int, figure : char, coordinates : Point): int</panel_attributes>
+- longestRow(figureCount : int, figure : char, coordinates : Point): int
+- figureInRow(figure: char, coordinates: Point, Point direction)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -272,7 +274,7 @@ bg=orange</panel_attributes>
     <coordinates>
       <x>0</x>
       <y>108</y>
-      <w>1044</w>
+      <w>1062</w>
       <h>288</h>
     </coordinates>
     <panel_attributes>Model

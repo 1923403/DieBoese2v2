@@ -55,7 +55,13 @@ public class Move {
 		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2));
 	}
 
-	// muss noch ins klassendiagramm
+	/**
+	 * counts how many same figures are in the row next to the last placed figure 
+	 * @param figure		placed figure / symbol
+	 * @param coordinates	position where figure was placed
+	 * @param direction		
+	 * @return
+	 */
 	private int figuresInRow(char figure, Point coordinates, Point direction) {
 		// not working
 //		if (board.getBoard()[coordinates.x][coordinates.y] != figure)
@@ -84,7 +90,7 @@ public class Move {
 	public boolean movePossible() {
 		for (final char[] element : this.board.getBoard())
 			for (var y = 0; y < this.board.getBoard().length; y++)
-				if (element[y] == ' ')// ?
+				if (element[y] == ' ')
 					return true;
 		return false;
 	}
@@ -154,7 +160,13 @@ public class Move {
 		captureDirections(coordinates, direction, figure, enemyFigure);
 	}
 
-	// muss noch ins klassendiagramm
+	/**
+	 * 
+	 * @param coordinates
+	 * @param direction
+	 * @param figure
+	 * @param enemyFigure
+	 */
 	private void captureDirections(Point coordinates, Point direction, char figure, char enemyFigure) {
 		var point1 = new Point();
 		var point2 = new Point();
