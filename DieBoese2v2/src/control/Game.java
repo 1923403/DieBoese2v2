@@ -15,7 +15,6 @@ public class Game {
 	private Board board;
 
 	private final boolean DEBUG = false;
-	private int debugRun = 5;
 	private Menu menu = new Menu();
 	private Move move;
 	private Player player1;
@@ -65,11 +64,8 @@ public class Game {
 	}
 
 	private boolean isRunning() {
-		if (this.DEBUG) {
-			System.out.println("won: " + this.move.hasWon());
-			return 0 < this.debugRun--;
-		}
-		return !this.move.hasWon();
+		if(player1Next) return !this.move.hasWon(player2.getFigure(), player2.getMyMove());
+		else return !this.move.hasWon(player1.getFigure(), player1.getMyMove());
 	}
 
 	private void runGame() {

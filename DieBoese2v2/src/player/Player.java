@@ -10,7 +10,7 @@ public class Player {
 	private final boolean DEBUG = false;
 
 	private final char figure;
-	private Point myMove;
+	protected Point myMove;
 
 	public Player(final char figure) {
 		this.figure = figure;

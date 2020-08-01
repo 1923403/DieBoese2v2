@@ -10,7 +10,7 @@ public class Move {
 		this.board = board;
 	}
 	
-	public boolean hasWon() {
+	public boolean hasWon(char figure, Point coordinates) {
 		// under construction
 		 if(!movePossible()) {
 			 System.out.println("no more move possible");

@@ -30,6 +30,7 @@ public class AI extends Player {
 		} catch (InvalidMoveException e) {
 			move(boardSize, move, enemyFigure, turnCount);
 		}
-
+		myMove = aiMove;
 	}
+
 }
