@@ -50,7 +50,7 @@ public class Game {
 	 */
 	private void getSettings() {
 		this.board = new Board(this.menu.getBoardSize());
-		this.player1 = new Player('X');
+		this.player1 = new AI('X');
 		if (this.menu.isPvp()) {
 			this.player2 = new Player('O');
 		} else {

@@ -9,14 +9,62 @@ public class Move {
 	public Move(final Board board) {
 		this.board = board;
 	}
-	
+
 	public boolean hasWon(char figure, Point coordinates) {
 		// under construction
-		 if(!movePossible()) {
-			 System.out.println("no more move possible");
-			 return true;
-		 }
-		 
+		if (coordinates != null && figuresInRow(5, figure, coordinates))
+			return true;
+		if (!movePossible()) {
+			System.out.println("no more move possible");
+			return true;
+		}
+
+		return false;
+	}
+
+	private boolean figuresInRow(int figureCount, char figure, Point coordinates) {
+		// under construction, not working yet
+		//row
+		var counter = 1;
+		var x = coordinates.x;
+		var y = coordinates.y;
+		Point firstP = new Point();
+		Point lastP = new Point();
+		
+		while(++x < this.board.getBoard().length && this.board.getBoard()[x][y] == figure) {
+			counter++;
+			lastP.x = x;
+			lastP.y = y;
+		}
+		x = coordinates.x;
+		while(--x > 0 && this.board.getBoard()[x][y] == figure) {
+			counter++;
+			firstP.x = x;
+			lastP.y = y;
+		}
+		if(counter>= figureCount) {
+			System.out.println("from: " + firstP.toString()+ " to: " + lastP.toString());
+			return true;
+		}
+		
+		//column
+		counter = 1;
+		x = coordinates.x;
+		while(++y < this.board.getBoard().length && this.board.getBoard()[x][y] == figure) {
+			counter++;
+			lastP.x = x;
+			lastP.y = y;
+		}
+		x = coordinates.x;
+		while(--y > 0 && this.board.getBoard()[x][y] == figure) {
+			counter++;
+			firstP.x = x;
+			lastP.y = y;
+		}
+		if(counter>= figureCount) {
+			System.out.println("from: " + firstP.toString()+ " to: " + lastP.toString());
+			return true;
+		}
 		return false;
 	}
 
@@ -24,7 +72,7 @@ public class Move {
 	public boolean movePossible() {
 		for (final char[] element : this.board.getBoard())
 			for (var y = 0; y < this.board.getBoard().length; y++)
-				if (element[y] == ' ')//?
+				if (element[y] == ' ')// ?
 					return true;
 		return false;
 	}
@@ -66,7 +114,7 @@ public class Move {
 	// DEFAULT FOR TESTING
 	// second regular move of first player where several fields are blocked
 	void secondMove(final Point coordinates, final char figure) throws InvalidMoveException {
-		System.out.println("second move..."); //debug
+		System.out.println("second move..."); // debug
 		final var tmpArray = this.board.copyBoard();
 		final var block = 'B';
 
