@@ -27,9 +27,9 @@ public class Move {
 
 	/**
 	 * 
-	 * @param figure      figure which the algorithm is looking for
-	 * @param coordinates starting point
-	 * @return longest row
+	 * @param figure      	figure which the algorithm is looking for
+	 * @param coordinates 	starting point
+	 * @return 				longest row
 	 */
 	private int longestRow(char figure, Point coordinates) {
 		// under construction, not working yet
@@ -56,10 +56,11 @@ public class Move {
 	}
 
 	/**
-	 * counts how many same figures are in the row next to the last placed figure 
-	 * @param figure		placed figure / symbol
-	 * @param coordinates	position where figure was placed
-	 * @param direction		
+	 * counts how many same figures are in the row next to the last placed figure
+	 * 
+	 * @param figure      placed figure / symbol
+	 * @param coordinates position where figure was placed
+	 * @param direction
 	 * @return
 	 */
 	private int figuresInRow(char figure, Point coordinates, Point direction) {
@@ -119,48 +120,50 @@ public class Move {
 	void capture(final Point coordinates, final char figure, final char enemyFigure) {
 		// under construction
 		var direction = new Point();
-		//right
+		// right
 		direction.x = 1;
 		direction.y = 0;
 		captureDirections(coordinates, direction, figure, enemyFigure);
-		
-		//left
+
+		// left
 		direction.x = -1;
 		direction.y = 0;
 		captureDirections(coordinates, direction, figure, enemyFigure);
-		
-		//top
+
+		// top
 		direction.x = 0;
 		direction.y = 1;
 		captureDirections(coordinates, direction, figure, enemyFigure);
-		
-		//bottom
+
+		// bottom
 		direction.x = 0;
 		direction.y = -1;
 		captureDirections(coordinates, direction, figure, enemyFigure);
-		
-		//top right
+
+		// top right
 		direction.x = 1;
 		direction.y = 1;
 		captureDirections(coordinates, direction, figure, enemyFigure);
-		
-		//bottom right
+
+		// bottom right
 		direction.x = 1;
 		direction.y = -1;
 		captureDirections(coordinates, direction, figure, enemyFigure);
-		
-		//bottom left
+
+		// bottom left
 		direction.x = -1;
 		direction.y = -1;
 		captureDirections(coordinates, direction, figure, enemyFigure);
-		
-		//top left
+
+		// top left
 		direction.x = -1;
 		direction.y = 1;
 		captureDirections(coordinates, direction, figure, enemyFigure);
 	}
 
 	/**
+	 * direction from capture, checks if capturing is possible 
+	 * in this specific direction
 	 * 
 	 * @param coordinates
 	 * @param direction
@@ -168,9 +171,9 @@ public class Move {
 	 * @param enemyFigure
 	 */
 	private void captureDirections(Point coordinates, Point direction, char figure, char enemyFigure) {
-		var point1 = new Point();
-		var point2 = new Point();
-		var point3 = new Point();
+		var point1 = new Point(); //should be enemys figure for capturing
+		var point2 = new Point(); //should be enemys figure for capturing
+		var point3 = new Point(); //should be players figure for capturing
 		point1.x = coordinates.x + direction.x;
 		point1.y = coordinates.y + direction.y;
 		point2.x = point1.x + direction.x;
@@ -178,12 +181,11 @@ public class Move {
 		point3.x = point2.x + direction.x;
 		point3.y = point2.y + direction.y;
 		if ((point3.x < board.getBoard().length) && (point3.y < board.getBoard().length) && (point3.x >= 0)
-				&& (point3.y >= 0) && (point3.x >= 0)) {
-			if (board.getBoard()[point3.x][point3.y] == figure
-					&& board.getBoard()[point1.x][point1.y] == enemyFigure
-					&& board.getBoard()[point2.x][point2.y] == enemyFigure) {
+				&& (point3.y >= 0) && (point3.x >= 0)) {//checks if this point is located on board
+			if (board.getBoard()[point3.x][point3.y] == figure && board.getBoard()[point1.x][point1.y] == enemyFigure
+					&& board.getBoard()[point2.x][point2.y] == enemyFigure) {//checks if p3 == own figure and p1 == p2 == enemy figure
 				System.out.println("captured...");
-				setMove(point1, ' ');
+				setMove(point1, ' '); //deletes enemy figure
 				setMove(point2, ' ');
 			}
 		}
