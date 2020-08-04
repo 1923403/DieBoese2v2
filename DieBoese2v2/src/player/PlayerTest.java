@@ -8,22 +8,31 @@ import org.junit.jupiter.api.Test;
 class PlayerTest {
 
 	@Test
-	void testConvertCoordinate() {
-
+	void testConvertCoordinate1() {
 		var player = new Player('X');
-		var point = new Point();
-
-		point.x = 2;
-		point.y = 0;
+		var point = new Point(2, 0);
 		Assert.assertEquals(player.convertCoordinates(3, "3c"), point);
+	}
 
-		point.x = 0;
-		point.y = 9;
-		Assert.assertEquals(player.convertCoordinates(10, "1a"), point);
+	@Test
+	void testConvertCoordinate2() {
+		var player = new Player('X');
+		var point = new Point(2, 0);
+		Assert.assertEquals(player.convertCoordinates(3, "c3"), point);
+	}
 
-		point.x = 9;
-		point.y = 9;
-		Assert.assertEquals(player.convertCoordinates(10, "1j"), point);
+	@Test
+	void testConvertCoordinate3() {
+		var player = new Player('X');
+		var point = new Point(2, 0);
+		Assert.assertEquals(player.convertCoordinates(3, "3C"), point);
+	}
+
+	@Test
+	void testConvertCoordinate4() {
+		var player = new Player('X');
+		var point = new Point(2, 0);
+		Assert.assertEquals(player.convertCoordinates(3, "C3"), point);
 	}
 
 	@Test
@@ -44,5 +53,4 @@ class PlayerTest {
 		Assert.assertFalse(player.isValidString(15, "16a"));
 		Assert.assertFalse(player.isValidString(15, "a16"));
 	}
-
 }
