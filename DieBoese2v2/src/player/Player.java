@@ -7,10 +7,10 @@ import model.InvalidMoveException;
 import model.Move;
 
 public class Player {
-	private final boolean DEBUG = false;
-
-	private final char figure;
 	protected Point myMove;
+
+	private final boolean DEBUG = false;
+	private final char figure;
 
 	public Player(final char figure) {
 		this.figure = figure;
@@ -25,35 +25,11 @@ public class Player {
 	}
 
 	public void move(final int boardSize, Move move, char enemyFigure, int turnCount) {
-		var point = new Point();
-
 		System.out.println("Please enter coordinates:");
-		var coordinates = Game.readInput();
-
-		if (this.isValidString(boardSize, coordinates)) {
-			if (this.DEBUG)
-				System.out.println("valid String " + coordinates);
-			point = this.convertCoordinates(boardSize, coordinates);
-			try {
-				move.setMove(point, this.figure, enemyFigure, turnCount);
-				this.setMyMove(point);
-			} catch (InvalidMoveException e) {
-				System.out.println(coordinates +"("+point.toString()+") is no valid move...try another field  ");
-				this.move(boardSize, move, enemyFigure, turnCount);
-			}
-		} else {
-			if (this.DEBUG)
-				System.out.println("no valid String " + coordinates);
-			System.out.println("You have entered invalid coordinates!");
-			this.move(boardSize, move, enemyFigure, turnCount);
-		}
+		this.move(boardSize, move, enemyFigure, turnCount, Game.readInput());
 	}
 
-	private void setMyMove(final Point move) {
-		this.myMove = move;
-	}
-
-	// privat, for testing default
+	// private, default for testing
 	Point convertCoordinates(final int boardSize, final String coordinates) {
 		final var point = new Point();
 		var number = "";
@@ -69,7 +45,7 @@ public class Player {
 		return point;
 	}
 
-	// private, for testing default
+	// private, default for testing
 	boolean isValidString(final int boardSize, final String coordinates) {
 		var letterCount = 0;
 		var number = "";
@@ -110,5 +86,32 @@ public class Player {
 			return false;
 
 		return true;
+	}
+
+	// private, default for testing
+	void move(final int boardSize, Move move, char enemyFigure, int turnCount, String coordinates) {
+		var point = new Point();
+
+		if (this.isValidString(boardSize, coordinates)) {
+			if (this.DEBUG)
+				System.out.println("valid String " + coordinates);
+			point = this.convertCoordinates(boardSize, coordinates);
+			try {
+				move.setMove(point, this.figure, enemyFigure, turnCount);
+				this.setMyMove(point);
+			} catch (InvalidMoveException e) {
+				System.out.println(coordinates + "(" + point.toString() + ") is no valid move...try another field  ");
+				this.move(boardSize, move, enemyFigure, turnCount);
+			}
+		} else {
+			if (this.DEBUG)
+				System.out.println("no valid String " + coordinates);
+			System.out.println("You have entered invalid coordinates!");
+			this.move(boardSize, move, enemyFigure, turnCount);
+		}
+	}
+
+	private void setMyMove(final Point move) {
+		this.myMove = move;
 	}
 }
