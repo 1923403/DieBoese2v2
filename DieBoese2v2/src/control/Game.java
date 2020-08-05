@@ -8,6 +8,7 @@ import model.Board;
 import model.Menu;
 import model.Move;
 import player.AI;
+import player.HumanPlayer;
 import player.Player;
 
 public class Game {
@@ -50,10 +51,10 @@ public class Game {
 	 */
 	private void getSettings() {
 		this.board = new Board(this.menu.getBoardSize());
-		this.player1 = new AI('X');
+		this.player1 = new HumanPlayer('X');
 
 		if (this.menu.isPvp()) {
-			this.player2 = new Player('O');
+			this.player2 = new HumanPlayer('O');
 		} else {
 			this.player2 = new AI('O');
 
