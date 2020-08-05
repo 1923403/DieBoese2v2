@@ -33,13 +33,13 @@ public class Game {
 	private Player player1;
 	private boolean player1Next = true;
 	private Player player2;
-
 	private int turnCount = 0;
 
 	protected Game() {
 		do {
 			// wait
 		} while (!this.menu.settingsChoosen()); // if no changes were made (0 pressed)
+
 		this.getSettings();
 		this.move = new Move(this.board);
 		this.runGame();
@@ -51,10 +51,12 @@ public class Game {
 	private void getSettings() {
 		this.board = new Board(this.menu.getBoardSize());
 		this.player1 = new AI('X');
+
 		if (this.menu.isPvp()) {
 			this.player2 = new Player('O');
 		} else {
 			this.player2 = new AI('O');
+
 			if (this.menu.getStart()) {// if order changes
 				this.player1Next = true;
 			} else {
@@ -74,22 +76,26 @@ public class Game {
 		while (this.isRunning()) {
 			this.board.printBoard();
 			this.turnCount++;
+
 			if (this.player1Next) {
 				do {
 					System.out.println("Player 1: ");
 					this.player1.move(this.menu.getBoardSize(), this.player2.getFigure(), this.turnCount);
-					this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(), this.player2.getFigure(),
-							this.turnCount);
 				} while (!this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(),
 						this.player2.getFigure(), this.turnCount));
 			} else {
-				System.out.println("Player 2: ");
-				this.player2.move(this.menu.getBoardSize(), this.player1.getFigure(), this.turnCount);
+				do {
+					System.out.println("Player 2: ");
+					this.player2.move(this.menu.getBoardSize(), this.player1.getFigure(), this.turnCount);
+				} while (!this.move.setMove(this.player2.getMyMove(), this.player2.getFigure(),
+						this.player1.getFigure(), this.turnCount));
 			}
-			this.player1Next = !this.player1Next;
 
+			this.player1Next = !this.player1Next;
 		}
+
 		this.board.printBoard();
+
 		if (this.whoWon())
 			System.out.println("Spieler1 hat gewonnen....."); // toDO
 		else
