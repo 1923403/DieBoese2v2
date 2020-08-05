@@ -12,16 +12,6 @@ import player.Player;
 
 public class Game {
 
-	private Board board;
-
-	private final boolean DEBUG = false;
-	private Menu menu = new Menu();
-	private Move move;
-	private Player player1;
-	private boolean player1Next = true;
-	private Player player2;
-	private int turnCount = 0;
-
 	public static String readInput() {
 		var in = new BufferedReader(new InputStreamReader(System.in));
 		var input = "";
@@ -35,6 +25,16 @@ public class Game {
 
 		return input;
 	}
+
+	private Board board;
+	private final boolean DEBUG = false;
+	private Menu menu = new Menu();
+	private Move move;
+	private Player player1;
+	private boolean player1Next = true;
+	private Player player2;
+
+	private int turnCount = 0;
 
 	protected Game() {
 		do {
@@ -56,16 +56,18 @@ public class Game {
 		} else {
 			this.player2 = new AI('O');
 			if (this.menu.getStart()) {// if order changes
-				player1Next = true;
+				this.player1Next = true;
 			} else {
-				player1Next = false;
+				this.player1Next = false;
 			}
 		}
 	}
 
 	private boolean isRunning() {
-		if(player1Next) return !this.move.hasWon(player2.getFigure(), player2.getMyMove());
-		else return !this.move.hasWon(player1.getFigure(), player1.getMyMove());
+		if (this.player1Next)
+			return !this.move.hasWon(this.player2.getFigure(), this.player2.getMyMove());
+		else
+			return !this.move.hasWon(this.player1.getFigure(), this.player1.getMyMove());
 	}
 
 	private void runGame() {
@@ -73,11 +75,16 @@ public class Game {
 			this.board.printBoard();
 			this.turnCount++;
 			if (this.player1Next) {
-				System.out.println("Player 1: ");
-				this.player1.move(this.menu.getBoardSize(), move, player2.getFigure(), turnCount);
+				do {
+					System.out.println("Player 1: ");
+					this.player1.move(this.menu.getBoardSize(), this.player2.getFigure(), this.turnCount);
+					this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(), this.player2.getFigure(),
+							this.turnCount);
+				} while (!this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(),
+						this.player2.getFigure(), this.turnCount));
 			} else {
 				System.out.println("Player 2: ");
-				this.player2.move(this.menu.getBoardSize(), move, player1.getFigure(), turnCount);
+				this.player2.move(this.menu.getBoardSize(), this.player1.getFigure(), this.turnCount);
 			}
 			this.player1Next = !this.player1Next;
 
