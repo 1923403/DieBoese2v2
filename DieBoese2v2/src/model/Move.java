@@ -47,7 +47,7 @@ public class Move {
 			this.block(coordinates);
 		else if (turnCount == 9)
 			try {
-				this.secondMove(coordinates, figure);
+				this.isValidMove(this.secondMove(), coordinates);
 			} catch (InvalidMoveException e) {
 				System.err.println(e.getMessage());
 				return false;
@@ -113,7 +113,7 @@ public class Move {
 	// DEFAULT FOR TESTING
 	// checks if space is empty
 	boolean isValidMove(final char[][] board, final Point coordinates) throws InvalidMoveException {
-		if (this.board.getBoard()[coordinates.x][coordinates.y] == ' ')
+		if (board[coordinates.x][coordinates.y] == ' ')
 			return true;
 		else
 			throw new InvalidMoveException("Field is not empty!");
@@ -121,7 +121,7 @@ public class Move {
 
 	// DEFAULT FOR TESTING
 	// second regular move of first player where several fields are blocked
-	void secondMove(final Point coordinates, final char figure) throws InvalidMoveException {
+	char[][] secondMove() {
 		System.out.println("second move..."); // debug
 		final var tmpArray = this.board.copyBoard();
 		final var block = 'B';
@@ -150,8 +150,7 @@ public class Move {
 			for (var y = 1; y < (tmpArray.length - 1); y++)
 				tmpArray[x][y] = block;
 
-		if (this.isValidMove(tmpArray, coordinates))
-			this.setMove(coordinates, figure);
+		return tmpArray;
 	}
 
 	// DEFAULT FOR TESTING
