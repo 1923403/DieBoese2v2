@@ -29,7 +29,8 @@ public class HumanPlayer extends Player {
 				point.x = coordinates.toLowerCase().charAt(i) - 97;
 
 		point.y = boardSize - Integer.valueOf(number);
-		System.out.println(coordinates + " = " + point);
+		if (this.DEBUG)
+			System.out.println(coordinates + " = " + point);
 		return point;
 	}
 
@@ -67,6 +68,9 @@ public class HumanPlayer extends Player {
 		}
 
 		if (letterCount == 0)
+			return false;
+
+		if (Integer.valueOf(number) == 0)
 			return false;
 
 		// checks if number is valid
