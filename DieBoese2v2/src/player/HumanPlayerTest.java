@@ -3,6 +3,7 @@ package player;
 import java.awt.Point;
 
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -104,4 +105,33 @@ class HumanPlayerTest {
 		Assert.assertFalse(HumanPlayerTest.player.isValidString(15, "a0"));
 		Assert.assertFalse(HumanPlayerTest.player.isValidString(15, "a16"));
 	}
+
+	@DisplayName("mv: positive tests")
+	@Test
+	void testMove() {
+		HumanPlayerTest.player.move(4, "a4");
+		Assertions.assertEquals(new Point(0, 0), HumanPlayerTest.player.getMyMove());
+
+		HumanPlayerTest.player.move(4, "4a");
+		Assertions.assertEquals(new Point(0, 0), HumanPlayerTest.player.getMyMove());
+
+		HumanPlayerTest.player.move(4, "a1");
+		Assertions.assertEquals(new Point(0, 3), HumanPlayerTest.player.getMyMove());
+
+		HumanPlayerTest.player.move(4, "1a");
+		Assertions.assertEquals(new Point(0, 3), HumanPlayerTest.player.getMyMove());
+
+		HumanPlayerTest.player.move(4, "d4");
+		Assertions.assertEquals(new Point(3, 0), HumanPlayerTest.player.getMyMove());
+
+		HumanPlayerTest.player.move(4, "4d");
+		Assertions.assertEquals(new Point(3, 0), HumanPlayerTest.player.getMyMove());
+
+		HumanPlayerTest.player.move(4, "d1");
+		Assertions.assertEquals(new Point(3, 3), HumanPlayerTest.player.getMyMove());
+
+		HumanPlayerTest.player.move(4, "1d");
+		Assertions.assertEquals(new Point(3, 3), HumanPlayerTest.player.getMyMove());
+	}
+
 }
