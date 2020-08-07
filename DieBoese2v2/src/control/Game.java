@@ -13,13 +13,21 @@ import player.Player;
 
 public class Game {
 
+	public static void pause() {
+		try {
+			Thread.sleep(50);
+		} catch (final InterruptedException e) {
+			System.err.println(e.getMessage());
+		}
+	}
+
 	public static String readInput() {
-		var in = new BufferedReader(new InputStreamReader(System.in));
+		final var in = new BufferedReader(new InputStreamReader(System.in));
 		var input = "";
 
 		try {
 			input = in.readLine();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			System.err.println("There seems to be a problem with your input device!");
 			System.exit(0);
 		}
@@ -28,7 +36,7 @@ public class Game {
 	}
 
 	private Board board;
-	private final boolean DEBUG = false;
+	private boolean DEBUG = false;
 	private Menu menu = new Menu();
 	private Move move;
 	private Player player1;
@@ -53,16 +61,15 @@ public class Game {
 		this.board = new Board(this.menu.getBoardSize());
 		this.player1 = new HumanPlayer('X');
 
-		if (this.menu.isPvp()) {
+		if (this.menu.isPvp())
 			this.player2 = new HumanPlayer('O');
-		} else {
+		else {
 			this.player2 = new AI('O');
 
-			if (this.menu.getStart()) {// if order changes
+			if (this.menu.getStart())
 				this.player1Next = true;
-			} else {
+			else
 				this.player1Next = false;
-			}
 		}
 	}
 
@@ -78,19 +85,18 @@ public class Game {
 			this.board.printBoard();
 			this.turnCount++;
 
-			if (this.player1Next) {
+			if (this.player1Next)
 				do {
 					System.out.println("Player 1: ");
 					this.player1.move(this.menu.getBoardSize());
 				} while (!this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(),
 						this.player2.getFigure(), this.turnCount));
-			} else {
+			else
 				do {
 					System.out.println("Player 2: ");
 					this.player2.move(this.menu.getBoardSize());
 				} while (!this.move.setMove(this.player2.getMyMove(), this.player2.getFigure(),
 						this.player1.getFigure(), this.turnCount));
-			}
 
 			this.player1Next = !this.player1Next;
 		}
@@ -104,9 +110,9 @@ public class Game {
 	}
 
 	/**
-	 *
 	 * @return true if player1 has won, false if player2 has won
 	 */
+	// private, default for testing
 	private boolean whoWon() {
 		if ((this.turnCount % 2) == 0)
 			return false;
