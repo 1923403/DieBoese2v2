@@ -12,9 +12,9 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public void move(final int boardSize, final char enemyFigure, final int turnCount) {
+	public void move(final int boardSize) {
 		System.out.println("Please enter coordinates:");
-		this.move(boardSize, enemyFigure, turnCount, Game.readInput());
+		this.move(boardSize, Game.readInput());
 	}
 
 	// private, default for testing
@@ -81,7 +81,7 @@ public class HumanPlayer extends Player {
 	}
 
 	// private, default for testing
-	void move(final int boardSize, char enemyFigure, int turnCount, String coordinates) {
+	void move(final int boardSize, String coordinates) {
 		var point = new Point();
 
 		if (this.isValidString(boardSize, coordinates)) {
@@ -93,7 +93,7 @@ public class HumanPlayer extends Player {
 			if (this.DEBUG)
 				System.out.println("no valid String " + coordinates);
 			System.out.println("You have entered invalid coordinates!");
-			this.move(boardSize, enemyFigure, turnCount);
+			this.move(boardSize);
 		}
 	}
 }

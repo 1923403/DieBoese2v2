@@ -11,7 +11,7 @@ public class AI extends Player {
 	}
 
 	@Override
-	public void move(final int boardSize, char enemyFigure, int turnCount) {
+	public void move(final int boardSize) {
 		// creates random move
 		System.out.println("AI starts move... boardSize: " + boardSize);
 		Point aiMove = new Point();

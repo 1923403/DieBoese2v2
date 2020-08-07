@@ -18,7 +18,7 @@ public abstract class Player {
 		return this.myMove;
 	}
 
-	public abstract void move(final int boardSize, final char enemyFigure, final int turnCount);
+	public abstract void move(final int boardSize);
 
 	protected void setMyMove(final Point move) {
 		this.myMove = move;

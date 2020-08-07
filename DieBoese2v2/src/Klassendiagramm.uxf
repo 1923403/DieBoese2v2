@@ -35,7 +35,7 @@
 + HumanPlayer(figure : char)
 - convertCoordinate(boardSize : int, coordinates : String) : Point
 - isValidString(boardSize : int, coordinates : String) : boolean
-- move(boardSize : int, enemyFigure : char, turnCount : int, coordinates : String)</panel_attributes>
+- move(boardSize : int, coordinates : String)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -363,7 +363,7 @@ bg=orange</panel_attributes>
 + Player(figure : char)
 + getFigure() : char
 + getMyMove() : Point
-+ move(boardSize : int, enemyFigure: char, turnCount: int) : void
++ move(boardSize : int) : void
 # setMyMove(move : Point) : void</panel_attributes>
     <additional_attributes/>
   </element>

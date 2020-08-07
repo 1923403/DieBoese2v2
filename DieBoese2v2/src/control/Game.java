@@ -81,13 +81,13 @@ public class Game {
 			if (this.player1Next) {
 				do {
 					System.out.println("Player 1: ");
-					this.player1.move(this.menu.getBoardSize(), this.player2.getFigure(), this.turnCount);
+					this.player1.move(this.menu.getBoardSize());
 				} while (!this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(),
 						this.player2.getFigure(), this.turnCount));
 			} else {
 				do {
 					System.out.println("Player 2: ");
-					this.player2.move(this.menu.getBoardSize(), this.player1.getFigure(), this.turnCount);
+					this.player2.move(this.menu.getBoardSize());
 				} while (!this.move.setMove(this.player2.getMyMove(), this.player2.getFigure(),
 						this.player1.getFigure(), this.turnCount));
 			}
