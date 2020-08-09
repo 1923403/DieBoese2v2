@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>225</x>
-      <y>144</y>
+      <x>261</x>
+      <y>90</y>
       <w>279</w>
       <h>153</h>
     </coordinates>
@@ -16,36 +16,33 @@
 + Board(boardSize: int)
 + getBoard() : char[][]
 + printBoard() : void
+- copyBoard() : char[][]
 - initialize(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>666</x>
-      <y>450</y>
-      <w>450</w>
-      <h>189</h>
+      <x>702</x>
+      <y>648</y>
+      <w>459</w>
+      <h>126</h>
     </coordinates>
-    <panel_attributes>Player
+    <panel_attributes>HumanPlayer
 -
-- figure : char
-# myMove : Point
+
 -
-+ Player(figure : char)
-+ getFigure() : char
-+ getMyMove() : Point
-+ move(boardSize : int, move: Move, enemyFigure: char, turnCount: int) : void
++ HumanPlayer(figure : char)
 - convertCoordinate(boardSize : int, coordinates : String) : Point
 - isValidString(boardSize : int, coordinates : String) : boolean
-- setMyMove(move : Point) : void</panel_attributes>
+- move(boardSize : int, coordinates : String)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1134</x>
-      <y>450</y>
+      <x>1179</x>
+      <y>657</y>
       <w>216</w>
       <h>108</h>
     </coordinates>
@@ -60,8 +57,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>513</x>
-      <y>144</y>
+      <x>549</x>
+      <y>90</y>
       <w>531</w>
       <h>216</h>
     </coordinates>
@@ -72,13 +69,12 @@
 + Move(board : Board)
 + hasWon(figure: char, coordinates: Point) : boolean
 + movePossible() : boolean
-+ setMove(coordinates : Point, figure : char, enemyFigure : char, turnCount : int) : void
++ setMove(coordinates : Point, figure : char, enemyFigure : char, turnCount : int) : boolean
 - block(coordinates : Point) : void
 - capture(coordinates : Point, figure : char, enemyFigure : char) : void
 - captureDirections(coordinates: Point, direction: Point, figure: char, enemyFigure: char): void
-- copyBoard() : char[][]
 - isValidMove(board : char[][], coordinates : Point) : boolean
-- secondMove(coordinate : Point, figure : char) : void
+- secondMove() : char[][]
 - setMove(coordinates : Point, figure : char) : void
 - longestRow(figureCount : int, figure : char, coordinates : Point): int
 - figureInRow(figure: char, coordinates: Point, Point direction)</panel_attributes>
@@ -87,8 +83,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>18</x>
-      <y>144</y>
+      <x>54</x>
+      <y>90</y>
       <w>198</w>
       <h>225</h>
     </coordinates>
@@ -113,8 +109,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>315</x>
-      <y>450</y>
+      <x>351</x>
+      <y>396</y>
       <w>198</w>
       <h>216</h>
     </coordinates>
@@ -139,8 +135,8 @@ _+ readInput() : String_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>315</x>
-      <y>702</y>
+      <x>351</x>
+      <y>648</y>
       <w>198</w>
       <h>27</h>
     </coordinates>
@@ -150,19 +146,19 @@ _+ readInput() : String_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1107</x>
-      <y>522</y>
-      <w>45</w>
-      <h>27</h>
+      <x>1233</x>
+      <y>567</y>
+      <w>27</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;30.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>405</x>
-      <y>657</y>
+      <x>441</x>
+      <y>603</y>
       <w>63</w>
       <h>63</h>
     </coordinates>
@@ -173,8 +169,8 @@ erstellt</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>117</x>
-      <y>360</y>
+      <x>153</x>
+      <y>306</y>
       <w>216</w>
       <h>189</h>
     </coordinates>
@@ -185,8 +181,8 @@ erstellt</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>0</x>
-      <y>576</y>
+      <x>36</x>
+      <y>522</y>
       <w>270</w>
       <h>63</h>
     </coordinates>
@@ -199,8 +195,8 @@ getSettings() erstellt Player 1 und 2 und Board</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>261</x>
-      <y>594</y>
+      <x>297</x>
+      <y>540</y>
       <w>72</w>
       <h>36</h>
     </coordinates>
@@ -210,8 +206,8 @@ getSettings() erstellt Player 1 und 2 und Board</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>351</x>
-      <y>288</y>
+      <x>387</x>
+      <y>234</y>
       <w>63</w>
       <h>180</h>
     </coordinates>
@@ -222,8 +218,8 @@ erstellt</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>468</x>
-      <y>351</y>
+      <x>504</x>
+      <y>297</y>
       <w>135</w>
       <h>117</h>
     </coordinates>
@@ -234,22 +230,22 @@ erstellt</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>513</y>
-      <w>180</w>
+      <x>540</x>
+      <y>459</y>
+      <w>306</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 erstellt</panel_attributes>
-    <additional_attributes>180.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>320.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>630</x>
-      <y>414</y>
+      <x>666</x>
+      <y>360</y>
       <w>738</w>
-      <h>279</h>
+      <h>486</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -259,8 +255,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>297</x>
-      <y>414</y>
+      <x>333</x>
+      <y>360</y>
       <w>234</w>
       <h>333</h>
     </coordinates>
@@ -272,8 +268,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>0</x>
-      <y>108</y>
+      <x>36</x>
+      <y>54</y>
       <w>1062</w>
       <h>288</h>
     </coordinates>
@@ -285,8 +281,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>585</x>
-      <y>765</y>
+      <x>99</x>
+      <y>720</y>
       <w>198</w>
       <h>63</h>
     </coordinates>
@@ -298,8 +294,8 @@ setMove() ruft capture() auf</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>594</x>
-      <y>855</y>
+      <x>0</x>
+      <y>810</y>
       <w>261</w>
       <h>63</h>
     </coordinates>
@@ -311,8 +307,8 @@ Game greift auf isFull() nach jedem Zug zu</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>954</x>
-      <y>756</y>
+      <x>18</x>
+      <y>594</y>
       <w>252</w>
       <h>108</h>
     </coordinates>
@@ -326,8 +322,8 @@ move() ruft convertCoordinates auf</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1125</x>
-      <y>144</y>
+      <x>1161</x>
+      <y>90</y>
       <w>153</w>
       <h>108</h>
     </coordinates>
@@ -341,8 +337,8 @@ move() ruft convertCoordinates auf</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>1107</x>
-      <y>99</y>
+      <x>1143</x>
+      <y>45</y>
       <w>234</w>
       <h>315</h>
     </coordinates>
@@ -350,5 +346,36 @@ move() ruft convertCoordinates auf</panel_attributes>
 --
 bg=orange</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>828</x>
+      <y>387</y>
+      <w>450</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>/Player/
+-
+- figure : char
+- myMove : Point
+-
++ Player(figure : char)
++ getFigure() : char
++ getMyMove() : Point
++ move(boardSize : int) : void
+# setMyMove(move : Point) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>918</x>
+      <y>567</y>
+      <w>27</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
 </diagram>

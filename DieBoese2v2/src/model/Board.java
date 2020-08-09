@@ -1,6 +1,6 @@
 package model;
 
-public class Board{
+public class Board {
 
 	// for testing only
 	public static void main(String[] args) {
@@ -15,15 +15,7 @@ public class Board{
 
 	public Board(int boardSize) {
 		this.board = new char[boardSize][boardSize];
-		initialize();
-	}
-
-	private void initialize() {
-		for (int y = 0; y < board.length; y++) {
-			for (int x = 0; x < board.length; x++) {
-				board[x][y] = ' ';
-			}
-		}
+		this.initialize();
 	}
 
 	/**
@@ -41,7 +33,7 @@ public class Board{
 		for (int y = 0; y <= (this.board.length + 1); y++) {
 			System.out.println();
 			if ((y != 0) && (y != (this.board.length + 1))) {
-				if (this.board.length - y < 9) // for alignment
+				if ((this.board.length - y) < 9) // for alignment
 					System.out.print(" ");
 				System.out.print(((this.board.length - y) + 1)); // numbers on the left
 			}
@@ -62,13 +54,21 @@ public class Board{
 	// DEFAULT FOR TESTING
 	// makes a copy of the original board
 	char[][] copyBoard() {
-		//return this.board.clone();
-		char[][] clonedBoard = new char[board.length][board.length];
-		for(int i = 0; i< board.length; i++) {
-			for(int j = 0; j  < board.length; j++) {
+		// return this.board.clone();
+		char[][] clonedBoard = new char[this.board.length][this.board.length];
+		for (int i = 0; i < this.board.length; i++) {
+			for (int j = 0; j < this.board.length; j++) {
 				clonedBoard[i][j] = this.board[i][j];
 			}
 		}
 		return clonedBoard;
+	}
+
+	private void initialize() {
+		for (int y = 0; y < this.board.length; y++) {
+			for (int x = 0; x < this.board.length; x++) {
+				this.board[x][y] = ' ';
+			}
+		}
 	}
 }
