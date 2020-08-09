@@ -32,7 +32,7 @@ public class Move {
 	 * @return 				longest row
 	 */
 	private int longestRow(char figure, Point coordinates) {
-		// under construction, not working yet
+		// under construction, could be optimized
 		// horizontal row
 		System.out.println(coordinates);
 		Point direction = new Point();
@@ -64,9 +64,6 @@ public class Move {
 	 * @return
 	 */
 	private int figuresInRow(char figure, Point coordinates, Point direction) {
-		// not working
-//		if (board.getBoard()[coordinates.x][coordinates.y] != figure)
-//			System.err.println("FEHLER!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		var counter = 1;
 		var posX = coordinates.x + direction.x;
 		var posY = coordinates.y + direction.y;
