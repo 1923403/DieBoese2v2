@@ -75,8 +75,8 @@ public class Game {
 
 	private void runGame() {
 		while (this.isRunning()) {
-			this.board.printBoard();
 			this.turnCount++;
+			if(turnCount != 9)this.board.printBoard(); //for second move
 
 			if (this.player1Next) {
 				do {

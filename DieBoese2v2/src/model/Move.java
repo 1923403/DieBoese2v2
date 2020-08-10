@@ -56,7 +56,7 @@ public class Move {
 			this.setMove(coordinates, figure);
 
 		this.capture(coordinates, figure, enemyFigure);
-
+		if(turnCount == 8) Board.printBoard(secondMove());
 		return true;
 	}
 
@@ -149,7 +149,6 @@ public class Move {
 		for (var x = 1; x < (tmpArray.length - 1); x++)
 			for (var y = 1; y < (tmpArray.length - 1); y++)
 				tmpArray[x][y] = block;
-
 		return tmpArray;
 	}
 

@@ -26,7 +26,7 @@ public class Board {
 		return this.board;
 	}
 	
-	public static void printBord(char[][] board) {
+	public static void printBoard(char[][] board) {
 		for (int y = 0; y <= (board.length + 1); y++) {
 			System.out.println();
 			if ((y != 0) && (y != (board.length + 1))) {
@@ -52,7 +52,7 @@ public class Board {
 	 * prints board, adds chars for rows, adds numbers for column
 	 */
 	public void printBoard() {
-		Board.printBord(this.board);
+		Board.printBoard(this.board);
 	}
 
 	// DEFAULT FOR TESTING
