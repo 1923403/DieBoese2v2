@@ -2,6 +2,8 @@ package model;
 
 import java.util.Scanner;
 
+import localization.Language;
+
 public class Menu {
 	// default values
 	private int boardSize = 15;
@@ -11,8 +13,7 @@ public class Menu {
 
 	public boolean settingsChoosen() {
 		Scanner in = new Scanner(System.in);
-		System.out.println("AusgabeMenü........\n0: start game\n1: boardSize (" + boardSize + " * " + boardSize + ")"
-				+ "\n2: schwierigkeit (" + difficulty + ")\n3: start\n4: pvp/pvAI"); // todo
+		System.out.println(Language.getMenuOptions()); 
 		var change = 0;
 		change = in.nextInt();
 		switch (change) {
@@ -31,7 +32,7 @@ public class Menu {
 			setPvp(in);
 			break;
 		default:
-			System.out.println("kein valider input..."); // to do
+			System.out.println(Language.getNoValidInput()); // to do
 			break;
 		}
 
