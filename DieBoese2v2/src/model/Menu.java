@@ -32,7 +32,7 @@ public class Menu {
 			setPvp(in);
 			break;
 		default:
-			System.out.println(Language.getNoValidInput()); // to do
+			System.out.println(Language.getNoValidInput()); 
 			break;
 		}
 
@@ -40,17 +40,17 @@ public class Menu {
 	}
 
 	private void setBoardSize(Scanner in) {
-		System.out.println("Frage nach spielfeldgr��e... eingabe erwartet"); // to do
+		System.out.println(Language.getBoardSize()); 
 		var input = in.nextInt();
 		while (input < 15 || input > 19) {
-			System.out.println("eingabe nur zwischen 15 und 19 erlaubt!"); // to do
+			System.out.println(Language.getBoardSizeError()); 
 			input = in.nextInt();
 		}
 		this.boardSize = input;
 	}
 
 	private void setDifficulty(Scanner in) {
-		System.out.println("frage nach schwierigkeit...eingabe erwartet"); // to do
+		System.out.println(Language.getDifficulty()); // to do
 		var diff = in.nextInt();
 		while (diff < 0 || diff > 2) {
 			System.out.println("schwierigkeit nur zwischen 0 und 2 erlaubt!"); // to do

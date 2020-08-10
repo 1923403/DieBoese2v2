@@ -43,4 +43,27 @@ public class Language {
 			return "Wrong input! Please try again.";
 		}
 	}
+	
+	public static String getBoardSize() {
+		if(language == "deutsch") {
+			return "Wähle eine Spielfeldgröße zwischen 15 und 19.";
+		} else {
+			return "Choose a boardsize between 15 and 19.";
+		}
+	}
+	
+	public static String getBoardSizeError() {
+		if(language == "deutsch") {
+			return "Spielfeldgröße nur zwischen 15 und 19 erlaubt!";
+		} else {
+			return "Boardsize can only be between 15 and 19!";
+		}
+	}
+	public static String getDifficulty() {
+		if(language == "deutsch") {
+			return "Wähle die Schwierigkeit der KI zwischen 0 und 2.";
+		} else {
+			return "Choose AI difficulty between 0 and 2.";
+		}
+	}
 }
