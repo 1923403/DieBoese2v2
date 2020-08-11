@@ -13,7 +13,7 @@ public class Menu {
 
 	public boolean settingsChoosen() {
 		Scanner in = new Scanner(System.in);
-		System.out.println(Language.getMenuOptions()); 
+		Language.printMenuOptions(boardSize, difficulty, start, pvp);
 		var change = 0;
 		change = in.nextInt();
 		switch (change) {
@@ -31,8 +31,11 @@ public class Menu {
 		case 4:
 			setPvp(in);
 			break;
+		case 5:
+			changeLanguage(in);
+			break;
 		default:
-			System.out.println(Language.getNoValidInput()); 
+			Language.printNoValidInput();
 			break;
 		}
 
@@ -40,30 +43,30 @@ public class Menu {
 	}
 
 	private void setBoardSize(Scanner in) {
-		System.out.println(Language.getBoardSize()); 
+		Language.printBoardSize();
 		var input = in.nextInt();
 		while (input < 15 || input > 19) {
-			System.out.println(Language.getBoardSizeError()); 
+			Language.printBoardSizeError();
 			input = in.nextInt();
 		}
 		this.boardSize = input;
 	}
 
 	private void setDifficulty(Scanner in) {
-		System.out.println(Language.getDifficulty()); // to do
+		Language.printDifficulty(); // to do
 		var diff = in.nextInt();
 		while (diff < 0 || diff > 2) {
-			System.out.println("schwierigkeit nur zwischen 0 und 2 erlaubt!"); // to do
+			Language.printDifficultyError();
 			diff = in.nextInt();
 		}
 		this.difficulty = diff;
 	}
 
 	private void setStart(Scanner in) {
-		System.out.println("frage wer beginnen soll... eingabe erwartet"); // to do
+		Language.printStart();
 		var start = in.nextInt();
 		while (start != 0 && start != 1) {
-			System.out.println("start erwartet 0 oder 1"); // to do
+			Language.printStartError();
 			start = in.nextInt();
 		}
 		if (start == 0)
@@ -74,16 +77,26 @@ public class Menu {
 	}
 
 	private void setPvp(Scanner in) {
-		System.out.println("frage nach spielmodus... eingabe erwartet"); // to do
+		Language.printPvp();
 		var pvp = in.nextInt();
 		while (pvp != 0 && pvp != 1) {
-			System.out.println("pvp erwartet 0 oder 1"); // to do
+			Language.printPvpError();
 			pvp = in.nextInt();
 		}
 		if (pvp == 0)
 			this.pvp = true;
 		else
 			this.pvp = false;
+	}
+	
+	private void changeLanguage(Scanner in) {
+		Language.printLanguageOptions();
+		var l = in.nextInt();
+		while(l <0 && l > Language.getSupportedLanguages().length){
+			Language.printLanguageOptionsError();
+			l = in.nextInt();
+		}
+		Language.changeLanguage(Language.getSupportedLanguages()[l]);
 	}
 
 	public int getBoardSize() {
