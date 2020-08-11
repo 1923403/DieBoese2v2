@@ -3,6 +3,7 @@ package model;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import control.Game;
 import localization.Language;
 
 public class Menu {
@@ -25,19 +26,19 @@ public class Menu {
 		case 0:
 			break;
 		case 1:
-			setBoardSize(in);
+			setBoardSize();
 			break;
 		case 2:
-			setDifficulty(in);
+			setDifficulty();
 			break;
 		case 3:
-			setStart(in);
+			setStart();
 			break;
 		case 4:
-			setPvp(in);
+			setPvp();
 			break;
 		case 5:
-			changeLanguage(in);
+			changeLanguage();
 			break;
 		default:
 			Language.printNoValidInput();
@@ -47,30 +48,30 @@ public class Menu {
 		return (change == 0);
 	}
 
-	private void setBoardSize(Scanner in) {
+	private void setBoardSize() {
 		Language.printBoardSize();
 		int input = -1;
 		do {
 			try {
-				input = in.nextInt();
+				input = Integer.valueOf(Game.readInput());
 				if (input < 15 || input > 19)
-					throw new InputMismatchException();
-			} catch (InputMismatchException e) {
+					throw new NumberFormatException();
+			} catch (NumberFormatException e) {
 				Language.printBoardSizeError();
 			}
 		} while (input < 15 || input > 19);
 		this.boardSize = input;
 	}
 
-	private void setDifficulty(Scanner in) {
+	private void setDifficulty() {
 		Language.printDifficulty();
 		int diff = -1;
 		do {
 			try {
-				diff = in.nextInt();
+				diff = Integer.valueOf(Game.readInput());
 				if (diff < 0 || diff > 2)
-					throw new InputMismatchException();
-			} catch (InputMismatchException e) {
+					throw new NumberFormatException();
+			} catch (NumberFormatException e) {
 				Language.printDifficultyError();
 			}
 		} while (diff < 0 || diff > 2);
@@ -78,15 +79,15 @@ public class Menu {
 
 	}
 
-	private void setStart(Scanner in) {
+	private void setStart() {
 		Language.printStart();
 		int start = -1;
 		do {
 			try {
-				start = in.nextInt();
+				start = Integer.valueOf(Game.readInput());
 				if (start != 0 && start != 1)
-					throw new InputMismatchException();
-			} catch (InputMismatchException e) {
+					throw new NumberFormatException();
+			} catch (NumberFormatException e) {
 				Language.printStartError();
 			}
 		} while (start != 0 && start != 1);
@@ -97,15 +98,15 @@ public class Menu {
 
 	}
 
-	private void setPvp(Scanner in) {
+	private void setPvp() {
 		Language.printPvp();
 		int pvp = -1;
 		do {
 			try {
-				pvp = in.nextInt();
+				pvp = Integer.valueOf(Game.readInput());
 				if (pvp != 0 && pvp != 1)
-					throw new InputMismatchException();
-			} catch (InputMismatchException e) {
+					throw new NumberFormatException();
+			} catch (NumberFormatException e) {
 				Language.printPvpError();
 			}
 		} while (pvp != 0 && pvp != 1);
@@ -115,15 +116,15 @@ public class Menu {
 			this.pvp = false;
 	}
 
-	private void changeLanguage(Scanner in) {
+	private void changeLanguage() {
 		Language.printLanguageOptions();
 		int l = -1;
-		do {
+		do { 
 			try {
-				l = in.nextInt();
+				l = Integer.valueOf(Game.readInput());
 				if (l < 0 || l > Language.getSupportedLanguages().length - 1)
-					throw new InputMismatchException();
-			} catch (InputMismatchException e) {
+					throw new NumberFormatException();
+			} catch (NumberFormatException e) {
 				Language.printLanguageOptionsError();
 			}
 		} while (l < 0 || l > Language.getSupportedLanguages().length - 1);
