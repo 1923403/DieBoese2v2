@@ -3,6 +3,7 @@ package player;
 import java.awt.Point;
 
 import control.Game;
+import localization.Language;
 
 public class HumanPlayer extends Player {
 	private final boolean DEBUG = false;
@@ -13,7 +14,7 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void move(final int boardSize) {
-		System.out.println("Please enter coordinates:");
+		Language.printCoordinateInput();
 		this.move(boardSize, Game.readInput());
 	}
 

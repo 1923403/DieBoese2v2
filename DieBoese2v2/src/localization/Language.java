@@ -24,14 +24,29 @@ public class Language { // rename to Output?
 
 	public static void printMenuOptions(int boardSize, int difficulty, boolean start, boolean pvp) {
 		if (language == "deutsch") {
-			System.out.println("MENÜ:" + "\n" + "0: Spielstart" + "\n" + "1: Spielfeldgöße ändern (" + boardSize + ")\n"
-					+ "2: Schwierigkeit ändern (" + difficulty + ")" + "\n"
-					+ "3: Wer soll beginnen? (Spieler1 startet = " + start + ")\n" + "4: PvP / PvKI? (PvP = " + pvp
-					+ ")" + "\n" + "5: Wähle die Sprache");
+			System.out.println("MENÜ:");
+			System.out.println("0: Spielstart");
+			System.out.println("1: Spielfeldgöße ändern (" + boardSize + ")");
+			System.out.println("2: Schwierigkeit ändern (" + difficulty + ")");
+			System.out.print("3: Wer soll beginnen? ");
+			if(start)System.out.println("(Spieler 1 beginnt)");
+			else System.out.println("(Spieler 2 beginnt)");
+			System.out.print("4: PvP / PvKI? " );
+			if(pvp) System.out.println("(PvP)");
+			else System.out.println("(PvKI)");
+			System.out.println("5: Wähle die Sprache");
 		} else {
-			System.out.println("MENU:" + "\n0: start game" + "\n1: change boardsize (" + boardSize + ")"
-					+ "\n2: change difficulty (" + difficulty + ")" + "\n3: who should start? (Player1 starts = "
-					+ start + ")" + "\n4: PvP / PvAI? (PvP = " + pvp + ")" + "\n5: choose language");
+			System.out.println("MENU:");
+			System.out.println("0: start game");
+			System.out.println("1: change boardsize (" + boardSize + ")");
+			System.out.println("2: change difficulty (" + difficulty + ")");
+			System.out.print("3: who should start? ");
+			if(start)System.out.println("(Player 1 starts)");
+			else System.out.println("(Player 2 starts)");
+			System.out.print("4: PvP / PvAI? ");
+			if(pvp) System.out.println("(PvP)");
+			else System.out.println("(PvAI)");
+			System.out.println("5: choose language");
 		}
 	}
 
@@ -163,6 +178,14 @@ public class Language { // rename to Output?
 			System.out.println("Zwei Figuren von " + figure + " wurden gerade geschlagen!");
 		} else {
 			System.out.println("Two figures from " + figure + " just got captured!");
+		}
+	}
+	
+	public static void printCoordinateInput() {
+		if(language == "deutsch") {
+			System.out.println("Bitte Koordinaten eingeben!");
+		} else {
+			System.out.println("Please enter coordinates:");
 		}
 	}
 }
