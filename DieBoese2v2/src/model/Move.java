@@ -37,7 +37,10 @@ public class Move {
 	// places given figure at given coordinates on the board
 	public boolean setMove(final Point coordinates, final char figure, final char enemyFigure, final int turnCount) {
 		try {
-			this.isValidMove(this.board.getBoard(), coordinates);
+			if (turnCount == 9)
+				this.isValidMove(this.secondMove(), coordinates);
+			else
+				this.isValidMove(this.board.getBoard(), coordinates);
 		} catch (InvalidMoveException e) {
 			System.err.println(e.getMessage());
 			return false;
@@ -45,18 +48,12 @@ public class Move {
 
 		if (turnCount < 7)
 			this.block(coordinates);
-		else if (turnCount == 9)
-			try {
-				this.isValidMove(this.secondMove(), coordinates);
-			} catch (InvalidMoveException e) {
-				System.err.println(e.getMessage());
-				return false;
-			}
 		else
 			this.setMove(coordinates, figure);
 
 		this.capture(coordinates, figure, enemyFigure);
-		if(turnCount == 8) Board.printBoard(secondMove());
+		if (turnCount == 8)
+			Board.printBoard(secondMove());
 		return true;
 	}
 
