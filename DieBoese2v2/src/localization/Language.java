@@ -1,5 +1,6 @@
 package localization;
 
+
 public class Language { // rename to Output?
 	private static String language = "english"; // default
 	private static final String[] supportedLanguages = { "english", "deutsch" };
@@ -143,6 +144,14 @@ public class Language { // rename to Output?
 			System.out.println("Spieler "+player+ "hat gewonnen!\nHerzlichen Glückwunsch!");
 		} else {
 			System.out.println("Player "+ player+ " has won!\nCongratulations!");
+		}
+	}
+	
+	public static void printExit() {
+		if(language == "deutsch") {
+			System.out.println("Vielen Dank für´s Spielen!\nBis nächstes Mal!");
+		} else {
+			System.out.println("Thank you for playing!\nSee you next time!");
 		}
 	}
 }
