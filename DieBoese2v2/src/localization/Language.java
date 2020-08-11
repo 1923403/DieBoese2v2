@@ -1,6 +1,5 @@
 package localization;
 
-
 public class Language { // rename to Output?
 	private static String language = "english"; // default
 	private static final String[] supportedLanguages = { "english", "deutsch" };
@@ -133,34 +132,34 @@ public class Language { // rename to Output?
 
 	public static void printWhoIsNext(int player) {
 		if (language == "deutsch") {
-			System.out.println("Spieler " + player + "ist am Zug:");
+			System.out.println("Spieler " + player + " ist am Zug:");
 		} else {
 			System.out.println("Player " + player + " is next:");
 		}
 	}
-	
+
 	public static void printWhoWon(int player) {
-		if(language == "deutsch") {
-			System.out.println("Spieler "+player+ "hat gewonnen!\nHerzlichen Glückwunsch!");
+		if (language == "deutsch") {
+			System.out.println("Spieler " + player + " hat gewonnen!\nHerzlichen Glückwunsch!");
 		} else {
-			System.out.println("Player "+ player+ " has won!\nCongratulations!");
+			System.out.println("Player " + player + " has won!\nCongratulations!");
 		}
 	}
-	
+
 	public static void printExit() {
-		if(language == "deutsch") {
+		if (language == "deutsch") {
 			System.out.println("Vielen Dank für´s Spielen!\nBis nächstes Mal!");
 		} else {
 			System.out.println("Thank you for playing!\nSee you next time!");
 		}
 	}
-	
+
 	public static void debugInformation(String information) {
 		System.err.println(information);
 	}
-	
+
 	public static void printCapture(char figure) {
-		if(language == "deutsch") {
+		if (language == "deutsch") {
 			System.out.println("Zwei Figuren von " + figure + " wurden gerade geschlagen!");
 		} else {
 			System.out.println("Two figures from " + figure + " just got captured!");
