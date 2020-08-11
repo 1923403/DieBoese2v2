@@ -87,7 +87,7 @@ _+ printBoard(board: char[][]): void_
       <x>54</x>
       <y>126</y>
       <w>198</w>
-      <h>225</h>
+      <h>234</h>
     </coordinates>
     <panel_attributes>Menu
 -
@@ -102,9 +102,10 @@ _+ printBoard(board: char[][]): void_
 + isPvp : boolean
 + settingsChosen() : boolean
 - setBoardSize() : void
-- setDifficulty : void
-- setPvp : void
-- setStart : void</panel_attributes>
+- setDifficulty() : void
+- setPvp() : void
+- setStart() : void
+- changeLanguage(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -171,13 +172,13 @@ erstellt</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>153</x>
-      <y>342</y>
+      <y>351</y>
       <w>216</w>
-      <h>189</h>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 erstellt</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;190.0;220.0;190.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;180.0;220.0;180.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
