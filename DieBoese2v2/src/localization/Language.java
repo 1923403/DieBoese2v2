@@ -154,4 +154,16 @@ public class Language { // rename to Output?
 			System.out.println("Thank you for playing!\nSee you next time!");
 		}
 	}
+	
+	public static void debugInformation(String information) {
+		System.err.println(information);
+	}
+	
+	public static void printCapture(char figure) {
+		if(language == "deutsch") {
+			System.out.println("Zwei Figuren von " + figure + " wurden gerade geschlagen!");
+		} else {
+			System.out.println("Two figures from " + figure + " just got captured!");
+		}
+	}
 }

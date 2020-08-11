@@ -1,6 +1,5 @@
 package model;
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -54,9 +53,8 @@ public class Menu {
 		do {
 			try {
 				input = in.nextInt();
+				if(input < 15 || input > 19) throw new InputMismatchException();
 			} catch (InputMismatchException e) {
-	
-			}finally {
 				Language.printBoardSizeError();
 			}
 		} while (input < 15 || input > 19);
@@ -69,10 +67,10 @@ public class Menu {
 		do {
 			try {
 				diff = in.nextInt();
+				if(diff < 0 || diff > 2) throw new InputMismatchException();
 			} catch (InputMismatchException e) {
-			} finally {
 				Language.printDifficultyError();
-			}
+			} 
 		} while (diff < 0 || diff > 2);
 		this.difficulty = diff;
 
@@ -84,10 +82,10 @@ public class Menu {
 		do {
 			try {
 				start = in.nextInt();
+				if(start != 0 && start != 1) throw new InputMismatchException();
 			} catch (InputMismatchException e) {
-			} finally {
 				Language.printStartError();
-			}
+			} 
 		} while (start != 0 && start != 1);
 		if (start == 0)
 			this.start = true;
@@ -98,14 +96,12 @@ public class Menu {
 
 	private void setPvp(Scanner in) {
 		Language.printPvp();
-
 		int pvp = -1;
 		do {
 			try {
 				pvp = in.nextInt();
+				if(pvp != 0 && pvp != 1) throw new InputMismatchException();
 			} catch (InputMismatchException e) {
-				
-			} finally {
 				Language.printPvpError();
 			}
 		} while (pvp != 0 && pvp != 1);
@@ -121,10 +117,10 @@ public class Menu {
 		do {
 			try {
 				l = in.nextInt();
+				if(l < 0 || l > Language.getSupportedLanguages().length-1) throw new InputMismatchException();
 			} catch (InputMismatchException e) {
-			} finally{
 				Language.printLanguageOptionsError();
-			}
+			} 
 		} while (l < 0 || l > Language.getSupportedLanguages().length-1);
 		Language.changeLanguage(Language.getSupportedLanguages()[l]);
 	}
