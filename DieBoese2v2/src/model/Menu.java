@@ -1,5 +1,7 @@
 package model;
 
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import localization.Language;
@@ -15,7 +17,11 @@ public class Menu {
 		Scanner in = new Scanner(System.in);
 		Language.printMenuOptions(boardSize, difficulty, start, pvp);
 		var change = 0;
-		change = in.nextInt();
+		try {
+			change = in.nextInt();
+		} catch (InputMismatchException e) {
+			change = -1;
+		}
 		switch (change) {
 		case 0:
 			break;
@@ -44,31 +50,45 @@ public class Menu {
 
 	private void setBoardSize(Scanner in) {
 		Language.printBoardSize();
-		var input = in.nextInt();
-		while (input < 15 || input > 19) {
-			Language.printBoardSizeError();
-			input = in.nextInt();
-		}
+		int input = -1;
+		do {
+			try {
+				input = in.nextInt();
+			} catch (InputMismatchException e) {
+	
+			}finally {
+				Language.printBoardSizeError();
+			}
+		} while (input < 15 || input > 19);
 		this.boardSize = input;
 	}
 
 	private void setDifficulty(Scanner in) {
-		Language.printDifficulty(); // to do
-		var diff = in.nextInt();
-		while (diff < 0 || diff > 2) {
-			Language.printDifficultyError();
-			diff = in.nextInt();
-		}
+		Language.printDifficulty();
+		int diff = -1;
+		do {
+			try {
+				diff = in.nextInt();
+			} catch (InputMismatchException e) {
+			} finally {
+				Language.printDifficultyError();
+			}
+		} while (diff < 0 || diff > 2);
 		this.difficulty = diff;
+
 	}
 
 	private void setStart(Scanner in) {
 		Language.printStart();
-		var start = in.nextInt();
-		while (start != 0 && start != 1) {
-			Language.printStartError();
-			start = in.nextInt();
-		}
+		int start = -1;
+		do {
+			try {
+				start = in.nextInt();
+			} catch (InputMismatchException e) {
+			} finally {
+				Language.printStartError();
+			}
+		} while (start != 0 && start != 1);
 		if (start == 0)
 			this.start = true;
 		else
@@ -78,24 +98,34 @@ public class Menu {
 
 	private void setPvp(Scanner in) {
 		Language.printPvp();
-		var pvp = in.nextInt();
-		while (pvp != 0 && pvp != 1) {
-			Language.printPvpError();
-			pvp = in.nextInt();
-		}
+
+		int pvp = -1;
+		do {
+			try {
+				pvp = in.nextInt();
+			} catch (InputMismatchException e) {
+				
+			} finally {
+				Language.printPvpError();
+			}
+		} while (pvp != 0 && pvp != 1);
 		if (pvp == 0)
 			this.pvp = true;
 		else
 			this.pvp = false;
 	}
-	
+
 	private void changeLanguage(Scanner in) {
 		Language.printLanguageOptions();
-		var l = in.nextInt();
-		while(l <0 && l > Language.getSupportedLanguages().length){
-			Language.printLanguageOptionsError();
-			l = in.nextInt();
-		}
+		int l = -1;
+		do {
+			try {
+				l = in.nextInt();
+			} catch (InputMismatchException e) {
+			} finally{
+				Language.printLanguageOptionsError();
+			}
+		} while (l < 0 || l > Language.getSupportedLanguages().length-1);
 		Language.changeLanguage(Language.getSupportedLanguages()[l]);
 	}
 

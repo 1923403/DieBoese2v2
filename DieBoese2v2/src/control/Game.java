@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import localization.Language;
 import model.Board;
 import model.Menu;
 import model.Move;
@@ -80,13 +81,13 @@ public class Game {
 
 			if (this.player1Next) {
 				do {
-					System.out.println("Player 1: ");
+					Language.printWhoIsNext(1);
 					this.player1.move(this.menu.getBoardSize());
 				} while (!this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(),
 						this.player2.getFigure(), this.turnCount));
 			} else {
 				do {
-					System.out.println("Player 2: ");
+					Language.printWhoIsNext(2);
 					this.player2.move(this.menu.getBoardSize());
 				} while (!this.move.setMove(this.player2.getMyMove(), this.player2.getFigure(),
 						this.player1.getFigure(), this.turnCount));
@@ -98,9 +99,9 @@ public class Game {
 		this.board.printBoard();
 
 		if (this.whoWon())
-			System.out.println("Spieler1 hat gewonnen....."); // toDO
+			Language.printWhoWon(1);
 		else
-			System.out.println("Spieler2 hat gewonnen....");// to do
+			Language.printWhoWon(2);
 	}
 
 	/**
