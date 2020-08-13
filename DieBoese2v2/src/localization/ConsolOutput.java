@@ -1,6 +1,6 @@
 package localization;
 
-public class Language { // rename to Output?
+public class ConsolOutput {
 	private static String language = "english"; // default
 	private static final String[] supportedLanguages = { "english", "deutsch" };
 
@@ -9,12 +9,12 @@ public class Language { // rename to Output?
 		for (var l : supportedLanguages) {
 			if (l == language) {
 				languageSupported = true;
-				Language.language = language;
+				ConsolOutput.language = language;
 			}
 		}
 		if (!languageSupported) {
 			System.err.println(language + " is not supported! Language changed to default (english)");
-			Language.language = "english";
+			ConsolOutput.language = "english";
 		}
 	}
 

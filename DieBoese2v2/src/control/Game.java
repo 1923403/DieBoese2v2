@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import localization.Language;
+import localization.ConsolOutput;
 import model.Board;
 import model.Menu;
 import model.Move;
@@ -88,14 +88,14 @@ public class Game {
 
 			if (this.player1Next)
 				do {
-					Language.printWhoIsNext(1);
+					ConsolOutput.printWhoIsNext(1);
 					this.player1.move(this.menu.getBoardSize());
 					moveIsValid = this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(),
 							this.player2.getFigure(), this.turnCount);
 				} while (!moveIsValid);
 			else
 				do {
-					Language.printWhoIsNext(2);
+					ConsolOutput.printWhoIsNext(2);
 					this.player2.move(this.menu.getBoardSize());
 					moveIsValid = this.move.setMove(this.player2.getMyMove(), this.player2.getFigure(),
 							this.player1.getFigure(), this.turnCount);
@@ -107,9 +107,9 @@ public class Game {
 		this.board.printBoard();
 
 		if (this.whoWon())
-			Language.printWhoWon(1);
+			ConsolOutput.printWhoWon(1);
 		else
-			Language.printWhoWon(2);
+			ConsolOutput.printWhoWon(2);
 	}
 
 	/**

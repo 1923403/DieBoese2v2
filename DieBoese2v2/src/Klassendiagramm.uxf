@@ -52,7 +52,8 @@ _+ printBoard(board: char[][]): void_
 - enemyMove: Point
 -
 + AI(figure : char)
-+ setEnemyMove(move : Point) : void</panel_attributes>
++ setEnemyMove(move : Point) : void
+- randomMove(boardSize: int): Point</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
