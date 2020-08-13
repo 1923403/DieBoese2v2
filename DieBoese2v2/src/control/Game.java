@@ -77,8 +77,7 @@ public class Game {
 	private boolean isRunning() {
 		if (this.player1Next)
 			return !this.move.hasWon(this.player2.getFigure(), this.player2.getMyMove());
-		else
-			return !this.move.hasWon(this.player1.getFigure(), this.player1.getMyMove());
+		return !this.move.hasWon(this.player1.getFigure(), this.player1.getMyMove());
 	}
 
 	private void runGame() {
@@ -117,7 +116,6 @@ public class Game {
 	private boolean whoWon() {
 		if ((this.turnCount % 2) == 0)
 			return false;
-		else
-			return true;
+		return true;
 	}
 }
