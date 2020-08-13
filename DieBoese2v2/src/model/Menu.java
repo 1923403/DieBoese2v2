@@ -1,7 +1,5 @@
 package model;
 
-import java.util.InputMismatchException;
-
 import control.Game;
 import localization.Language;
 

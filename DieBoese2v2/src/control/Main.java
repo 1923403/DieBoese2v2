@@ -5,7 +5,7 @@ import localization.Language;
 public class Main {
 
 	public static void main(String[] args) {
-		var start = new Game();
+		var game = new Game();
 		Language.printExit();
 	}
 

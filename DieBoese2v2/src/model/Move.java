@@ -14,17 +14,15 @@ public class Move {
 		this.board = board;
 	}
 
+	//determines if game is over and a player has won
 	public boolean hasWon(final char figure, final Point coordinates) {
-		// under construction
-//		if (coordinates != null)
-//			System.out.println("longest row: " + longestRow(figure, coordinates));
+
 		if ((coordinates != null) && (this.longestRow(figure, coordinates) >= 5))
 			return true;		
 		if (!this.movePossible()) {
 			System.out.println("no more move possible");
 			return true;
 		}
-
 		return false;
 	}
 
@@ -37,7 +35,7 @@ public class Move {
 		return false;
 	}
 
-	// places given figure at given coordinates on the board
+	// places given figure at given coordinates on the board if possible
 	public boolean setMove(final Point coordinates, final char figure, final char enemyFigure, final int turnCount) {
 		try {
 			if (turnCount == 9)
@@ -67,7 +65,6 @@ public class Move {
 
 	// DEFAULT FOR TESTING
 	void capture(final Point coordinates, final char figure, final char enemyFigure) {
-		// under construction
 		final var direction = new Point();
 		// right
 		direction.x = 1;
@@ -115,8 +112,7 @@ public class Move {
 	boolean isValidMove(final char[][] board, final Point coordinates) throws InvalidMoveException {
 		if (board[coordinates.x][coordinates.y] == ' ')
 			return true;
-		else
-			throw new InvalidMoveException("Field is not empty!");
+		throw new InvalidMoveException("Field is not empty!");
 	}
 
 	// DEFAULT FOR TESTING
@@ -201,9 +197,7 @@ public class Move {
 	 * @return
 	 */
 	private int figuresInRow(final char figure, final Point coordinates, final Point direction) {
-		// not working
-//		if (board.getBoard()[coordinates.x][coordinates.y] != figure)
-//			System.err.println("FEHLER!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
 		var counter = 1;
 		var posX = coordinates.x + direction.x;
 		var posY = coordinates.y + direction.y;
@@ -221,7 +215,6 @@ public class Move {
 			posX -= direction.x;
 			posY -= direction.y;
 		}
-//		System.out.println("direction: " + direction + ", length: " + counter);
 		return counter;
 	}
 
@@ -232,7 +225,7 @@ public class Move {
 	 * @return longest row
 	 */
 	private int longestRow(final char figure, final Point coordinates) {
-		// under construction, not working yet
+		
 		// horizontal row
 		System.out.println(coordinates);
 		final Point direction = new Point();
@@ -240,18 +233,21 @@ public class Move {
 		direction.y = 0;
 		final var horizontalFigures = this.figuresInRow(figure, coordinates, direction);
 
+		//vertical row
 		direction.x = 0;
 		direction.y = 1;
 		final var verticalFigures = this.figuresInRow(figure, coordinates, direction);
 
+		//diagonal row (top right to bottom left)
 		direction.x = 1;
 		direction.y = 1;
 		final var diagonalFigures1 = this.figuresInRow(figure, coordinates, direction);
 
+		//diagonal row (top left to bottom right)
 		direction.x = 1;
 		direction.y = -1;
 		final var diagonalFigures2 = this.figuresInRow(figure, coordinates, direction);
 
-		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2));
+		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2)); //max value / longest row
 	}
 }

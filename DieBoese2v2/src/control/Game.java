@@ -82,6 +82,7 @@ public class Game {
 
 	private void runGame() {
 		while (this.isRunning()) {
+			boolean moveIsValid;
 			this.turnCount++;
 			if(turnCount != 9)this.board.printBoard(); //for second move
 
@@ -89,14 +90,16 @@ public class Game {
 				do {
 					Language.printWhoIsNext(1);
 					this.player1.move(this.menu.getBoardSize());
-				} while (!this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(),
-						this.player2.getFigure(), this.turnCount));
+					moveIsValid = this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(),
+							this.player2.getFigure(), this.turnCount);
+				} while (!moveIsValid);
 			else
 				do {
 					Language.printWhoIsNext(2);
 					this.player2.move(this.menu.getBoardSize());
-				} while (!this.move.setMove(this.player2.getMyMove(), this.player2.getFigure(),
-						this.player1.getFigure(), this.turnCount));
+					moveIsValid = this.move.setMove(this.player2.getMyMove(), this.player2.getFigure(),
+							this.player1.getFigure(), this.turnCount);
+				} while (!moveIsValid);
 
 			this.player1Next = !this.player1Next;
 		}
