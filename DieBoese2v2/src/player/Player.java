@@ -3,7 +3,7 @@ package player;
 import java.awt.Point;
 
 public abstract class Player {
-	private char figure;
+	private final char figure;
 	private Point myMove;
 
 	public Player(final char figure) {

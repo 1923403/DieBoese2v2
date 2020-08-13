@@ -35,8 +35,8 @@ _+ printBoard(board: char[][]): void_
 -
 + HumanPlayer(figure : char)
 - convertCoordinate(boardSize : int, coordinates : String) : Point
-- isValidString(boardSize : int, coordinates : String) : boolean
-- move(boardSize : int, coordinates : String)</panel_attributes>
+- isValidString(boardSize : int, coordinates : String) : void
+- move(boardSize : int, coordinates : String): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -87,7 +87,7 @@ _+ printBoard(board: char[][]): void_
       <x>54</x>
       <y>144</y>
       <w>198</w>
-      <h>234</h>
+      <h>225</h>
     </coordinates>
     <panel_attributes>Menu
 -
@@ -174,7 +174,7 @@ erstellt</panel_attributes>
       <x>153</x>
       <y>369</y>
       <w>216</w>
-      <h>180</h>
+      <h>189</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 erstellt</panel_attributes>

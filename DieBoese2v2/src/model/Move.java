@@ -4,21 +4,22 @@ import java.awt.Point;
 
 import localization.Language;
 
+
+
 public class Move {
 
-	private Board board;
+	private final Board board;
 
 	public Move(final Board board) {
 		this.board = board;
 	}
 
-	public boolean hasWon(char figure, Point coordinates) {
+	public boolean hasWon(final char figure, final Point coordinates) {
 		// under construction
 //		if (coordinates != null)
 //			System.out.println("longest row: " + longestRow(figure, coordinates));
-		if ((coordinates != null) && (this.longestRow(figure, coordinates) >= 5)) {
-			return true;
-		}
+		if ((coordinates != null) && (this.longestRow(figure, coordinates) >= 5))
+			return true;		
 		if (!this.movePossible()) {
 			System.out.println("no more move possible");
 			return true;
@@ -43,7 +44,7 @@ public class Move {
 				this.isValidMove(this.secondMove(), coordinates);
 			else
 				this.isValidMove(this.board.getBoard(), coordinates);
-		} catch (InvalidMoveException e) {
+		} catch (final InvalidMoveException e) {
 			System.err.println(e.getMessage());
 			return false;
 		}
@@ -67,7 +68,7 @@ public class Move {
 	// DEFAULT FOR TESTING
 	void capture(final Point coordinates, final char figure, final char enemyFigure) {
 		// under construction
-		var direction = new Point();
+		final var direction = new Point();
 		// right
 		direction.x = 1;
 		direction.y = 0;
@@ -167,10 +168,11 @@ public class Move {
 	 * @param figure
 	 * @param enemyFigure
 	 */
-	private void captureDirections(Point coordinates, Point direction, char figure, char enemyFigure) {
-		var point1 = new Point(); // should be enemys figure for capturing
-		var point2 = new Point(); // should be enemys figure for capturing
-		var point3 = new Point(); // should be players figure for capturing
+	private void captureDirections(final Point coordinates, final Point direction, final char figure,
+			final char enemyFigure) {
+		final var point1 = new Point(); // should be enemys figure for capturing
+		final var point2 = new Point(); // should be enemys figure for capturing
+		final var point3 = new Point(); // should be players figure for capturing
 		point1.x = coordinates.x + direction.x;
 		point1.y = coordinates.y + direction.y;
 		point2.x = point1.x + direction.x;
@@ -198,14 +200,14 @@ public class Move {
 	 * @param direction
 	 * @return
 	 */
-	private int figuresInRow(char figure, Point coordinates, Point direction) {
+	private int figuresInRow(final char figure, final Point coordinates, final Point direction) {
 		// not working
 //		if (board.getBoard()[coordinates.x][coordinates.y] != figure)
 //			System.err.println("FEHLER!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		var counter = 1;
 		var posX = coordinates.x + direction.x;
 		var posY = coordinates.y + direction.y;
-		var boardLength = this.board.getBoard().length;
+		final var boardLength = this.board.getBoard().length;
 		while ((posX < boardLength) && (posY < boardLength) && (posY >= 0)
 				&& (this.board.getBoard()[posX][posY] == figure)) {
 			counter++;
@@ -229,26 +231,26 @@ public class Move {
 	 * @param coordinates starting point
 	 * @return longest row
 	 */
-	private int longestRow(char figure, Point coordinates) {
+	private int longestRow(final char figure, final Point coordinates) {
 		// under construction, not working yet
 		// horizontal row
 		System.out.println(coordinates);
-		Point direction = new Point();
+		final Point direction = new Point();
 		direction.x = 1;
 		direction.y = 0;
-		var horizontalFigures = this.figuresInRow(figure, coordinates, direction);
+		final var horizontalFigures = this.figuresInRow(figure, coordinates, direction);
 
 		direction.x = 0;
 		direction.y = 1;
-		var verticalFigures = this.figuresInRow(figure, coordinates, direction);
+		final var verticalFigures = this.figuresInRow(figure, coordinates, direction);
 
 		direction.x = 1;
 		direction.y = 1;
-		var diagonalFigures1 = this.figuresInRow(figure, coordinates, direction);
+		final var diagonalFigures1 = this.figuresInRow(figure, coordinates, direction);
 
 		direction.x = 1;
 		direction.y = -1;
-		var diagonalFigures2 = this.figuresInRow(figure, coordinates, direction);
+		final var diagonalFigures2 = this.figuresInRow(figure, coordinates, direction);
 
 		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2));
 	}

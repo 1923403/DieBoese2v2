@@ -15,86 +15,118 @@ public class HumanPlayer extends Player {
 	@Override
 	public void move(final int boardSize) {
 		Language.printCoordinateInput();
-		this.move(boardSize, Game.readInput());
+		try {
+			this.move(boardSize, Game.readInput());
+		} catch (final InvalidStringException e) {
+			System.err.println(e.getMessage());
+			Game.pause();
+			this.move(boardSize);
+		}
 	}
 
-	// private, default for testing
-	Point convertCoordinates(final int boardSize, final String coordinates) {
-		final var point = new Point();
-		var number = "";
+	private Point convertCoordinates(final int boardSize, final String coordinates) {
+		return new Point(this.getLetter(coordinates), this.getNumber(boardSize, coordinates));
+	}
 
+
+	/**
+	 * gets letter in string as int
+	 */
+	private int getLetter(final String coordinates) {
+		var letter = 0;
+		for (var i = 0; i < coordinates.length(); i++)
+			if ((coordinates.charAt(i) > 57))
+				letter = coordinates.toLowerCase().charAt(i) - 97;
+		return letter;
+	}
+
+	/**
+	 * gets number in string as int
+	 */
+	private int getNumber(final int boardSize, final String coordinates) {
+		var number = "";
 		for (var i = 0; i < coordinates.length(); i++)
 			if ((coordinates.charAt(i) < 58))
 				number += coordinates.charAt(i);
-			else
-				point.x = coordinates.toLowerCase().charAt(i) - 97;
-
-		point.y = boardSize - Integer.valueOf(number);
-		if (this.DEBUG)
-			System.out.println(coordinates + " = " + point);
-		return point;
+		return (boardSize - Integer.valueOf(number));
 	}
 
-	// private, default for testing
-	boolean isValidString(final int boardSize, final String coordinates) {
-		var letterCount = 0;
-		var number = "";
-
-		if ((coordinates.length() < 2) || (coordinates.length() > 3))
-			return false;
-
-		// checks if the second character is a letter in case the string has a length of
-		// 3
-		if ((coordinates.length() == 3) && (coordinates.charAt(1) > 96))
-			return false;
-
-		for (var i = 0; i < coordinates.length(); i++) {
-			// checks if character is a letter or a number
+	/**
+	 * checks if character is a letter or a number
+	 */
+	private boolean hasValidCharacters(final String coordinates) {
+		for (var i = 0; i < coordinates.length(); i++)
 			if ((coordinates.charAt(i) < 48) || ((coordinates.charAt(i) > 57) && (coordinates.charAt(i) < 97))
 					|| (coordinates.charAt(i) > 122))
 				return false;
-
-			// checks if letter is valid, and counts letters
-			if (coordinates.charAt(i) > 96)
-				if ((coordinates.charAt(i) - 97) > (boardSize - 1))
-					return false;
-				else
-					letterCount++;
-
-			if (letterCount > 1)
-				return false;
-
-			if ((coordinates.charAt(i) < 58))
-				number += coordinates.charAt(i);
-		}
-
-		if (letterCount == 0)
-			return false;
-
-		if (Integer.valueOf(number) == 0)
-			return false;
-
-		// checks if number is valid
-		if (Integer.valueOf(number) > (boardSize))
-			return false;
-
 		return true;
 	}
 
-	// private, default for testing
-	void move(final int boardSize, String coordinates) {
-		var point = new Point();
+	/**
+	 * checks if string length is 2 or 3
+	 */
+	private boolean hasValidLength(final String coordinates) {
+		return ((coordinates.length() >= 2) && (coordinates.length() <= 3));
+	}
 
-		if (this.isValidString(boardSize, coordinates)) {
-			if (this.DEBUG)
-				System.out.println("valid String " + coordinates);
-			point = this.convertCoordinates(boardSize, coordinates);
-			this.setMyMove(point);
-		} else {
-			if (this.DEBUG)
-				System.out.println("no valid String " + coordinates);
-			System.out.println("You have entered invalid coordinates!");
-			this.move(boardSize);
-		}
+	/**
+	 * checks if there is only one letter
+	 */
+	private boolean hasValidLetterCount(final String coordinates) {
+		var letterCount = 0;
+		for (var i = 0; i < coordinates.length(); i++)
+			if (coordinates.charAt(i) > 96)
+				letterCount++;
+		return letterCount == 1;
+	}
+
+	/**
+	 * checks if second character is a letter in case string has a length of 3
+	 */
+	private boolean isInValidOrder(final String coordinates) {
+		if ((coordinates.length() == 3) && (coordinates.charAt(1) > 96))
+			return false;
+		else
+			return true;
+	}
+
+	/**
+	 * checks if letter is valid
+	 */
+	private boolean isValidLetter(final int boardSize, final String coordinates) {
+		for (var i = 0; i < coordinates.length(); i++)
+			if (coordinates.charAt(i) > 96)
+				if ((coordinates.charAt(i) - 97) > (boardSize - 1))
+					return false;
+		return true;
+	}
+
+	/**
+	 * checks if number is valid
+	 */
+	private boolean isValidNumber(final int boardSize, final String coordinates) {
+		var number = "";
+		for (var i = 0; i < coordinates.length(); i++)
+			if ((coordinates.charAt(i) < 58))
+				number += coordinates.charAt(i);
+		return ((Integer.valueOf(number) > 0) && (Integer.valueOf(number) <= (boardSize)));
+	}
+
+	private void isValidString(final int boardSize, final String coordinates) throws InvalidStringException {
+		if (!this.hasValidLength(coordinates)
+				|| !this.hasValidCharacters(coordinates)
+				|| !this.isInValidOrder(coordinates)
+				|| !this.isValidLetter(boardSize, coordinates)
+				|| !this.hasValidLetterCount(coordinates)
+				|| !this.isValidNumber(boardSize, coordinates))
+			throw new InvalidStringException("You have entered invalid coordinates!");
+	}
+
+	/**
+	 * checks string and sets move
+	 */
+	private void move(final int boardSize, final String coordinates) throws InvalidStringException {
+		this.isValidString(boardSize, coordinates);
+		this.setMyMove(this.convertCoordinates(boardSize, coordinates));
 	}
 }
