@@ -1,7 +1,6 @@
 package model;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import control.Game;
 import localization.Language;
@@ -9,17 +8,16 @@ import localization.Language;
 public class Menu {
 	// default values
 	private int boardSize = 15;
-	private int difficulty = 3;
+	private int difficulty = 2;
 	private boolean pvp = false;
 	private boolean start = true;
 
 	public boolean settingsChoosen() {
-		Scanner in = new Scanner(System.in);
 		Language.printMenuOptions(boardSize, difficulty, start, pvp);
 		var change = 0;
 		try {
-			change = in.nextInt();
-		} catch (InputMismatchException e) {
+			change = Integer.valueOf(Game.readInput());
+		} catch (NumberFormatException e) {
 			change = -1;
 		}
 		switch (change) {
