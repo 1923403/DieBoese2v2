@@ -106,6 +106,8 @@ public class HumanPlayer extends Player {
 			if (coordinates.charAt(i) > 96)
 				if (++letterCount > 1)
 					throw new InvalidStringException("Please don't enter more than one letter!");
+		if (letterCount == 0)
+			throw new InvalidStringException("You need to enter a letter as well!");
 	}
 
 	/**
