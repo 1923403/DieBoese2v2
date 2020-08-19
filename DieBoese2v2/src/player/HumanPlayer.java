@@ -18,7 +18,7 @@ public class HumanPlayer extends Player {
 		try {
 			this.move(boardSize, Input.readInput());
 		} catch (final InvalidStringException e) {
-			System.err.println(e.getMessage());
+			System.out.println(e.getMessage());
 			this.move(boardSize);
 		}
 	}
@@ -54,7 +54,8 @@ public class HumanPlayer extends Player {
 	 */
 	private boolean hasValidCharacters(final String coordinates) {
 		for (var i = 0; i < coordinates.length(); i++)
-			if ((coordinates.charAt(i) < 48) || ((coordinates.charAt(i) > 57) && (coordinates.charAt(i) < 97))
+			if ((coordinates.charAt(i) < 48)
+					|| ((coordinates.charAt(i) > 57) && (coordinates.charAt(i) < 97))
 					|| (coordinates.charAt(i) > 122))
 				return false;
 		return true;
