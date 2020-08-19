@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>261</x>
-      <y>72</y>
+      <y>45</y>
       <w>279</w>
       <h>153</h>
     </coordinates>
@@ -25,9 +25,9 @@ _+ printBoard(board: char[][]): void_
     <id>UMLClass</id>
     <coordinates>
       <x>702</x>
-      <y>630</y>
+      <y>603</y>
       <w>459</w>
-      <h>126</h>
+      <h>225</h>
     </coordinates>
     <panel_attributes>HumanPlayer
 -
@@ -35,15 +35,23 @@ _+ printBoard(board: char[][]): void_
 -
 + HumanPlayer(figure : char)
 - convertCoordinate(boardSize : int, coordinates : String) : Point
-- isValidString(boardSize : int, coordinates : String) : void
-- move(boardSize : int, coordinates : String): void</panel_attributes>
+- getLetter(coordinates : String) : int
+- getNumber(boardSize : int, coordinates : String) : int
+- move(boardSize : int, coordinates : String): void
+- validateCoordinates(coordinates : String) : void
+- validateLength(coordinates : String) : void
+- validateLetter(boardSize : int, coordinates : String) : void
+- validateLetterCount(coordinates : String) : void
+- validateNumber(boardSize : int, coordinates : String) : void
+- validateOrder(coordinates : String) : void
+- validateString(boardSize : int, coordinates : String) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>1179</x>
-      <y>639</y>
+      <y>612</y>
       <w>216</w>
       <h>108</h>
     </coordinates>
@@ -60,7 +68,7 @@ _+ printBoard(board: char[][]): void_
     <id>UMLClass</id>
     <coordinates>
       <x>549</x>
-      <y>72</y>
+      <y>45</y>
       <w>531</w>
       <h>216</h>
     </coordinates>
@@ -86,7 +94,7 @@ _+ printBoard(board: char[][]): void_
     <id>UMLClass</id>
     <coordinates>
       <x>54</x>
-      <y>72</y>
+      <y>45</y>
       <w>198</w>
       <h>234</h>
     </coordinates>
@@ -113,7 +121,7 @@ _+ printBoard(board: char[][]): void_
     <id>UMLClass</id>
     <coordinates>
       <x>351</x>
-      <y>378</y>
+      <y>351</y>
       <w>198</w>
       <h>216</h>
     </coordinates>
@@ -139,7 +147,7 @@ _+ readInput() : String_
     <id>UMLClass</id>
     <coordinates>
       <x>351</x>
-      <y>630</y>
+      <y>603</y>
       <w>198</w>
       <h>27</h>
     </coordinates>
@@ -150,7 +158,7 @@ _+ readInput() : String_
     <id>Relation</id>
     <coordinates>
       <x>1233</x>
-      <y>549</y>
+      <y>522</y>
       <w>27</w>
       <h>108</h>
     </coordinates>
@@ -161,7 +169,7 @@ _+ readInput() : String_
     <id>Relation</id>
     <coordinates>
       <x>441</x>
-      <y>585</y>
+      <y>558</y>
       <w>63</w>
       <h>63</h>
     </coordinates>
@@ -173,7 +181,7 @@ erstellt</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>153</x>
-      <y>297</y>
+      <y>270</y>
       <w>216</w>
       <h>180</h>
     </coordinates>
@@ -185,7 +193,7 @@ erstellt</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>36</x>
-      <y>504</y>
+      <y>477</y>
       <w>270</w>
       <h>63</h>
     </coordinates>
@@ -199,7 +207,7 @@ getSettings() erstellt Player 1 und 2 und Board</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>297</x>
-      <y>522</y>
+      <y>495</y>
       <w>72</w>
       <h>36</h>
     </coordinates>
@@ -210,7 +218,7 @@ getSettings() erstellt Player 1 und 2 und Board</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>387</x>
-      <y>216</y>
+      <y>189</y>
       <w>63</w>
       <h>180</h>
     </coordinates>
@@ -222,7 +230,7 @@ erstellt</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>504</x>
-      <y>279</y>
+      <y>252</y>
       <w>135</w>
       <h>117</h>
     </coordinates>
@@ -234,7 +242,7 @@ erstellt</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>540</x>
-      <y>441</y>
+      <y>414</y>
       <w>306</w>
       <h>36</h>
     </coordinates>
@@ -246,9 +254,9 @@ erstellt</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>666</x>
-      <y>342</y>
+      <y>315</y>
       <w>738</w>
-      <h>486</h>
+      <h>531</h>
     </coordinates>
     <panel_attributes>Player
 --
@@ -259,7 +267,7 @@ bg=orange</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>333</x>
-      <y>342</y>
+      <y>315</y>
       <w>234</w>
       <h>333</h>
     </coordinates>
@@ -272,7 +280,7 @@ bg=orange</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>36</x>
-      <y>36</y>
+      <y>9</y>
       <w>1062</w>
       <h>288</h>
     </coordinates>
@@ -285,7 +293,7 @@ bg=orange</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>99</x>
-      <y>702</y>
+      <y>675</y>
       <w>198</w>
       <h>63</h>
     </coordinates>
@@ -298,7 +306,7 @@ setMove() ruft capture() auf</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>0</x>
-      <y>792</y>
+      <y>765</y>
       <w>261</w>
       <h>63</h>
     </coordinates>
@@ -311,7 +319,7 @@ Game greift auf isFull() nach jedem Zug zu</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>18</x>
-      <y>576</y>
+      <y>549</y>
       <w>252</w>
       <h>108</h>
     </coordinates>
@@ -326,7 +334,7 @@ move() ruft convertCoordinates auf</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>1161</x>
-      <y>72</y>
+      <y>45</y>
       <w>153</w>
       <h>108</h>
     </coordinates>
@@ -341,7 +349,7 @@ move() ruft convertCoordinates auf</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>1143</x>
-      <y>27</y>
+      <y>0</y>
       <w>234</w>
       <h>315</h>
     </coordinates>
@@ -354,7 +362,7 @@ bg=orange</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>828</x>
-      <y>369</y>
+      <y>342</y>
       <w>450</w>
       <h>189</h>
     </coordinates>
@@ -374,7 +382,7 @@ bg=orange</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>918</x>
-      <y>549</y>
+      <y>522</y>
       <w>27</w>
       <h>99</h>
     </coordinates>
