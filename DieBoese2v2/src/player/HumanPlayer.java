@@ -19,7 +19,6 @@ public class HumanPlayer extends Player {
 			this.move(boardSize, Game.readInput());
 		} catch (final InvalidStringException e) {
 			System.err.println(e.getMessage());
-			Game.pause();
 			this.move(boardSize);
 		}
 	}
