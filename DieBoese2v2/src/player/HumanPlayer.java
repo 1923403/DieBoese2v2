@@ -89,11 +89,10 @@ public class HumanPlayer extends Player {
 	 */
 	private void validateLetter(final int boardSize, final String coordinates) throws InvalidStringException {
 		for (var i = 0; i < coordinates.length(); i++)
-			if (coordinates.charAt(i) > 96) {
+			if (coordinates.charAt(i) > 96)
 				if ((coordinates.charAt(i) - 97) > (boardSize - 1))
 					throw new InvalidStringException(
 							"Please enter a letter between a and " + (char) (boardSize + 96) + "!");
-			}
 	}
 
 	/**
@@ -103,12 +102,10 @@ public class HumanPlayer extends Player {
 	 */
 	private void validateLetterCount(final String coordinates) throws InvalidStringException {
 		var letterCount = 0;
-		for (var i = 0; i < coordinates.length(); i++) {
-			if (coordinates.charAt(i) > 96) {
+		for (var i = 0; i < coordinates.length(); i++)
+			if (coordinates.charAt(i) > 96)
 				if (++letterCount > 1)
 					throw new InvalidStringException("Please don't enter more than one letter!");
-			}
-		}
 	}
 
 	/**
