@@ -1,4 +1,4 @@
-package localization;
+package io.localization;
 
 public class ConsoleOutput {
 	private static String language = "english"; // default

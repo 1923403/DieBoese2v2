@@ -2,8 +2,8 @@ package player;
 
 import java.awt.Point;
 
-import control.Game;
-import localization.ConsoleOutput;
+import io.Input;
+import io.localization.ConsoleOutput;
 
 public class HumanPlayer extends Player {
 	private final boolean DEBUG = false;
@@ -16,7 +16,7 @@ public class HumanPlayer extends Player {
 	public void move(final int boardSize) {
 		ConsoleOutput.printCoordinateInput();
 		try {
-			this.move(boardSize, Game.readInput());
+			this.move(boardSize, Input.readInput());
 		} catch (final InvalidStringException e) {
 			System.err.println(e.getMessage());
 			this.move(boardSize);

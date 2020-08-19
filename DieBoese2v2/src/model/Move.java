@@ -2,7 +2,7 @@ package model;
 
 import java.awt.Point;
 
-import localization.ConsoleOutput;
+import io.localization.ConsoleOutput;
 
 
 

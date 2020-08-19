@@ -1,6 +1,6 @@
 package control;
 
-import localization.ConsoleOutput;
+import io.localization.ConsoleOutput;
 
 public class Main {
 
