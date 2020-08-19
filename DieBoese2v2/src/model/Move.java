@@ -2,7 +2,7 @@ package model;
 
 import java.awt.Point;
 
-import localization.ConsolOutput;
+import localization.ConsoleOutput;
 
 
 
@@ -118,7 +118,7 @@ public class Move {
 	// DEFAULT FOR TESTING
 	// second regular move of first player where several fields are blocked
 	char[][] secondMove() {
-		ConsolOutput.debugInformation("secondMove..."); // debug
+		ConsoleOutput.debugInformation("secondMove..."); // debug
 		final var tmpArray = this.board.copyBoard();
 		final var block = 'B';
 
@@ -151,7 +151,7 @@ public class Move {
 	// DEFAULT FOR TESTING
 	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
 	void setMove(final Point coordinates, final char figure) {
-		ConsolOutput.debugInformation("places figure on: " + coordinates.x + ", " + coordinates.y);
+		ConsoleOutput.debugInformation("places figure on: " + coordinates.x + ", " + coordinates.y);
 		this.board.getBoard()[coordinates.x][coordinates.y] = figure;
 	}
 
@@ -181,7 +181,7 @@ public class Move {
 					&& (this.board.getBoard()[point1.x][point1.y] == enemyFigure)
 					&& (this.board.getBoard()[point2.x][point2.y] == enemyFigure)) {// checks if p3 == own figure and p1
 																					// == p2 == enemy figure
-				ConsolOutput.printCapture(enemyFigure);
+				ConsoleOutput.printCapture(enemyFigure);
 				this.setMove(point1, ' '); // deletes enemy figure
 				this.setMove(point2, ' ');
 			}

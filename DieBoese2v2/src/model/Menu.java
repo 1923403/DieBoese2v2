@@ -1,7 +1,7 @@
 package model;
 
 import control.Game;
-import localization.ConsolOutput;
+import localization.ConsoleOutput;
 
 public class Menu {
 	// default values
@@ -11,7 +11,7 @@ public class Menu {
 	private boolean start = true;
 
 	public boolean settingsChoosen() {
-		ConsolOutput.printMenuOptions(boardSize, difficulty, start, pvp);
+		ConsoleOutput.printMenuOptions(boardSize, difficulty, start, pvp);
 		var change = 0;
 		try {
 			change = Integer.valueOf(Game.readInput());
@@ -37,7 +37,7 @@ public class Menu {
 			changeLanguage();
 			break;
 		default:
-			ConsolOutput.printNoValidInput();
+			ConsoleOutput.printNoValidInput();
 			break;
 		}
 
@@ -45,7 +45,7 @@ public class Menu {
 	}
 
 	private void setBoardSize() {
-		ConsolOutput.printBoardSize();
+		ConsoleOutput.printBoardSize();
 		int input = -1;
 		do {
 			try {
@@ -53,14 +53,14 @@ public class Menu {
 				if (input < 15 || input > 19)
 					throw new NumberFormatException();
 			} catch (NumberFormatException e) {
-				ConsolOutput.printBoardSizeError();
+				ConsoleOutput.printBoardSizeError();
 			}
 		} while (input < 15 || input > 19);
 		this.boardSize = input;
 	}
 
 	private void setDifficulty() {
-		ConsolOutput.printDifficulty();
+		ConsoleOutput.printDifficulty();
 		int diff = -1;
 		do {
 			try {
@@ -68,7 +68,7 @@ public class Menu {
 				if (diff < 0 || diff > 2)
 					throw new NumberFormatException();
 			} catch (NumberFormatException e) {
-				ConsolOutput.printDifficultyError();
+				ConsoleOutput.printDifficultyError();
 			}
 		} while (diff < 0 || diff > 2);
 		this.difficulty = diff;
@@ -76,7 +76,7 @@ public class Menu {
 	}
 
 	private void setStart() {
-		ConsolOutput.printStart();
+		ConsoleOutput.printStart();
 		int start = -1;
 		do {
 			try {
@@ -84,7 +84,7 @@ public class Menu {
 				if (start != 0 && start != 1)
 					throw new NumberFormatException();
 			} catch (NumberFormatException e) {
-				ConsolOutput.printStartError();
+				ConsoleOutput.printStartError();
 			}
 		} while (start != 0 && start != 1);
 		if (start == 0)
@@ -95,7 +95,7 @@ public class Menu {
 	}
 
 	private void setPvp() {
-		ConsolOutput.printPvp();
+		ConsoleOutput.printPvp();
 		int pvp = -1;
 		do {
 			try {
@@ -103,7 +103,7 @@ public class Menu {
 				if (pvp != 0 && pvp != 1)
 					throw new NumberFormatException();
 			} catch (NumberFormatException e) {
-				ConsolOutput.printPvpError();
+				ConsoleOutput.printPvpError();
 			}
 		} while (pvp != 0 && pvp != 1);
 		if (pvp == 0)
@@ -113,18 +113,18 @@ public class Menu {
 	}
 
 	private void changeLanguage() {
-		ConsolOutput.printLanguageOptions();
+		ConsoleOutput.printLanguageOptions();
 		int l = -1;
 		do { 
 			try {
 				l = Integer.valueOf(Game.readInput());
-				if (l < 0 || l > ConsolOutput.getSupportedLanguages().length - 1)
+				if (l < 0 || l > ConsoleOutput.getSupportedLanguages().length - 1)
 					throw new NumberFormatException();
 			} catch (NumberFormatException e) {
-				ConsolOutput.printLanguageOptionsError();
+				ConsoleOutput.printLanguageOptionsError();
 			}
-		} while (l < 0 || l > ConsolOutput.getSupportedLanguages().length - 1);
-		ConsolOutput.changeLanguage(ConsolOutput.getSupportedLanguages()[l]);
+		} while (l < 0 || l > ConsoleOutput.getSupportedLanguages().length - 1);
+		ConsoleOutput.changeLanguage(ConsoleOutput.getSupportedLanguages()[l]);
 	}
 
 	public int getBoardSize() {

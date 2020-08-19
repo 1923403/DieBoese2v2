@@ -1,12 +1,12 @@
 package control;
 
-import localization.ConsolOutput;
+import localization.ConsoleOutput;
 
 public class Main {
 
 	public static void main(String[] args) {
 		var game = new Game();
-		ConsolOutput.printExit();
+		ConsoleOutput.printExit();
 	}
 
 }
