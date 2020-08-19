@@ -28,7 +28,6 @@ public class HumanPlayer extends Player {
 		return new Point(this.getLetter(coordinates), this.getNumber(boardSize, coordinates));
 	}
 
-
 	/**
 	 * gets letter in string as int
 	 */
@@ -113,12 +112,9 @@ public class HumanPlayer extends Player {
 	}
 
 	private void isValidString(final int boardSize, final String coordinates) throws InvalidStringException {
-		if (!this.hasValidLength(coordinates)
-				|| !this.hasValidCharacters(coordinates)
-				|| !this.isInValidOrder(coordinates)
-				|| !this.isValidLetter(boardSize, coordinates)
-				|| !this.hasValidLetterCount(coordinates)
-				|| !this.isValidNumber(boardSize, coordinates))
+		if (!this.hasValidLength(coordinates) || !this.hasValidCharacters(coordinates)
+				|| !this.isInValidOrder(coordinates) || !this.isValidLetter(boardSize, coordinates)
+				|| !this.hasValidLetterCount(coordinates) || !this.isValidNumber(boardSize, coordinates))
 			throw new InvalidStringException("You have entered invalid coordinates!");
 	}
 
