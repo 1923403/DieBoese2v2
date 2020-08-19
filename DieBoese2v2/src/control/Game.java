@@ -14,14 +14,6 @@ import player.Player;
 
 public class Game {
 
-	public static void pause() {
-		try {
-			Thread.sleep(50);
-		} catch (final InterruptedException e) {
-			System.err.println(e.getMessage());
-		}
-	}
-
 	public static String readInput() {
 		final var in = new BufferedReader(new InputStreamReader(System.in));
 		var input = "";
@@ -84,7 +76,8 @@ public class Game {
 		while (this.isRunning()) {
 			boolean moveIsValid;
 			this.turnCount++;
-			if(turnCount != 9)this.board.printBoard(); //for second move
+			if (this.turnCount != 9)
+				this.board.printBoard(); // for second move
 
 			if (this.player1Next)
 				do {
