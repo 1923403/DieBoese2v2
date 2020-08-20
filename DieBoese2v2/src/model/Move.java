@@ -63,43 +63,35 @@ public class Move {
 	private void capture(final Point coordinates, final char figure, final char enemyFigure) {
 		final var direction = new Point();
 		// right
-		direction.x = 1;
-		direction.y = 0;
+		direction.setLocation(1, 0);
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 
 		// left
-		direction.x = -1;
-		direction.y = 0;
+		direction.setLocation(-1, 0);
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 
 		// top
-		direction.x = 0;
-		direction.y = 1;
+		direction.setLocation(0, 1);
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 
 		// bottom
-		direction.x = 0;
-		direction.y = -1;
+		direction.setLocation(0, -1);
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 
 		// top right
-		direction.x = 1;
-		direction.y = 1;
+		direction.setLocation(1, 1);
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 
 		// bottom right
-		direction.x = 1;
-		direction.y = -1;
+		direction.setLocation(1, -1);
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 
 		// bottom left
-		direction.x = -1;
-		direction.y = -1;
+		direction.setLocation(-1, -1);
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 
 		// top left
-		direction.x = -1;
-		direction.y = 1;
+		direction.setLocation(-1, 1);
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 	}
 
@@ -159,15 +151,10 @@ public class Move {
 	 */
 	private void captureDirections(final Point coordinates, final Point direction, final char figure,
 			final char enemyFigure) {
-		final var point1 = new Point(); // should be enemys figure for capturing
-		final var point2 = new Point(); // should be enemys figure for capturing
-		final var point3 = new Point(); // should be players figure for capturing
-		point1.x = coordinates.x + direction.x;
-		point1.y = coordinates.y + direction.y;
-		point2.x = point1.x + direction.x;
-		point2.y = point1.y + direction.y;
-		point3.x = point2.x + direction.x;
-		point3.y = point2.y + direction.y;
+		final var point1 = new Point(coordinates.x + direction.x, coordinates.y + direction.y); // should be enemys figure for capturing
+		final var point2 = new Point(point1.x + direction.x, point1.y + direction.y); // should be enemys figure for capturing
+		final var point3 = new Point(point2.x + direction.x, point2.y + direction.y); // should be players figure for capturing
+
 		if ((point3.x < this.board.getBoard().length) && (point3.y < this.board.getBoard().length) && (point3.x >= 0)
 				&& (point3.y >= 0) && (point3.x >= 0)) {// checks if this point is located on board
 			if ((this.board.getBoard()[point3.x][point3.y] == figure)
@@ -222,23 +209,20 @@ public class Move {
 		// horizontal row
 		System.out.println(coordinates);
 		final Point direction = new Point();
-		direction.x = 1;
-		direction.y = 0;
+		
+		direction.setLocation(1, 0);
 		final var horizontalFigures = this.figuresInRow(figure, coordinates, direction);
 
 		// vertical row
-		direction.x = 0;
-		direction.y = 1;
+		direction.setLocation(0, 1);
 		final var verticalFigures = this.figuresInRow(figure, coordinates, direction);
 
 		// diagonal row (top right to bottom left)
-		direction.x = 1;
-		direction.y = 1;
+		direction.setLocation(1, 1);
 		final var diagonalFigures1 = this.figuresInRow(figure, coordinates, direction);
 
 		// diagonal row (top left to bottom right)
-		direction.x = 1;
-		direction.y = -1;
+		direction.setLocation(1, -1);
 		final var diagonalFigures2 = this.figuresInRow(figure, coordinates, direction);
 
 		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2)); // max
