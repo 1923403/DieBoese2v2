@@ -1,21 +1,34 @@
 package player;
 
+import java.awt.Point;
+import java.io.ByteArrayInputStream;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 class HumanPlayerTest {
 
-//	private static HumanPlayer player = new HumanPlayer('X');
-//	private static Point point = new Point(3, 1);
-//
-//	@DisplayName("cc: leading number, small letter")
-//	@Test
-//	void testConvertCoordinate1() {
-//		Assert.assertEquals(HumanPlayerTest.player.convertCoordinates(4, "3d"), HumanPlayerTest.point);
-//	}
-//
-//	@DisplayName("cc: leading small letter, number")
-//	@Test
-//	void testConvertCoordinate2() {
-//		Assert.assertEquals(HumanPlayerTest.player.convertCoordinates(4, "d3"), HumanPlayerTest.point);
-//	}
+	private static HumanPlayer player = new HumanPlayer('X');
+	private static Point point = new Point(3, 1);
+
+	@DisplayName("cc: leading number, small letter")
+	@Test
+	void testConvertCoordinate1() {
+		var in = new ByteArrayInputStream("3d".getBytes());
+		System.setIn(in);
+		HumanPlayerTest.player.move(4);
+		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
+	}
+
+	@DisplayName("cc: leading small letter, number")
+	@Test
+	void testConvertCoordinate2() {
+		var in = new ByteArrayInputStream("d3".getBytes());
+		System.setIn(in);
+		HumanPlayerTest.player.move(4);
+		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
+	}
 //
 //	@DisplayName("cc: leading number, capital letter")
 //	@Test
