@@ -90,7 +90,6 @@ public class Game {
 	/**
 	 * @return true if player1 has won, false if player2 has won
 	 */
-	// private, default for testing
 	private boolean whoWon() {
 		if ((this.turnCount % 2) == 0)
 			return false;

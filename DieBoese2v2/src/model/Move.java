@@ -4,8 +4,6 @@ import java.awt.Point;
 
 import io.localization.ConsoleOutput;
 
-
-
 public class Move {
 
 	private final Board board;
@@ -14,11 +12,11 @@ public class Move {
 		this.board = board;
 	}
 
-	//determines if game is over and a player has won
+	// determines if game is over and a player has won
 	public boolean hasWon(final char figure, final Point coordinates) {
 
 		if ((coordinates != null) && (this.longestRow(figure, coordinates) >= 5))
-			return true;		
+			return true;
 		if (!this.movePossible()) {
 			System.out.println("no more move possible");
 			return true;
@@ -58,13 +56,11 @@ public class Move {
 		return true;
 	}
 
-	// DEFAULT FOR TESTING
-	void block(final Point coordinates) {
+	private void block(final Point coordinates) {
 		this.setMove(coordinates, 'B');
 	}
 
-	// DEFAULT FOR TESTING
-	void capture(final Point coordinates, final char figure, final char enemyFigure) {
+	private void capture(final Point coordinates, final char figure, final char enemyFigure) {
 		final var direction = new Point();
 		// right
 		direction.x = 1;
@@ -107,17 +103,15 @@ public class Move {
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 	}
 
-	// DEFAULT FOR TESTING
 	// checks if space is empty
-	boolean isValidMove(final char[][] board, final Point coordinates) throws InvalidMoveException {
+	private boolean isValidMove(final char[][] board, final Point coordinates) throws InvalidMoveException {
 		if (board[coordinates.x][coordinates.y] == ' ')
 			return true;
 		throw new InvalidMoveException("Field is not empty!");
 	}
 
-	// DEFAULT FOR TESTING
 	// second regular move of first player where several fields are blocked
-	char[][] secondMove() {
+	private char[][] secondMove() {
 		ConsoleOutput.debugInformation("secondMove..."); // debug
 		final var tmpArray = this.board.copyBoard();
 		final var block = 'B';
@@ -148,9 +142,8 @@ public class Move {
 		return tmpArray;
 	}
 
-	// DEFAULT FOR TESTING
 	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
-	void setMove(final Point coordinates, final char figure) {
+	private void setMove(final Point coordinates, final char figure) {
 		ConsoleOutput.debugInformation("places figure on: " + coordinates.x + ", " + coordinates.y);
 		this.board.getBoard()[coordinates.x][coordinates.y] = figure;
 	}
@@ -225,7 +218,7 @@ public class Move {
 	 * @return longest row
 	 */
 	private int longestRow(final char figure, final Point coordinates) {
-		
+
 		// horizontal row
 		System.out.println(coordinates);
 		final Point direction = new Point();
@@ -233,21 +226,25 @@ public class Move {
 		direction.y = 0;
 		final var horizontalFigures = this.figuresInRow(figure, coordinates, direction);
 
-		//vertical row
+		// vertical row
 		direction.x = 0;
 		direction.y = 1;
 		final var verticalFigures = this.figuresInRow(figure, coordinates, direction);
 
-		//diagonal row (top right to bottom left)
+		// diagonal row (top right to bottom left)
 		direction.x = 1;
 		direction.y = 1;
 		final var diagonalFigures1 = this.figuresInRow(figure, coordinates, direction);
 
-		//diagonal row (top left to bottom right)
+		// diagonal row (top left to bottom right)
 		direction.x = 1;
 		direction.y = -1;
 		final var diagonalFigures2 = this.figuresInRow(figure, coordinates, direction);
 
-		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2)); //max value / longest row
+		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2)); // max
+																														// value
+																														// /
+																														// longest
+																														// row
 	}
 }
