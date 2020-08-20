@@ -25,7 +25,6 @@ public class Game {
 		} while (!this.menu.settingsChoosen()); // if no changes were made (0 pressed)
 		this.getSettings();
 		this.move = new Move(this.data.getBoard());
-		this.runGame();
 	}
 
 	/**
@@ -34,12 +33,12 @@ public class Game {
 	private void getSettings() {
 		var board = new Board(this.menu.getBoardSize());
 		this.data = new Data(board);
-		this.player1 = new HumanPlayer('X');
+		this.player1 = new HumanPlayer('X', data);
 
 		if (this.menu.isPvp())
-			this.player2 = new HumanPlayer('O');
+			this.player2 = new HumanPlayer('O', data);
 		else {
-			this.player2 = new AI('O');
+			this.player2 = new AI('O', data);
 
 			if (this.menu.getStart()) {
 				this.player1Next = true;
@@ -57,28 +56,25 @@ public class Game {
 		return !this.move.hasWon(this.player1.getFigure(), this.player1.getMyMove());
 	}
 
-	private void runGame() {
+	public void runGame() {
 		while (this.isRunning()) {
 			boolean moveIsValid;
 			this.data.incTurnCounter();
-			;
 			if (this.data.getTurnCounter() != 9)
 				this.data.getBoard().printBoard(); // for second move
 
 			if (this.player1Next) {
 				do {
 					ConsoleOutput.printWhoIsNext(1);
-					this.player1.move(data);
-					moveIsValid = this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(),
-							this.data);
+					this.player1.move();
+					moveIsValid = this.move.setMove(this.player1.getMyMove(), this.player1.getFigure(), this.data);
 				} while (!moveIsValid);
 				this.data.load(player1.getFigure(), player1.getMyMove());
 			} else {
 				do {
 					ConsoleOutput.printWhoIsNext(2);
-					this.player2.move(data);
-					moveIsValid = this.move.setMove(this.player2.getMyMove(), this.player2.getFigure(),
-							this.data);
+					this.player2.move();
+					moveIsValid = this.move.setMove(this.player2.getMyMove(), this.player2.getFigure(), this.data);
 				} while (!moveIsValid);
 				this.data.load(player2.getFigure(), player2.getMyMove());
 			}

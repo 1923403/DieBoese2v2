@@ -6,14 +6,12 @@ import model.Data;
 
 public class AI extends Player {
 
-	private Point enemyMove;
-
-	public AI(final char figure) {
-		super(figure);
+	public AI(final char figure, Data data) {
+		super(figure, data);
 	}
 
 	@Override
-	public void move(final Data data) {
+	public void move() {
 		// creates random move
 		if (data.getTurnCounter() < 9)
 			this.setMyMove(randomMove(data.getBoardSize()));// first 4 moves
@@ -22,10 +20,6 @@ public class AI extends Player {
 			System.out.println("minimax");
 			this.setMyMove(randomMove(data.getBoardSize()));// replace with minimax
 		}
-	}
-
-	public void setEnemyMove(final Point move) {
-		this.enemyMove = move;
 	}
 
 	private Point randomMove(final int boardSize) {
