@@ -16,7 +16,7 @@ class HumanPlayerTest {
 	private static Point point = new Point(3, 1);
 	private static Data data = new Data(new Board(4));
 
-	@DisplayName("cc: leading number, small letter")
+	@DisplayName("order: leading number, small letter")
 	@Test
 	void testConvertCoordinate1() {
 		var in = new ByteArrayInputStream("3d".getBytes());
@@ -25,7 +25,7 @@ class HumanPlayerTest {
 		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
 	}
 
-	@DisplayName("cc: leading small letter, number")
+	@DisplayName("order: leading small letter, number")
 	@Test
 	void testConvertCoordinate2() {
 		var in = new ByteArrayInputStream("d3".getBytes());
@@ -34,7 +34,7 @@ class HumanPlayerTest {
 		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
 	}
 
-	@DisplayName("cc: leading number, capital letter")
+	@DisplayName("order: leading number, capital letter")
 	@Test
 	void testConvertCoordinate3() {
 		var in = new ByteArrayInputStream("3D".getBytes());
@@ -43,7 +43,7 @@ class HumanPlayerTest {
 		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
 	}
 
-	@DisplayName("cc: leading capital letter, number")
+	@DisplayName("order: leading capital letter, number")
 	@Test
 	void testConvertCoordinate4() {
 		var in = new ByteArrayInputStream("D3".getBytes());
@@ -52,7 +52,7 @@ class HumanPlayerTest {
 		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
 	}
 
-	@DisplayName("ivs: string length < 2")
+	@DisplayName("fail: string length < 2")
 	@Test
 	void testIsValidString01() {
 		var in = new ByteArrayInputStream("1".getBytes());
@@ -62,7 +62,7 @@ class HumanPlayerTest {
 		});
 	}
 
-	@DisplayName("ivs: string length > 3")
+	@DisplayName("fail: string length > 3")
 	@Test
 	void testIsValidString02() {
 		var in = new ByteArrayInputStream("1111".getBytes());
@@ -72,7 +72,7 @@ class HumanPlayerTest {
 		});
 	}
 
-	@DisplayName("ivs: string length == 3, 2nd character is a letter")
+	@DisplayName("fail: string length == 3, 2nd character is a letter")
 	@Test
 	void testIsValidString03() {
 		var in = new ByteArrayInputStream("1a1".getBytes());
