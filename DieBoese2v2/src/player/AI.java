@@ -2,6 +2,8 @@ package player;
 
 import java.awt.Point;
 
+import model.Data;
+
 public class AI extends Player {
 
 	private Point enemyMove;
@@ -10,13 +12,15 @@ public class AI extends Player {
 		super(figure);
 	}
 
-	@SuppressWarnings("unused")
 	@Override
-	public void move(final int boardSize) {
+	public void move(final Data data) {
 		// creates random move
-		if(true) this.setMyMove(randomMove(boardSize));//first 4 moves
+		if (data.getTurnCounter() < 9)
+			this.setMyMove(randomMove(data.getBoardSize()));// first 4 moves
 		else {
-			//ai logic
+			// ai logic
+			System.out.println("minimax");
+			this.setMyMove(randomMove(data.getBoardSize()));// replace with minimax
 		}
 	}
 

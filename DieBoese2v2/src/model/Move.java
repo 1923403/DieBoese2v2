@@ -34,7 +34,8 @@ public class Move {
 	}
 
 	// places given figure at given coordinates on the board if possible
-	public boolean setMove(final Point coordinates, final char figure, final char enemyFigure, final int turnCount) {
+	public boolean setMove(final Point coordinates, final char figure, Data data) {
+		int turnCount = data.getTurnCounter();
 		try {
 			if (turnCount == 9)
 				this.isValidMove(this.secondMove(), coordinates);
@@ -50,7 +51,7 @@ public class Move {
 		else
 			this.setMove(coordinates, figure);
 
-		this.capture(coordinates, figure, enemyFigure);
+		this.capture(coordinates, figure, data.getEnemyFigure());
 		if (turnCount == 8)
 			Board.printBoard(secondMove());
 		return true;

@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import io.Input;
 import io.localization.ConsoleOutput;
+import model.Data;
 
 public class HumanPlayer extends Player {
 	private final boolean DEBUG = false;
@@ -13,13 +14,13 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public void move(final int boardSize) {
+	public void move(final Data data) {
 		ConsoleOutput.printCoordinateInput();
 		try {
-			this.move(boardSize, Input.readInput().toLowerCase());
+			this.move(data.getBoardSize(), Input.readInput().toLowerCase());
 		} catch (final InvalidStringException e) {
 			System.out.println(e.getMessage());
-			this.move(boardSize);
+			this.move(data);
 		}
 	}
 
