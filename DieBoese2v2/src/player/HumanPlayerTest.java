@@ -12,16 +12,16 @@ import model.Data;
 
 class HumanPlayerTest {
 
-	private static HumanPlayer player = new HumanPlayer('X');
 	private static Point point = new Point(3, 1);
 	private static Data data = new Data(new Board(4));
+	private static HumanPlayer player = new HumanPlayer('X',data);
 
 	@DisplayName("order: leading number, small letter")
 	@Test
 	void testConvertCoordinate1() {
 		var in = new ByteArrayInputStream("3d".getBytes());
 		System.setIn(in);
-		HumanPlayerTest.player.move(data);
+		HumanPlayerTest.player.move();
 		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
 	}
 
@@ -30,7 +30,7 @@ class HumanPlayerTest {
 	void testConvertCoordinate2() {
 		var in = new ByteArrayInputStream("d3".getBytes());
 		System.setIn(in);
-		HumanPlayerTest.player.move(data);
+		HumanPlayerTest.player.move();
 		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
 	}
 
@@ -39,7 +39,7 @@ class HumanPlayerTest {
 	void testConvertCoordinate3() {
 		var in = new ByteArrayInputStream("3D".getBytes());
 		System.setIn(in);
-		HumanPlayerTest.player.move(data);
+		HumanPlayerTest.player.move();
 		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
 	}
 
@@ -48,7 +48,7 @@ class HumanPlayerTest {
 	void testConvertCoordinate4() {
 		var in = new ByteArrayInputStream("D3".getBytes());
 		System.setIn(in);
-		HumanPlayerTest.player.move(data);
+		HumanPlayerTest.player.move();
 		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
 	}
 
@@ -58,7 +58,7 @@ class HumanPlayerTest {
 		var in = new ByteArrayInputStream("1".getBytes());
 		System.setIn(in);
 		Assertions.assertThrows(NullPointerException.class, () -> {
-			HumanPlayerTest.player.move(data);
+			HumanPlayerTest.player.move();
 		});
 	}
 
@@ -68,7 +68,7 @@ class HumanPlayerTest {
 		var in = new ByteArrayInputStream("1111".getBytes());
 		System.setIn(in);
 		Assertions.assertThrows(NullPointerException.class, () -> {
-			HumanPlayerTest.player.move(data);
+			HumanPlayerTest.player.move();
 		});
 	}
 
@@ -78,7 +78,7 @@ class HumanPlayerTest {
 		var in = new ByteArrayInputStream("1a1".getBytes());
 		System.setIn(in);
 		Assertions.assertThrows(NullPointerException.class, () -> {
-			HumanPlayerTest.player.move(data);
+			HumanPlayerTest.player.move();
 		});
 	}
 //

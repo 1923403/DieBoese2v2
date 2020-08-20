@@ -7,55 +7,54 @@ import io.localization.ConsoleOutput;
 import model.Data;
 
 public class HumanPlayer extends Player {
+	private String coordinates;
 	private final boolean DEBUG = false;
 
-	public HumanPlayer(final char figure) {
-		super(figure);
+	public HumanPlayer(final char figure, Data data) {
+		super(figure, data);
 	}
 
 	@Override
-	public void move(final Data data) {
+	public void move() {
 		ConsoleOutput.printCoordinateInput();
+		this.readCoordinates();
 		try {
-			this.move(data.getBoardSize(), Input.readInput().toLowerCase());
+			this.validateString(this.data.getBoardSize());
 		} catch (final InvalidStringException e) {
 			System.out.println(e.getMessage());
-			this.move(data);
+			this.move();
 		}
+		this.setMyMove(this.convertCoordinates(this.data.getBoardSize()));
 	}
 
-	private Point convertCoordinates(final int boardSize, final String coordinates) {
-		return new Point(this.getLetter(coordinates), this.getNumber(boardSize, coordinates));
+	private Point convertCoordinates(final int boardSize) {
+		return new Point(this.getLetter(), this.getNumber(boardSize));
 	}
 
 	/**
 	 * gets letter in string as int
 	 */
-	private int getLetter(final String coordinates) {
+	private int getLetter() {
 		var letter = 0;
-		for (var i = 0; i < coordinates.length(); i++)
-			if (((coordinates.charAt(i) >= 'a') && (coordinates.charAt(i) <= 'z')))
-				letter = coordinates.charAt(i) - 'a';
+		for (var i = 0; i < this.coordinates.length(); i++)
+			if (((this.coordinates.charAt(i) >= 'a') && (this.coordinates.charAt(i) <= 'z')))
+				letter = this.coordinates.charAt(i) - 'a';
 		return letter;
 	}
 
 	/**
 	 * gets number in string as int
 	 */
-	private int getNumber(final int boardSize, final String coordinates) {
+	private int getNumber(final int boardSize) {
 		var number = "";
-		for (var i = 0; i < coordinates.length(); i++)
-			if (((coordinates.charAt(i) >= '0') && (coordinates.charAt(i) <= '9')))
-				number += coordinates.charAt(i);
+		for (var i = 0; i < this.coordinates.length(); i++)
+			if (((this.coordinates.charAt(i) >= '0') && (this.coordinates.charAt(i) <= '9')))
+				number += this.coordinates.charAt(i);
 		return (boardSize - Integer.valueOf(number));
 	}
 
-	/**
-	 * checks string and sets move
-	 */
-	private void move(final int boardSize, final String coordinates) throws InvalidStringException {
-		this.validateString(boardSize, coordinates);
-		this.setMyMove(this.convertCoordinates(boardSize, coordinates));
+	private void readCoordinates() {
+		this.coordinates = Input.readInput().toLowerCase();
 	}
 
 	/**
@@ -63,12 +62,12 @@ public class HumanPlayer extends Player {
 	 *
 	 * @throws InvalidStringException
 	 */
-	private void validateCharacters(final String coordinates) throws InvalidStringException {
-		for (var i = 0; i < coordinates.length(); i++)
-			if ((coordinates.charAt(i) < '0')
-					|| ((coordinates.charAt(i) > '9') && (coordinates.charAt(i) < 'a'))
-					|| (coordinates.charAt(i) > 'z'))
-				throw new InvalidStringException(coordinates.charAt(i) + " is not a valid character!");
+	private void validateCharacters() throws InvalidStringException {
+		for (var i = 0; i < this.coordinates.length(); i++)
+			if ((this.coordinates.charAt(i) < '0')
+					|| ((this.coordinates.charAt(i) > '9') && (this.coordinates.charAt(i) < 'a'))
+					|| (this.coordinates.charAt(i) > 'z'))
+				throw new InvalidStringException(this.coordinates.charAt(i) + " is not a valid character!");
 	}
 
 	/**
@@ -76,10 +75,10 @@ public class HumanPlayer extends Player {
 	 *
 	 * @throws InvalidStringException
 	 */
-	private void validateLength(final String coordinates) throws InvalidStringException {
-		if (coordinates.length() < 2)
+	private void validateLength() throws InvalidStringException {
+		if (this.coordinates.length() < 2)
 			throw new InvalidStringException("Please enter more than one character!");
-		if (coordinates.length() > 3)
+		if (this.coordinates.length() > 3)
 			throw new InvalidStringException("Please don't enter more than three characters!");
 	}
 
@@ -88,10 +87,10 @@ public class HumanPlayer extends Player {
 	 *
 	 * @throws InvalidStringException
 	 */
-	private void validateLetter(final int boardSize, final String coordinates) throws InvalidStringException {
-		for (var i = 0; i < coordinates.length(); i++)
-			if (coordinates.charAt(i) >= 'a')
-				if ((coordinates.charAt(i) - 'a') > (boardSize - 1))
+	private void validateLetter(final int boardSize) throws InvalidStringException {
+		for (var i = 0; i < this.coordinates.length(); i++)
+			if (this.coordinates.charAt(i) >= 'a')
+				if ((this.coordinates.charAt(i) - 'a') > (boardSize - 1))
 					throw new InvalidStringException(
 							"Please enter a letter between a and " + (char) ('a' + (boardSize - 1)) + "!");
 	}
@@ -101,10 +100,10 @@ public class HumanPlayer extends Player {
 	 *
 	 * @throws InvalidStringException
 	 */
-	private void validateLetterCount(final String coordinates) throws InvalidStringException {
+	private void validateLetterCount() throws InvalidStringException {
 		var letterCount = 0;
-		for (var i = 0; i < coordinates.length(); i++)
-			if (coordinates.charAt(i) >= 'a')
+		for (var i = 0; i < this.coordinates.length(); i++)
+			if (this.coordinates.charAt(i) >= 'a')
 				if (++letterCount > 1)
 					throw new InvalidStringException("Please don't enter more than one letter!");
 		if (letterCount == 0)
@@ -116,11 +115,11 @@ public class HumanPlayer extends Player {
 	 *
 	 * @throws InvalidStringException
 	 */
-	private void validateNumber(final int boardSize, final String coordinates) throws InvalidStringException {
+	private void validateNumber(final int boardSize) throws InvalidStringException {
 		var number = "";
-		for (var i = 0; i < coordinates.length(); i++)
-			if (((coordinates.charAt(i) >= '0') && (coordinates.charAt(i) <= '9')))
-				number += coordinates.charAt(i);
+		for (var i = 0; i < this.coordinates.length(); i++)
+			if (((this.coordinates.charAt(i) >= '0') && (this.coordinates.charAt(i) <= '9')))
+				number += this.coordinates.charAt(i);
 		if ((Integer.valueOf(number) <= 0) || (Integer.valueOf(number) > (boardSize)))
 			throw new InvalidStringException("Please enter a number between 1 and " + boardSize + "!");
 	}
@@ -130,17 +129,18 @@ public class HumanPlayer extends Player {
 	 *
 	 * @throws InvalidStringException
 	 */
-	private void validateOrder(final String coordinates) throws InvalidStringException {
-		if ((coordinates.length() == 3) && ((coordinates.charAt(1) <= '0') || (coordinates.charAt(1) >= '9')))
+	private void validateOrder() throws InvalidStringException {
+		if ((this.coordinates.length() == 3)
+				&& ((this.coordinates.charAt(1) <= '0') || (this.coordinates.charAt(1) >= '9')))
 			throw new InvalidStringException("Please don't enter more than one number!");
 	}
 
-	private void validateString(final int boardSize, final String coordinates) throws InvalidStringException {
-		this.validateLength(coordinates);
-		this.validateCharacters(coordinates);
-		this.validateLetterCount(coordinates);
-		this.validateOrder(coordinates);
-		this.validateLetter(boardSize, coordinates);
-		this.validateNumber(boardSize, coordinates);
+	private void validateString(final int boardSize) throws InvalidStringException {
+		this.validateLength();
+		this.validateCharacters();
+		this.validateLetterCount();
+		this.validateOrder();
+		this.validateLetter(boardSize);
+		this.validateNumber(boardSize);
 	}
 }
