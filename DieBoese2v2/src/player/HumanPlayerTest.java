@@ -29,36 +29,54 @@ class HumanPlayerTest {
 		HumanPlayerTest.player.move(4);
 		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
 	}
-//
-//	@DisplayName("cc: leading number, capital letter")
-//	@Test
-//	void testConvertCoordinate3() {
-//		Assert.assertEquals(HumanPlayerTest.player.convertCoordinates(4, "3D"), HumanPlayerTest.point);
-//	}
-//
-//	@DisplayName("cc: leading capital letter, number")
-//	@Test
-//	void testConvertCoordinate4() {
-//		Assert.assertEquals(HumanPlayerTest.player.convertCoordinates(4, "D3"), HumanPlayerTest.point);
-//	}
-//
-//	@DisplayName("ivs: string length < 2")
-//	@Test
-//	void testIsValidString01() {
-//		Assert.assertFalse(HumanPlayerTest.player.isValidString(15, "1"));
-//	}
-//
-//	@DisplayName("ivs: string length > 3")
-//	@Test
-//	void testIsValidString02() {
-//		Assert.assertFalse(HumanPlayerTest.player.isValidString(15, "1111"));
-//	}
-//
-//	@DisplayName("ivs: string length == 3, 2nd character is a letter")
-//	@Test
-//	void testIsValidString03() {
-//		Assert.assertFalse(HumanPlayerTest.player.isValidString(15, "1a1"));
-//	}
+
+	@DisplayName("cc: leading number, capital letter")
+	@Test
+	void testConvertCoordinate3() {
+		var in = new ByteArrayInputStream("3D".getBytes());
+		System.setIn(in);
+		HumanPlayerTest.player.move(4);
+		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
+	}
+
+	@DisplayName("cc: leading capital letter, number")
+	@Test
+	void testConvertCoordinate4() {
+		var in = new ByteArrayInputStream("D3".getBytes());
+		System.setIn(in);
+		HumanPlayerTest.player.move(4);
+		Assertions.assertEquals(HumanPlayerTest.player.getMyMove(), HumanPlayerTest.point);
+	}
+
+	@DisplayName("ivs: string length < 2")
+	@Test
+	void testIsValidString01() {
+		var in = new ByteArrayInputStream("1".getBytes());
+		System.setIn(in);
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			HumanPlayerTest.player.move(4);
+		});
+	}
+
+	@DisplayName("ivs: string length > 3")
+	@Test
+	void testIsValidString02() {
+		var in = new ByteArrayInputStream("1111".getBytes());
+		System.setIn(in);
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			HumanPlayerTest.player.move(4);
+		});
+	}
+
+	@DisplayName("ivs: string length == 3, 2nd character is a letter")
+	@Test
+	void testIsValidString03() {
+		var in = new ByteArrayInputStream("1a1".getBytes());
+		System.setIn(in);
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			HumanPlayerTest.player.move(4);
+		});
+	}
 //
 //	@DisplayName("ivs: character is neither a letter nor a number")
 //	@Test

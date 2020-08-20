@@ -16,7 +16,7 @@ public class HumanPlayer extends Player {
 	public void move(final int boardSize) {
 		ConsoleOutput.printCoordinateInput();
 		try {
-			this.move(boardSize, Input.readInput());
+			this.move(boardSize, Input.readInput().toLowerCase());
 		} catch (final InvalidStringException e) {
 			System.out.println(e.getMessage());
 			this.move(boardSize);
@@ -34,7 +34,7 @@ public class HumanPlayer extends Player {
 		var letter = 0;
 		for (var i = 0; i < coordinates.length(); i++)
 			if ((coordinates.charAt(i) > 57))
-				letter = coordinates.toLowerCase().charAt(i) - 97;
+				letter = coordinates.charAt(i) - 97;
 		return letter;
 	}
 
@@ -131,7 +131,7 @@ public class HumanPlayer extends Player {
 	 */
 	private void validateOrder(final String coordinates) throws InvalidStringException {
 		if ((coordinates.length() == 3) && (coordinates.charAt(1) > 96))
-			throw new InvalidStringException("Please don't put a letter between two numbers!");
+			throw new InvalidStringException("Please don't enter more than one number!");
 	}
 
 	private void validateString(final int boardSize, final String coordinates) throws InvalidStringException {
