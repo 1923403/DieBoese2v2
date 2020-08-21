@@ -5,16 +5,13 @@ import java.awt.Point;
 import io.Input;
 import io.localization.ConsoleOutput;
 import model.Data;
-import model.StringValidation;
 
 public class HumanPlayer extends Player {
 	private String coordinates;
 	private final boolean DEBUG = false;
-	private StringValidation validation;
 
 	public HumanPlayer(final char figure, Data data) {
 		super(figure, data);
-		this.validation = new StringValidation();
 	}
 
 	@Override
@@ -22,7 +19,7 @@ public class HumanPlayer extends Player {
 		ConsoleOutput.printCoordinateInput();
 		this.readCoordinates();
 		try {
-			this.validation.validateString(this.data.getBoardSize(), this.coordinates);
+			this.data.getValidation().validateString(this.data.getBoardSize(), this.coordinates);
 		} catch (final InvalidStringException e) {
 			System.out.println(e.getMessage());
 			this.move();
