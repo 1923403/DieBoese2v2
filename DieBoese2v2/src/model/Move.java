@@ -3,6 +3,7 @@ package model;
 import java.awt.Point;
 
 import io.localization.ConsoleOutput;
+import player.Player;
 
 public class Move {
 
@@ -34,27 +35,26 @@ public class Move {
 	}
 
 	// places given figure at given coordinates on the board if possible
-	public boolean setMove(final Point coordinates, final char figure, Data data) {
+	public void setMove(Data data, Player player) {
 		int turnCount = data.getTurnCounter();
 		try {
 			if (turnCount == 9)
-				this.isValidMove(this.secondMove(), coordinates);
+				this.isValidMove(this.secondMove(), player.getMyMove());
 			else
-				this.isValidMove(this.board.getBoard(), coordinates);
+				this.isValidMove(this.board.getBoard(), player.getMyMove());
 		} catch (final InvalidMoveException e) {
 			System.err.println(e.getMessage());
-			return false;
+			player.move();
 		}
 
 		if (turnCount < 7)
-			this.block(coordinates);
+			this.block(player.getMyMove());
 		else
-			this.setMove(coordinates, figure);
+			this.setMove(player.getMyMove(), player.getFigure());
 
-		this.capture(coordinates, figure, data.getEnemyFigure());
+		this.capture(player.getMyMove(), player.getFigure(), data.getEnemyFigure());
 		if (turnCount == 8)
 			Board.printBoard(this.secondMove());
-		return true;
 	}
 
 	private void block(final Point coordinates) {

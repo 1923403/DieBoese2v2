@@ -20,6 +20,8 @@ public class AI extends Player {
 			System.out.println("minimax");
 			this.setMyMove(this.randomMove());// replace with minimax
 		}
+		this.data.getMove().setMove(this.data, this);
+		this.data.load(this.getFigure(), this.getMyMove());
 	}
 
 	private Point randomMove() {

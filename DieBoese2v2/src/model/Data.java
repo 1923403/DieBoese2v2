@@ -6,10 +6,12 @@ public class Data {
 	private Board board;
 	private char enemyFigure;
 	private Point enemyMove;
+	private Move move;
 	private int turnCounter = 0;
 
-	public Data(Board board) {
+	public Data(Board board, Move move) {
 		this.board = board;
+		this.move = move;
 	}
 
 	public Board getBoard() {
@@ -26,6 +28,10 @@ public class Data {
 
 	public Point getEnemyMove() {
 		return this.enemyMove;
+	}
+
+	public Move getMove() {
+		return this.move;
 	}
 
 	public int getTurnCounter() {

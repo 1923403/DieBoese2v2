@@ -16,7 +16,7 @@ public class HumanPlayer extends Player {
 		super(figure, data);
 		this.validation = new StringValidation();
 	}
-	
+
 	@Override
 	public void move() {
 		ConsoleOutput.printCoordinateInput();
@@ -28,6 +28,8 @@ public class HumanPlayer extends Player {
 			this.move();
 		}
 		this.setMyMove(this.convertCoordinates());
+		this.data.getMove().setMove(this.data, this);
+		this.data.load(this.getFigure(), this.getMyMove());
 	}
 
 	private Point convertCoordinates() {
