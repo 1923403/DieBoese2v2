@@ -3,6 +3,7 @@ package player;
 import java.awt.Point;
 
 import model.Data;
+import model.InvalidMoveException;
 
 public class AI extends Player {
 
@@ -20,7 +21,12 @@ public class AI extends Player {
 			System.out.println("minimax");
 			this.setMyMove(this.randomMove());// replace with minimax
 		}
-		this.data.getMove().setMove(this.data, this);
+		try {
+			this.data.getMove().setMove(this.data, this);
+		} catch (InvalidMoveException e) {
+			System.out.println(e.getMessage());
+			this.move();
+		}
 		this.data.load(this.getFigure(), this.getMyMove());
 	}
 

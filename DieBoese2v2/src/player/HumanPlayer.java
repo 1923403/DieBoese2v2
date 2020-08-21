@@ -5,6 +5,7 @@ import java.awt.Point;
 import io.Input;
 import io.localization.ConsoleOutput;
 import model.Data;
+import model.InvalidMoveException;
 
 public class HumanPlayer extends Player {
 	private String coordinates;
@@ -25,7 +26,12 @@ public class HumanPlayer extends Player {
 			this.move();
 		}
 		this.setMyMove(this.convertCoordinates());
-		this.data.getMove().setMove(this.data, this);
+		try {
+			this.data.getMove().setMove(this.data, this);
+		} catch (InvalidMoveException e) {
+			System.out.println(e.getMessage());
+			this.move();
+		}
 		this.data.load(this.getFigure(), this.getMyMove());
 	}
 

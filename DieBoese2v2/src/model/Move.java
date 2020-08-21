@@ -35,17 +35,13 @@ public class Move {
 	}
 
 	// places given figure at given coordinates on the board if possible
-	public void setMove(Data data, Player player) {
+	public void setMove(Data data, Player player) throws InvalidMoveException {
 		int turnCount = data.getTurnCounter();
-		try {
-			if (turnCount == 9)
-				this.isValidMove(this.secondMove(), player.getMyMove());
-			else
-				this.isValidMove(this.board.getBoard(), player.getMyMove());
-		} catch (final InvalidMoveException e) {
-			System.err.println(e.getMessage());
-			player.move();
-		}
+
+		if (turnCount == 9)
+			this.isValidMove(this.secondMove(), player.getMyMove());
+		else
+			this.isValidMove(this.board.getBoard(), player.getMyMove());
 
 		if (turnCount < 7)
 			this.block(player.getMyMove());
