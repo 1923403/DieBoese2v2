@@ -35,26 +35,26 @@ public class Menu {
 			change = -1;
 		}
 		switch (change) {
-		case 0:
-			break;
-		case 1:
-			this.setBoardSize();
-			break;
-		case 2:
-			this.setDifficulty();
-			break;
-		case 3:
-			this.setStart();
-			break;
-		case 4:
-			this.setPvp();
-			break;
-		case 5:
-			this.changeLanguage();
-			break;
-		default:
-			ConsoleOutput.printNoValidInput();
-			break;
+			case 0:
+				break;
+			case 1:
+				this.setBoardSize();
+				break;
+			case 2:
+				this.setDifficulty();
+				break;
+			case 3:
+				this.setStart();
+				break;
+			case 4:
+				this.setPvp();
+				break;
+			case 5:
+				this.changeLanguage();
+				break;
+			default:
+				ConsoleOutput.printNoValidInput();
+				break;
 		}
 
 		return (change == 0);

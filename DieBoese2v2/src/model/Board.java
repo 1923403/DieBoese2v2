@@ -2,6 +2,8 @@ package model;
 
 public class Board {
 
+	private char[][] board;
+
 	// for testing only
 	public static void main(String[] args) {
 
@@ -11,21 +13,6 @@ public class Board {
 
 	}
 
-	private char[][] board;
-
-	public Board(int boardSize) {
-		this.board = new char[boardSize][boardSize];
-		this.initialize();
-	}
-
-	/**
-	 *
-	 * @return current board
-	 */
-	public char[][] getBoard() {
-		return this.board;
-	}
-	
 	public static void printBoard(char[][] board) {
 		for (int y = 0; y <= (board.length + 1); y++) {
 			System.out.println();
@@ -48,17 +35,13 @@ public class Board {
 		System.out.println("\n"); // empty line after every board
 	}
 
-	/**
-	 * prints board, adds chars for rows, adds numbers for column
-	 */
-	public void printBoard() {
-		Board.printBoard(this.board);
+	public Board(int boardSize) {
+		this.board = new char[boardSize][boardSize];
+		this.initialize();
 	}
 
-	// DEFAULT FOR TESTING
 	// makes a copy of the original board
-	char[][] copyBoard() {
-		// return this.board.clone();
+	public char[][] copyBoard() {
 		char[][] clonedBoard = new char[this.board.length][this.board.length];
 		for (int i = 0; i < this.board.length; i++) {
 			for (int j = 0; j < this.board.length; j++) {
@@ -66,6 +49,21 @@ public class Board {
 			}
 		}
 		return clonedBoard;
+	}
+
+	/**
+	 *
+	 * @return current board
+	 */
+	public char[][] getBoard() {
+		return this.board;
+	}
+
+	/**
+	 * prints board, adds chars for rows, adds numbers for column
+	 */
+	public void printBoard() {
+		Board.printBoard(this.board);
 	}
 
 	private void initialize() {

@@ -5,9 +5,9 @@ import java.awt.Point;
 import model.Data;
 
 public abstract class Player {
+	protected Data data;
 	private final char figure;
 	private Point myMove;
-	protected Data data;
 
 	public Player(final char figure, Data data) {
 		this.figure = figure;

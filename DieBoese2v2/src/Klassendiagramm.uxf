@@ -4,71 +4,64 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>261</x>
-      <y>45</y>
-      <w>279</w>
-      <h>153</h>
+      <x>207</x>
+      <y>36</y>
+      <w>198</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>Board
 -
 - board : char[][]
 -
+_+ printBoard(board: char[][]): void_
 + Board(boardSize: int)
++ copyBoard() : char[][]
 + getBoard() : char[][]
 + printBoard() : void
-_+ printBoard(board: char[][]): void_
-- copyBoard() : char[][]
 - initialize(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>702</x>
-      <y>603</y>
-      <w>459</w>
-      <h>225</h>
+      <x>18</x>
+      <y>567</y>
+      <w>243</w>
+      <h>135</h>
     </coordinates>
     <panel_attributes>HumanPlayer
 -
-
+- coordinates : String
+- validation : StringValidation
 -
-+ HumanPlayer(figure : char)
-- convertCoordinate(boardSize : int, coordinates : String) : Point
-- getLetter(coordinates : String) : int
-- getNumber(boardSize : int, coordinates : String) : int
-- move(boardSize : int, coordinates : String): void
-- validateCoordinates(coordinates : String) : void
-- validateLength(coordinates : String) : void
-- validateLetter(boardSize : int, coordinates : String) : void
-- validateLetterCount(coordinates : String) : void
-- validateNumber(boardSize : int, coordinates : String) : void
-- validateOrder(coordinates : String) : void
-- validateString(boardSize : int, coordinates : String) : void</panel_attributes>
++ HumanPlayer(figure : char, data : Data)
+- convertCoordinate() : Point
+- convertLetter() : int
+- convertNumber() : int
+- readCoordinates() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1179</x>
-      <y>612</y>
-      <w>216</w>
-      <h>108</h>
+      <x>279</x>
+      <y>567</y>
+      <w>180</w>
+      <h>81</h>
     </coordinates>
     <panel_attributes>AI
 -
-- enemyMove: Point
+
 -
-+ AI(figure : char)
-+ setEnemyMove(move : Point) : void
-- randomMove(boardSize: int): Point</panel_attributes>
++ AI(figure : char, data : Data)
+- randomMove(): Point</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>549</x>
-      <y>45</y>
+      <x>423</x>
+      <y>36</y>
       <w>531</w>
       <h>216</h>
     </coordinates>
@@ -83,19 +76,19 @@ _+ printBoard(board: char[][]): void_
 - block(coordinates : Point) : void
 - capture(coordinates : Point, figure : char, enemyFigure : char) : void
 - captureDirections(coordinates: Point, direction: Point, figure: char, enemyFigure: char): void
+- figuresInRow(figure: char, coordinates: Point, Point direction)
 - isValidMove(board : char[][], coordinates : Point) : boolean
-- secondMove() : char[][]
-- setMove(coordinates : Point, figure : char) : void
 - longestRow(figureCount : int, figure : char, coordinates : Point): int
-- figureInRow(figure: char, coordinates: Point, Point direction)</panel_attributes>
+- secondMove() : char[][]
+- setMove(coordinates : Point, figure : char) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>54</x>
-      <y>45</y>
-      <w>198</w>
+      <x>18</x>
+      <y>36</y>
+      <w>171</w>
       <h>234</h>
     </coordinates>
     <panel_attributes>Menu
@@ -110,44 +103,42 @@ _+ printBoard(board: char[][]): void_
 + getPlayer1Starts : boolean
 + isPvp : boolean
 + settingsChosen() : boolean
+- changeLanguage() : void
 - setBoardSize() : void
 - setDifficulty() : void
 - setPvp() : void
-- setStart() : void
-- changeLanguage(): void</panel_attributes>
+- setStart() : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>351</x>
-      <y>351</y>
+      <x>549</x>
+      <y>369</y>
       <w>198</w>
-      <h>216</h>
+      <h>198</h>
     </coordinates>
     <panel_attributes>Game
 -
-- board : Board
+- data : Data
 - menu : Menu
 - move : Move
 - player1 : Player
-- player2 : Player
 - player1Next: boolean
-- turnCount : int
+- player2 : Player
 -
 # Game()
-_+ readInput() : String_
 - getSettings() : void
 - isRunning() : boolean
-- whoWon() : boolean
-- runGame(): void</panel_attributes>
+- runGame(): void
+- whoWon() : boolean</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>351</x>
-      <y>603</y>
+      <x>549</x>
+      <y>612</y>
       <w>198</w>
       <h>27</h>
     </coordinates>
@@ -157,43 +148,43 @@ _+ readInput() : String_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1233</x>
-      <y>522</y>
-      <w>27</w>
-      <h>108</h>
+      <x>153</x>
+      <y>513</y>
+      <w>207</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;210.0;40.0;210.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>441</x>
+      <x>639</x>
       <y>558</y>
       <w>63</w>
-      <h>63</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 erstellt</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>153</x>
-      <y>270</y>
-      <w>216</w>
-      <h>180</h>
+      <x>90</x>
+      <y>261</y>
+      <w>522</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 erstellt</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;180.0;220.0;180.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;560.0;70.0;560.0;120.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>36</x>
-      <y>477</y>
+      <x>1368</x>
+      <y>531</y>
       <w>270</w>
       <h>63</h>
     </coordinates>
@@ -206,59 +197,48 @@ getSettings() erstellt Player 1 und 2 und Board</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>297</x>
-      <y>495</y>
-      <w>72</w>
-      <h>36</h>
+      <x>261</x>
+      <y>162</y>
+      <w>396</w>
+      <h>225</h>
     </coordinates>
-    <panel_attributes/>
-    <additional_attributes>60.0;20.0;10.0;20.0</additional_attributes>
+    <panel_attributes>lt=&lt;.
+erstellt</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0;420.0;160.0;420.0;230.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>387</x>
-      <y>189</y>
+      <x>675</x>
+      <y>243</y>
       <w>63</w>
-      <h>180</h>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 erstellt</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;180.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>252</y>
-      <w>135</w>
-      <h>117</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-erstellt</panel_attributes>
-    <additional_attributes>130.0;10.0;130.0;30.0;10.0;30.0;10.0;110.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>540</x>
-      <y>414</y>
-      <w>306</w>
+      <x>207</x>
+      <y>459</y>
+      <w>360</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 erstellt</panel_attributes>
-    <additional_attributes>320.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>10.0;20.0;380.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>666</x>
-      <y>315</y>
-      <w>738</w>
-      <h>531</h>
+      <x>0</x>
+      <y>333</y>
+      <w>504</w>
+      <h>387</h>
     </coordinates>
-    <panel_attributes>Player
+    <panel_attributes>player
 --
 bg=orange</panel_attributes>
     <additional_attributes/>
@@ -266,12 +246,12 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>333</x>
-      <y>315</y>
+      <x>531</x>
+      <y>333</y>
       <w>234</w>
-      <h>333</h>
+      <h>324</h>
     </coordinates>
-    <panel_attributes>Control
+    <panel_attributes>control
 --
 bg=orange</panel_attributes>
     <additional_attributes/>
@@ -279,12 +259,12 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>36</x>
-      <y>9</y>
-      <w>1062</w>
+      <x>0</x>
+      <y>0</y>
+      <w>1638</w>
       <h>288</h>
     </coordinates>
-    <panel_attributes>Model
+    <panel_attributes>model
 --
 bg=orange</panel_attributes>
     <additional_attributes/>
@@ -292,8 +272,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>99</x>
-      <y>675</y>
+      <x>1368</x>
+      <y>612</y>
       <w>198</w>
       <h>63</h>
     </coordinates>
@@ -305,9 +285,9 @@ setMove() ruft capture() auf</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>0</x>
-      <y>765</y>
-      <w>261</w>
+      <x>1368</x>
+      <y>450</y>
+      <w>270</w>
       <h>63</h>
     </coordinates>
     <panel_attributes>Note..
@@ -318,9 +298,9 @@ Game greift auf isFull() nach jedem Zug zu</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>18</x>
-      <y>549</y>
-      <w>252</w>
+      <x>1368</x>
+      <y>324</y>
+      <w>270</w>
       <h>108</h>
     </coordinates>
     <panel_attributes>Note..
@@ -333,27 +313,47 @@ move() ruft convertCoordinates auf</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1161</x>
-      <y>45</y>
-      <w>153</w>
-      <h>108</h>
+      <x>828</x>
+      <y>486</y>
+      <w>486</w>
+      <h>351</h>
     </coordinates>
-    <panel_attributes>Language
+    <panel_attributes>ConsoleOutput
 -
-
+_- language : String_
+_- supportedLanguages : String[]_
 -
-- winMessage(int) : String</panel_attributes>
+_+ changeLanguage(language : String) : void_
+_+ debugInformation(information : String) : void_
+_+ getSupportedLanguages() : String[]_
+_+ printBoardSize() : void_
+_+ printBoardSizeError() : void_
+_+ printCapture(figure : char) : void_
+_+ printCoordinateInput() : void_
+_+ printDifficulty() : void_
+_+ printDifficultyError() : void_
+_+ printExit() : void_
+_+ printLanguageOptions() : void_
+_+ printLanguageOptionsError() : void_
+_+ printMenuOptions(boardSize : int, difficulty : int, start : boolean, pvp : boolean) : void_
+_+ printNoValidInput() : void_
+_+ printPvp() : void_
+_+ printPvpError() : void_
+_+ printStart() : void_
+_+ printStartError() : void_
+_+ printWhoIsNext(player : int) : void_
+_+ printWhoWon(player : int) : void_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>1143</x>
-      <y>0</y>
-      <w>234</w>
-      <h>315</h>
+      <x>810</x>
+      <y>450</y>
+      <w>522</w>
+      <h>405</h>
     </coordinates>
-    <panel_attributes>Localization
+    <panel_attributes>io.localization
 --
 bg=orange</panel_attributes>
     <additional_attributes/>
@@ -361,32 +361,151 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>828</x>
-      <y>342</y>
-      <w>450</w>
-      <h>189</h>
+      <x>18</x>
+      <y>369</y>
+      <w>198</w>
+      <h>153</h>
     </coordinates>
     <panel_attributes>/Player/
 -
+# data : Data
 - figure : char
 - myMove : Point
 -
-+ Player(figure : char)
++ Player(figure : char, data : Data)
 + getFigure() : char
 + getMyMove() : Point
-+ move(boardSize : int) : void
++ move() : void
 # setMyMove(move : Point) : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>918</x>
-      <y>522</y>
+      <x>108</x>
+      <y>513</y>
       <w>27</w>
-      <h>99</h>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>792</x>
+      <y>324</y>
+      <w>558</w>
+      <h>549</h>
+    </coordinates>
+    <panel_attributes>io
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>810</x>
+      <y>369</y>
+      <w>189</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>Input
+-
+
+-
+_+ readInput() : String_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>972</x>
+      <y>36</y>
+      <w>270</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>Data
+-
+- board : Board
+- enemyFigure : char
+- enemyMove : Point
+- turnCounter : int
+-
++ Data(board : Board)
++ getBoard() : Board
++ getBoardSize() : int
++ getEenemyFigure() : char
++ getEnemyMove() : Point
++ getTurnCounter() : int
++ incTurnCounter() : void
++ load(myFigure : char, myMove : Point) : void
++ setEnemyFigure(enemyFigure : char) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>36</y>
+      <w>252</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>InvalidMoveException
+-
+
+-
++ InvalidMoveException(message : String)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>117</y>
+      <w>333</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>StringValidation
+-
+- boardSize : int
+- coordinates : String
+-
++ validateString(boardSize : int, coordinates : String) : void
+- validateCharacters() : void
+- validateLength() : void
+- validateLetter() : void
+- validateLetterCount() : void
+- validateNumber() : void
+- validateOrder() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>234</x>
+      <y>369</y>
+      <w>252</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>InvalidStringException
+-
+
+-
++ InvalidStringException(message : String)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>243</y>
+      <w>405</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+erstellt</panel_attributes>
+    <additional_attributes>430.0;10.0;430.0;70.0;10.0;70.0;10.0;140.0</additional_attributes>
   </element>
 </diagram>

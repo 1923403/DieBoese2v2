@@ -53,7 +53,7 @@ public class Move {
 
 		this.capture(coordinates, figure, data.getEnemyFigure());
 		if (turnCount == 8)
-			Board.printBoard(secondMove());
+			Board.printBoard(this.secondMove());
 		return true;
 	}
 
@@ -96,51 +96,6 @@ public class Move {
 		this.captureDirections(coordinates, direction, figure, enemyFigure);
 	}
 
-	// checks if space is empty
-	private boolean isValidMove(final char[][] board, final Point coordinates) throws InvalidMoveException {
-		if (board[coordinates.x][coordinates.y] == ' ')
-			return true;
-		throw new InvalidMoveException("Field is not empty!");
-	}
-
-	// second regular move of first player where several fields are blocked
-	private char[][] secondMove() {
-		ConsoleOutput.debugInformation("secondMove..."); // debug
-		final var tmpArray = this.board.copyBoard();
-		final var block = 'B';
-
-		// up
-		tmpArray[0][tmpArray.length / 2] = block;
-		// down
-		tmpArray[tmpArray.length - 1][tmpArray.length / 2] = block;
-		// left
-		tmpArray[tmpArray.length / 2][0] = block;
-		// right
-		tmpArray[tmpArray.length / 2][tmpArray.length - 1] = block;
-
-		if ((tmpArray.length % 2) == 0) {
-			// up
-			tmpArray[0][(tmpArray.length / 2) + 1] = block;
-			// down
-			tmpArray[tmpArray.length - 1][(tmpArray.length / 2) + 1] = block;
-			// left
-			tmpArray[(tmpArray.length / 2) + 1][0] = block;
-			// right
-			tmpArray[(tmpArray.length / 2) + 1][tmpArray.length - 1] = block;
-		}
-
-		for (var x = 1; x < (tmpArray.length - 1); x++)
-			for (var y = 1; y < (tmpArray.length - 1); y++)
-				tmpArray[x][y] = block;
-		return tmpArray;
-	}
-
-	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
-	private void setMove(final Point coordinates, final char figure) {
-		ConsoleOutput.debugInformation("places figure on: " + coordinates.x + ", " + coordinates.y);
-		this.board.getBoard()[coordinates.x][coordinates.y] = figure;
-	}
-
 	/**
 	 * direction from capture, checks if capturing is possible in this specific
 	 * direction
@@ -152,9 +107,12 @@ public class Move {
 	 */
 	private void captureDirections(final Point coordinates, final Point direction, final char figure,
 			final char enemyFigure) {
-		final var point1 = new Point(coordinates.x + direction.x, coordinates.y + direction.y); // should be enemys figure for capturing
-		final var point2 = new Point(point1.x + direction.x, point1.y + direction.y); // should be enemys figure for capturing
-		final var point3 = new Point(point2.x + direction.x, point2.y + direction.y); // should be players figure for capturing
+		final var point1 = new Point(coordinates.x + direction.x, coordinates.y + direction.y); // should be enemys
+																								// figure for capturing
+		final var point2 = new Point(point1.x + direction.x, point1.y + direction.y); // should be enemys figure for
+																						// capturing
+		final var point3 = new Point(point2.x + direction.x, point2.y + direction.y); // should be players figure for
+																						// capturing
 
 		if ((point3.x < this.board.getBoard().length) && (point3.y < this.board.getBoard().length) && (point3.x >= 0)
 				&& (point3.y >= 0) && (point3.x >= 0)) {// checks if this point is located on board
@@ -199,6 +157,13 @@ public class Move {
 		return counter;
 	}
 
+	// checks if space is empty
+	private boolean isValidMove(final char[][] board, final Point coordinates) throws InvalidMoveException {
+		if (board[coordinates.x][coordinates.y] == ' ')
+			return true;
+		throw new InvalidMoveException("Field is not empty!");
+	}
+
 	/**
 	 *
 	 * @param figure      figure which the algorithm is looking for
@@ -210,7 +175,7 @@ public class Move {
 		// horizontal row
 		System.out.println(coordinates);
 		final Point direction = new Point();
-		
+
 		direction.setLocation(1, 0);
 		final var horizontalFigures = this.figuresInRow(figure, coordinates, direction);
 
@@ -231,5 +196,43 @@ public class Move {
 																														// /
 																														// longest
 																														// row
+	}
+
+	// second regular move of first player where several fields are blocked
+	private char[][] secondMove() {
+		ConsoleOutput.debugInformation("secondMove..."); // debug
+		final var tmpArray = this.board.copyBoard();
+		final var block = 'B';
+
+		// up
+		tmpArray[0][tmpArray.length / 2] = block;
+		// down
+		tmpArray[tmpArray.length - 1][tmpArray.length / 2] = block;
+		// left
+		tmpArray[tmpArray.length / 2][0] = block;
+		// right
+		tmpArray[tmpArray.length / 2][tmpArray.length - 1] = block;
+
+		if ((tmpArray.length % 2) == 0) {
+			// up
+			tmpArray[0][(tmpArray.length / 2) + 1] = block;
+			// down
+			tmpArray[tmpArray.length - 1][(tmpArray.length / 2) + 1] = block;
+			// left
+			tmpArray[(tmpArray.length / 2) + 1][0] = block;
+			// right
+			tmpArray[(tmpArray.length / 2) + 1][tmpArray.length - 1] = block;
+		}
+
+		for (var x = 1; x < (tmpArray.length - 1); x++)
+			for (var y = 1; y < (tmpArray.length - 1); y++)
+				tmpArray[x][y] = block;
+		return tmpArray;
+	}
+
+	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
+	private void setMove(final Point coordinates, final char figure) {
+		ConsoleOutput.debugInformation("places figure on: " + coordinates.x + ", " + coordinates.y);
+		this.board.getBoard()[coordinates.x][coordinates.y] = figure;
 	}
 }

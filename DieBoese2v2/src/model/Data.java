@@ -7,41 +7,41 @@ public class Data {
 	private char enemyFigure;
 	private Point enemyMove;
 	private int turnCounter = 0;
-	
+
 	public Data(Board board) {
 		this.board = board;
 	}
-	
+
 	public Board getBoard() {
-		return board;
+		return this.board;
 	}
-	
+
 	public int getBoardSize() {
-		return board.getBoard().length;
+		return this.board.getBoard().length;
 	}
-	
-	public void incTurnCounter() {
-		turnCounter++;
+
+	public char getEnemyFigure() {
+		return this.enemyFigure;
 	}
-	
+
+	public Point getEnemyMove() {
+		return this.enemyMove;
+	}
+
 	public int getTurnCounter() {
-		return turnCounter;
+		return this.turnCounter;
 	}
-	
+
+	public void incTurnCounter() {
+		this.turnCounter++;
+	}
+
 	public void load(char myFigure, Point myMove) {
-		setEnemyFigure(myFigure);
+		this.setEnemyFigure(myFigure);
 		this.enemyMove = myMove;
 	}
-	
-	public char getEnemyFigure() {
-		return enemyFigure;
-	}
-	
+
 	public void setEnemyFigure(char enemyFigure) {
 		this.enemyFigure = enemyFigure;
-	}
-	
-	public Point getEnemyMove() {
-		return enemyMove;
 	}
 }

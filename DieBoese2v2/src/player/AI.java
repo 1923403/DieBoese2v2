@@ -13,19 +13,19 @@ public class AI extends Player {
 	@Override
 	public void move() {
 		// creates random move
-		if (data.getTurnCounter() < 9)
-			this.setMyMove(randomMove(data.getBoardSize()));// first 4 moves
+		if (this.data.getTurnCounter() < 9)
+			this.setMyMove(this.randomMove());// first 4 moves
 		else {
 			// ai logic
 			System.out.println("minimax");
-			this.setMyMove(randomMove(data.getBoardSize()));// replace with minimax
+			this.setMyMove(this.randomMove());// replace with minimax
 		}
 	}
 
-	private Point randomMove(final int boardSize) {
+	private Point randomMove() {
 		Point randomPoint = new Point();
-		randomPoint.x = (int) ((Math.random() * (boardSize)));
-		randomPoint.y = (int) ((Math.random() * (boardSize)));
+		randomPoint.x = (int) ((Math.random() * (this.data.getBoardSize())));
+		randomPoint.y = (int) ((Math.random() * (this.data.getBoardSize())));
 		return randomPoint;
 	}
 }
