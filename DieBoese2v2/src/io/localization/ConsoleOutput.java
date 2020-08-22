@@ -1,5 +1,7 @@
 package io.localization;
 
+import control.Game;
+
 public class ConsoleOutput {
 	private static String language = "english"; // default
 	private static final String[] supportedLanguages = { "english", "deutsch" };
@@ -27,10 +29,13 @@ public class ConsoleOutput {
 	}
 
 	public static void printBoardSize() {
-		if (ConsoleOutput.language == "deutsch") {
-			System.out.println("Wähle eine Spielfeldgröße zwischen 15 und 19.");
-		} else {
-			System.out.println("Choose a boardsize between 15 and 19.");
+		switch (Game.currentLanguage) {
+			case DE:
+				System.out.println("Wähle eine Spielfeldgröße zwischen 15 und 19.");
+				break;
+			case EN:
+				System.out.println("Choose a boardsize between 15 and 19.");
+				break;
 		}
 	}
 

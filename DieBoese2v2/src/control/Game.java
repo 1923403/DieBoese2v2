@@ -1,6 +1,7 @@
 package control;
 
 import io.localization.ConsoleOutput;
+import io.localization.Language;
 import model.Data;
 import model.Menu;
 import player.AI;
@@ -9,6 +10,7 @@ import player.Player;
 
 public class Game {
 
+	public static Language currentLanguage = Language.EN;
 	private Data data;
 	private boolean DEBUG = false;
 	private Menu menu = new Menu();
