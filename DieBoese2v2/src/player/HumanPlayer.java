@@ -34,7 +34,7 @@ public class HumanPlayer extends Player {
 					this.data.getMove().setMove(this.data, this);
 				} catch (InvalidMoveException e) {
 					System.out.println(e.getMessage());
-					this.move();
+					exceptionThrown = true;
 				}
 			}
 		} while (exceptionThrown);
