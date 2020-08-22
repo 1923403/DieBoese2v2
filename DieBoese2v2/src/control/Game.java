@@ -1,10 +1,8 @@
 package control;
 
 import io.localization.ConsoleOutput;
-import model.Board;
 import model.Data;
 import model.Menu;
-import model.Move;
 import player.AI;
 import player.HumanPlayer;
 import player.Player;
@@ -14,7 +12,6 @@ public class Game {
 	private Data data;
 	private boolean DEBUG = false;
 	private Menu menu = new Menu();
-	private Move move;
 	private Player player1;
 	private boolean player1Next = true;
 	private Player player2;
@@ -24,7 +21,6 @@ public class Game {
 			// wait
 		} while (!this.menu.settingsChoosen()); // if no changes were made (0 pressed)
 		this.getSettings();
-		this.move = new Move(this.data.getBoard());
 		this.runGame();
 	}
 
@@ -57,9 +53,7 @@ public class Game {
 	 * loads settings (default / new)
 	 */
 	private void getSettings() {
-		var board = new Board(this.menu.getBoardSize());
-		var move = new Move(board);
-		this.data = new Data(board, move);
+		this.data = new Data(this.menu.getBoardSize());
 		this.player1 = new HumanPlayer('X', this.data);
 
 		if (this.menu.isPvp())
@@ -79,8 +73,8 @@ public class Game {
 
 	private boolean isRunning() {
 		if (this.player1Next)
-			return !this.move.hasWon(this.player2.getFigure(), this.player2.getMyMove());
-		return !this.move.hasWon(this.player1.getFigure(), this.player1.getMyMove());
+			return !this.data.getMove().hasWon(this.player2.getFigure(), this.player2.getMyMove());
+		return !this.data.getMove().hasWon(this.player1.getFigure(), this.player1.getMyMove());
 	}
 
 	/**

@@ -7,13 +7,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import model.Board;
 import model.Data;
-import model.Move;
 
 class HumanPlayerTest {
 
-	private static Data data = new Data(new Board(4), new Move(new Board(4)));
+	private static Data data = new Data(4);
 	private static HumanPlayer player = new HumanPlayer('X', HumanPlayerTest.data);
 	private static Point point = new Point(3, 1);
 

@@ -10,9 +10,9 @@ public class Data {
 	private int turnCounter = 0;
 	private StringValidation validation;
 
-	public Data(Board board, Move move) {
-		this.board = board;
-		this.move = move;
+	public Data(int boardSize) {
+		this.board = new Board(boardSize);
+		this.move = new Move(this.board);
 		this.validation = new StringValidation();
 	}
 
