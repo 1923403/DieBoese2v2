@@ -5,11 +5,11 @@ import java.awt.Point;
 import io.localization.ConsoleOutput;
 import player.Player;
 
-public class Move {
+public class Turn {
 
 	private final Board board;
 
-	public Move(final Board board) {
+	public Turn(final Board board) {
 		this.board = board;
 	}
 

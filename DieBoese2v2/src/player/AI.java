@@ -26,7 +26,7 @@ public class AI extends Player {
 				this.setMyMove(this.randomMove());// replace with minimax
 			}
 			try {
-				this.data.getMove().setMove(this.data, this);
+				this.data.getTurn().setMove(this.data, this);
 			} catch (InvalidMoveException e) {
 				System.out.println(e.getMessage());
 				exceptionThrown = true;

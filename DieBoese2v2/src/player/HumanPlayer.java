@@ -31,7 +31,7 @@ public class HumanPlayer extends Player {
 			if (!exceptionThrown) {
 				this.setMyMove(this.convertCoordinates());
 				try {
-					this.data.getMove().setMove(this.data, this);
+					this.data.getTurn().setMove(this.data, this);
 				} catch (InvalidMoveException e) {
 					System.out.println(e.getMessage());
 					exceptionThrown = true;

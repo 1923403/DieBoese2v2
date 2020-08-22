@@ -6,13 +6,13 @@ public class Data {
 	private Board board;
 	private char enemyFigure;
 	private Point enemyMove;
-	private Move move;
+	private Turn move;
 	private int turnCounter = 0;
 	private StringValidation validation;
 
 	public Data(int boardSize) {
 		this.board = new Board(boardSize);
-		this.move = new Move(this.board);
+		this.move = new Turn(this.board);
 		this.validation = new StringValidation();
 	}
 
@@ -32,7 +32,7 @@ public class Data {
 		return this.enemyMove;
 	}
 
-	public Move getMove() {
+	public Turn getTurn() {
 		return this.move;
 	}
 

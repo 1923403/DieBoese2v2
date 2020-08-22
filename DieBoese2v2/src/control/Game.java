@@ -73,8 +73,8 @@ public class Game {
 
 	private boolean isRunning() {
 		if (this.player1Next)
-			return !this.data.getMove().hasWon(this.player2.getFigure(), this.player2.getMyMove());
-		return !this.data.getMove().hasWon(this.player1.getFigure(), this.player1.getMyMove());
+			return !this.data.getTurn().hasWon(this.player2.getFigure(), this.player2.getMyMove());
+		return !this.data.getTurn().hasWon(this.player1.getFigure(), this.player1.getMyMove());
 	}
 
 	/**
