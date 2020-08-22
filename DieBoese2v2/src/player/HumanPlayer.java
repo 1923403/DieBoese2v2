@@ -17,22 +17,29 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void move() {
-		ConsoleOutput.printCoordinateInput();
-		this.readCoordinates();
-		try {
-			this.data.getValidation().validateString(this.data.getBoardSize(), this.coordinates);
-		} catch (final InvalidStringException e) {
-			System.out.println(e.getMessage());
-			this.move();
-		}
-		this.setMyMove(this.convertCoordinates());
-		try {
-			this.data.getMove().setMove(this.data, this);
-		} catch (InvalidMoveException e) {
-			System.out.println(e.getMessage());
-			this.move();
-		}
+		boolean exceptionThrown;
+		do {
+			exceptionThrown = false;
+			ConsoleOutput.printCoordinateInput();
+			this.readCoordinates();
+			try {
+				this.data.getValidation().validateString(this.data.getBoardSize(), this.coordinates);
+			} catch (final InvalidStringException e) {
+				System.out.println(e.getMessage());
+				exceptionThrown = true;
+			}
+			if (!exceptionThrown) {
+				this.setMyMove(this.convertCoordinates());
+				try {
+					this.data.getMove().setMove(this.data, this);
+				} catch (InvalidMoveException e) {
+					System.out.println(e.getMessage());
+					this.move();
+				}
+			}
+		} while (exceptionThrown);
 		this.data.load(this.getFigure(), this.getMyMove());
+
 	}
 
 	private Point convertCoordinates() {
