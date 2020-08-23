@@ -7,7 +7,6 @@ import model.Data;
 import model.InvalidMoveException;
 
 public class AI extends Player {
-	ArrayList<Point> points = new ArrayList<>();
 	private final int analyzingRange = 4;
 	private final int wantedDepth = 3; // could be increased during the game
 
@@ -40,14 +39,16 @@ public class AI extends Player {
 		this.data.load(this.getFigure(), this.getMyMove());
 	}
 
-	private void addSquare(Point centerPoint) {
+	private ArrayList<Point> addSquare(Point centerPoint) {
+		var points = new ArrayList<Point>();
 		for (int x = centerPoint.x - this.analyzingRange; x < (centerPoint.x + this.analyzingRange); x++) {
 			for (int y = centerPoint.y - this.analyzingRange; y < (centerPoint.y + this.analyzingRange); y++) {
 				if ((x >= 0) && (x < this.data.getBoardSize()) && (y >= 0) && (y < this.data.getBoardSize())) {
-					this.points.add(new Point(x, y));
+					points.add(new Point(x, y));
 				}
 			}
 		}
+		return points;
 	}
 
 	private Point bestMove() {
@@ -55,31 +56,55 @@ public class AI extends Player {
 		var depth = this.wantedDepth;
 		var bestPoint = new Point();
 		int bestValue = Integer.MIN_VALUE;
-		this.moveAnalyzation();
-		for (var point : this.points) {
-			var value = this.minimax(point, depth, true);
-			if (value > bestValue) {
-				bestValue = value;
-				bestPoint = point;
+		var myMoves = this.addSquare(this.getMyMove());
+		var enemyMoves = this.addSquare(this.data.getEnemyMove());
+		var points = new ArrayList<Point>();
+		points.addAll(myMoves);
+		points.addAll(enemyMoves);
+		for (var point : points) {
+			if (board[point.x][point.y] == ' ') {
+				board[point.x][point.y] = this.getFigure();
+				var value = this.minimax(board, point, this.data.getEnemyMove(), enemyMoves, depth - 1, true);
+				board[point.x][point.y] = ' ';
+				if (value > bestValue) {
+					bestValue = value;
+					bestPoint = point;
+				}
 			}
 		}
 		return bestPoint;
 	}
 
-	private int minimax(Point point, int depth, boolean isMaximizing) {
+	private int minimax(char[][] board, Point myMove, Point enemyMove, ArrayList<Point> previousMoves, int depth,
+			boolean isMaximizing) {
 		int value;
+		int bestValue;
+		var bestPoint = new Point();
+		var points = new ArrayList<Point>();
+		// if() won return max/min value;
+		if (depth == 0) {
+			// board evaluation
+		}
 		if (isMaximizing) {
-			value = Integer.MIN_VALUE;
+			value = bestValue = Integer.MIN_VALUE;
+			var myMoves = this.addSquare(myMove);
+			points.addAll(myMoves);
+			points.addAll(previousMoves);
+			for (var point : points) {
+				if (board[point.x][point.y] == ' ') {
+					board[point.x][point.y] = this.getFigure();
+					value = this.minimax(board, point, enemyMove, myMoves, depth - 1, false);
+					board[point.x][point.y] = ' ';
+					if (value > bestValue) {
+						bestValue = value;
+						bestPoint = point;
+					}
+				}
+			}
 		} else {
 			value = Integer.MAX_VALUE;
 		}
 		return value;
-	}
-
-	private void moveAnalyzation() {
-		this.points = new ArrayList<>();
-		this.addSquare(this.data.getEnemyMove());
-		this.addSquare(this.getMyMove());
 	}
 
 	private Point randomMove() {
