@@ -64,7 +64,8 @@ public class AI extends Player {
 		for (var point : points) {
 			if (board[point.x][point.y] == ' ') {
 				board[point.x][point.y] = this.getFigure();
-				var value = this.minimax(board, point, this.data.getEnemyMove(), enemyMoves, depth - 1, true);
+				var value = this.minimax(board, point, this.data.getEnemyMove(), enemyMoves, depth - 1, false);
+				System.out.println("VALUE: " + value + ", POINT: " + point);
 				board[point.x][point.y] = ' ';
 				if (value > bestValue) {
 					bestValue = value;
@@ -79,13 +80,14 @@ public class AI extends Player {
 			boolean isMaximizing) {
 		int value;
 		int bestValue;
-		var bestPoint = new Point();
 		var points = new ArrayList<Point>();
-		// if() won return max/min value;
-		if (depth == 0) {
-			// board evaluation
-		}
+
 		if (isMaximizing) {
+			if (this.data.getTurn().longestRow(board, this.data.getEnemyFigure(), enemyMove) == 5)
+				return Integer.MIN_VALUE;
+			if (depth == 0) {
+				return -(this.data.getTurn().longestRow(board, this.data.getEnemyFigure(), enemyMove));
+			}
 			value = bestValue = Integer.MIN_VALUE;
 			var myMoves = this.addSquare(myMove);
 			points.addAll(myMoves);
@@ -95,16 +97,29 @@ public class AI extends Player {
 					board[point.x][point.y] = this.getFigure();
 					value = this.minimax(board, point, enemyMove, myMoves, depth - 1, false);
 					board[point.x][point.y] = ' ';
-					if (value > bestValue) {
-						bestValue = value;
-						bestPoint = point;
-					}
+					bestValue = Math.max(value, bestValue);
 				}
 			}
 		} else {
-			value = Integer.MAX_VALUE;
+			if (this.data.getTurn().longestRow(board, this.getFigure(), myMove) == 5)
+				return Integer.MAX_VALUE;
+			if (depth == 0) {
+				return this.data.getTurn().longestRow(board, this.getFigure(), myMove);
+			}
+			value = bestValue = Integer.MAX_VALUE;
+			var enemyMoves = this.addSquare(enemyMove);
+			points.addAll(enemyMoves);
+			points.addAll(previousMoves);
+			for (var point : points) {
+				if (board[point.x][point.y] == ' ') {
+					board[point.x][point.y] = this.getFigure();
+					value = this.minimax(board, point, enemyMove, enemyMoves, depth - 1, true);
+					board[point.x][point.y] = ' ';
+					bestValue = Math.min(value, bestValue);
+				}
+			}
 		}
-		return value;
+		return bestValue;
 	}
 
 	private Point randomMove() {

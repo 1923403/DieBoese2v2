@@ -16,13 +16,47 @@ public class Turn {
 	// determines if game is over and a player has won
 	public boolean hasWon(final char figure, final Point coordinates) {
 
-		if ((coordinates != null) && (this.longestRow(figure, coordinates) >= 5))
+		if ((coordinates != null) && (this.longestRow(this.board.getBoard(), figure, coordinates) >= 5))
 			return true;
 		if (!this.movePossible()) {
 			System.out.println("no more move possible");
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 *
+	 * @param figure      figure which the algorithm is looking for
+	 * @param coordinates starting point
+	 * @return longest row
+	 */
+	public int longestRow(char[][] board, final char figure, final Point coordinates) {
+
+		// horizontal row
+//		System.out.println(coordinates);
+		final Point direction = new Point();
+
+		direction.setLocation(1, 0);
+		final var horizontalFigures = this.figuresInRow(board, figure, coordinates, direction);
+
+		// vertical row
+		direction.setLocation(0, 1);
+		final var verticalFigures = this.figuresInRow(board, figure, coordinates, direction);
+
+		// diagonal row (top right to bottom left)
+		direction.setLocation(1, 1);
+		final var diagonalFigures1 = this.figuresInRow(board, figure, coordinates, direction);
+
+		// diagonal row (top left to bottom right)
+		direction.setLocation(1, -1);
+		final var diagonalFigures2 = this.figuresInRow(board, figure, coordinates, direction);
+
+		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2)); // max
+																														// value
+																														// /
+																														// longest
+																														// row
 	}
 
 	// checks if there is an empty space on the board
@@ -131,21 +165,21 @@ public class Turn {
 	 * @param direction
 	 * @return
 	 */
-	private int figuresInRow(final char figure, final Point coordinates, final Point direction) {
+	private int figuresInRow(char[][] board, final char figure, final Point coordinates, final Point direction) {
 
 		var counter = 1;
 		var posX = coordinates.x + direction.x;
 		var posY = coordinates.y + direction.y;
-		final var boardLength = this.board.getBoard().length;
+		final var boardLength = board.length;
 		while ((posX < boardLength) && (posY < boardLength) && (posY >= 0)
-				&& (this.board.getBoard()[posX][posY] == figure)) {
+				&& (board[posX][posY] == figure)) {
 			counter++;
 			posX += direction.x;
 			posY += direction.y;
 		}
 		posX = coordinates.x - direction.x;
 		posY = coordinates.y - direction.y;
-		while ((posX >= 0) && (posY < boardLength) && (posY >= 0) && (this.board.getBoard()[posX][posY] == figure)) {
+		while ((posX >= 0) && (posY < boardLength) && (posY >= 0) && (board[posX][posY] == figure)) {
 			counter++;
 			posX -= direction.x;
 			posY -= direction.y;
@@ -158,40 +192,6 @@ public class Turn {
 		if (board[coordinates.x][coordinates.y] == ' ')
 			return true;
 		throw new InvalidMoveException("Field is not empty!");
-	}
-
-	/**
-	 *
-	 * @param figure      figure which the algorithm is looking for
-	 * @param coordinates starting point
-	 * @return longest row
-	 */
-	private int longestRow(final char figure, final Point coordinates) {
-
-		// horizontal row
-		System.out.println(coordinates);
-		final Point direction = new Point();
-
-		direction.setLocation(1, 0);
-		final var horizontalFigures = this.figuresInRow(figure, coordinates, direction);
-
-		// vertical row
-		direction.setLocation(0, 1);
-		final var verticalFigures = this.figuresInRow(figure, coordinates, direction);
-
-		// diagonal row (top right to bottom left)
-		direction.setLocation(1, 1);
-		final var diagonalFigures1 = this.figuresInRow(figure, coordinates, direction);
-
-		// diagonal row (top left to bottom right)
-		direction.setLocation(1, -1);
-		final var diagonalFigures2 = this.figuresInRow(figure, coordinates, direction);
-
-		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2)); // max
-																														// value
-																														// /
-																														// longest
-																														// row
 	}
 
 	// second regular move of first player where several fields are blocked
