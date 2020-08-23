@@ -1,24 +1,26 @@
 package control;
 
 import io.localization.ConsoleOutput;
-import io.localization.Language;
 import model.Data;
 import model.Menu;
+import model.Settings;
 import player.AI;
 import player.HumanPlayer;
 import player.Player;
 
 public class Game {
 
-	public static Language currentLanguage = Language.EN;
 	private Data data;
 	private boolean DEBUG = false;
-	private Menu menu = new Menu();
+	private Menu menu;
 	private Player player1;
 	private boolean player1Next = true;
 	private Player player2;
+	private Settings settings;
 
 	protected Game() {
+		this.settings = new Settings();
+		this.menu = new Menu(this.settings);
 		do {
 			// wait
 		} while (!this.menu.settingsChoosen()); // if no changes were made (0 pressed)

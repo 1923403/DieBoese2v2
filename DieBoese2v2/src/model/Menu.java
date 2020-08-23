@@ -4,11 +4,16 @@ import io.Input;
 import io.localization.ConsoleOutput;
 
 public class Menu {
-	// default values
 	private int boardSize = 15;
 	private int difficulty = 2;
 	private boolean pvp = false;
+	// default values
+	private Settings settings;
 	private boolean start = true;
+
+	public Menu(Settings settings) {
+		this.settings = settings;
+	}
 
 	public int getBoardSize() {
 		return this.boardSize;
@@ -62,17 +67,7 @@ public class Menu {
 
 	private void changeLanguage() {
 		ConsoleOutput.printLanguageOptions();
-		int l = -1;
-		do {
-			try {
-				l = Integer.valueOf(Input.readInput());
-				if ((l < 0) || (l > (ConsoleOutput.getSupportedLanguages().length - 1)))
-					throw new NumberFormatException();
-			} catch (NumberFormatException e) {
-				ConsoleOutput.printLanguageOptionsError();
-			}
-		} while ((l < 0) || (l > (ConsoleOutput.getSupportedLanguages().length - 1)));
-		ConsoleOutput.changeLanguage(ConsoleOutput.getSupportedLanguages()[l]);
+		this.settings.setCurrentLanguage();
 	}
 
 	private void setBoardSize() {
