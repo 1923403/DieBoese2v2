@@ -8,7 +8,7 @@ import model.Data;
 import model.InvalidMoveException;
 
 public class AI extends Player {
-	private final int analyzingRange = 4;
+	private final int analyzingRange = 5;
 	private final int wantedDepth = 4; // could be increased during the game
 
 	public AI(final char figure, Data data) {
@@ -28,7 +28,6 @@ public class AI extends Player {
 				this.setMyMove(this.secondMove()); // secondMove
 			} else {
 				// ai logic
-
 				this.setMyMove(this.bestMove());
 			}
 			try {
@@ -84,6 +83,7 @@ public class AI extends Player {
 				}
 			}
 		}
+		if(bestPoint.x==-1) return this.randomMove(); // no good move found...has to be changed
 		return bestPoint;
 	}
 
@@ -97,16 +97,23 @@ public class AI extends Player {
 	}
 	
 	/**
-	 * should evaluate the board for minimax algorithm
+	 * should evaluate the board for minimax algorithm !!!absolutely not final yet!!! just for testing
 	 * @param board			boardstate after several recursions 
 	 * @param myLastMove  	last point ai placed a figure
 	 * @param enemyLastMove	last point enemy placed a figure
 	 * @param isMaximizing	if minimax is maximizing or minimizing
 	 * @return				calculated evaluation of board
 	 */
-	@SuppressWarnings("unused")
 	private int evaluateBoard(char[][] board, Point myLastMove, Point enemyLastMove, boolean isMaximizing) {
-		return (Integer) null;
+		int enemyRow = this.data.getTurn().longestRow(board, this.data.getEnemyFigure(), enemyLastMove);
+		int myRow = this.data.getTurn().longestRow(board, getFigure(), myLastMove);
+		if(isMaximizing) {
+			if(enemyRow < myRow) return myRow;
+			return -enemyRow;
+		}
+		if(enemyRow <= myRow) return myRow;
+		return -enemyRow;
+		
 	}
 
 	private int minimax(char[][] board, Point myMove, Point enemyMove, ArrayList<Point> previousMoves, int depth,
@@ -115,12 +122,11 @@ public class AI extends Player {
 		int bestValue;
 		ArrayList<Point> points;
 
+		if (depth == 0) return evaluateBoard(board, myMove, enemyMove, !isMaximizing);
+				
 		if (isMaximizing) {
 			if (this.data.getTurn().longestRow(board, this.data.getEnemyFigure(), enemyMove) == 5)
 				return Integer.MIN_VALUE;
-			if (depth == 0) {
-				return (this.data.getTurn().longestRow(board, this.getFigure(), myMove));
-			}
 			value = bestValue = Integer.MIN_VALUE;
 			var myMoves = this.addSquare(myMove);
 			points = this.addPoints(myMoves, previousMoves);
@@ -135,9 +141,6 @@ public class AI extends Player {
 		} else {
 			if (this.data.getTurn().longestRow(board, this.getFigure(), myMove) == 5)
 				return Integer.MAX_VALUE;
-			if (depth == 0) {
-				return this.data.getTurn().longestRow(board, this.getFigure(), myMove);
-			}
 			value = bestValue = Integer.MAX_VALUE;
 			var enemyMoves = this.addSquare(enemyMove);
 			points = this.addPoints(previousMoves, enemyMoves);
