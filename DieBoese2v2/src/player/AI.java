@@ -3,12 +3,13 @@ package player;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import model.Board;
 import model.Data;
 import model.InvalidMoveException;
 
 public class AI extends Player {
 	private final int analyzingRange = 4;
-	private final int wantedDepth = 3; // could be increased during the game
+	private final int wantedDepth = 4; // could be increased during the game
 
 	public AI(final char figure, Data data) {
 		super(figure, data);
@@ -21,13 +22,14 @@ public class AI extends Player {
 		do {
 			exceptionThrown = false;
 
-			if (this.data.getTurnCounter() < 9)
+			if ((this.data.getTurnCounter() < 9))
 				this.setMyMove(this.randomMove());// first 4 moves
-			else {
+			else if (this.data.getTurnCounter() == 9) {
+				this.setMyMove(this.secondMove()); // secondMove
+			} else {
 				// ai logic
-				System.out.println("minimax");
 
-				this.setMyMove(this.bestMove());// replace with minimax
+				this.setMyMove(this.bestMove());
 			}
 			try {
 				this.data.getTurn().setMove(this.data, this);
@@ -37,6 +39,17 @@ public class AI extends Player {
 			}
 		} while (exceptionThrown);
 		this.data.load(this.getFigure(), this.getMyMove());
+	}
+
+	// for removing duplicates
+	private ArrayList<Point> addPoints(ArrayList<Point> myPoints, ArrayList<Point> enemyPoints) {
+		var allPoints = new ArrayList<Point>();
+		allPoints.addAll(myPoints);
+		for (var point : enemyPoints) {
+			if (!allPoints.contains(point))
+				allPoints.add(point);
+		}
+		return allPoints;
 	}
 
 	private ArrayList<Point> addSquare(Point centerPoint) {
@@ -54,18 +67,16 @@ public class AI extends Player {
 	private Point bestMove() {
 		var board = this.data.getBoard().copyBoard();
 		var depth = this.wantedDepth;
-		var bestPoint = new Point();
+		var bestPoint = new Point(-1, -1);
 		int bestValue = Integer.MIN_VALUE;
 		var myMoves = this.addSquare(this.getMyMove());
 		var enemyMoves = this.addSquare(this.data.getEnemyMove());
-		var points = new ArrayList<Point>();
-		points.addAll(myMoves);
-		points.addAll(enemyMoves);
+		var points = this.addPoints(myMoves, enemyMoves);
 		for (var point : points) {
 			if (board[point.x][point.y] == ' ') {
 				board[point.x][point.y] = this.getFigure();
-				var value = this.minimax(board, point, this.data.getEnemyMove(), enemyMoves, depth - 1, false);
-				System.out.println("VALUE: " + value + ", POINT: " + point);
+				var value = this.minimax(board, point, this.data.getEnemyMove(), myMoves, depth - 1, false);
+				// System.out.println("VALUE: " + value + ", POINT: " + point);
 				board[point.x][point.y] = ' ';
 				if (value > bestValue) {
 					bestValue = value;
@@ -76,22 +87,30 @@ public class AI extends Player {
 		return bestPoint;
 	}
 
+	private void drawPoints(ArrayList<Point> points) {// for debugging
+		// for debugging
+		char[][] squareBoard = this.data.getBoard().copyBoard();
+		for (var point : points) {
+			squareBoard[point.x][point.y] = 'S';
+		}
+		Board.printBoard(squareBoard);
+	}
+
 	private int minimax(char[][] board, Point myMove, Point enemyMove, ArrayList<Point> previousMoves, int depth,
 			boolean isMaximizing) {
 		int value;
 		int bestValue;
-		var points = new ArrayList<Point>();
+		ArrayList<Point> points;
 
 		if (isMaximizing) {
 			if (this.data.getTurn().longestRow(board, this.data.getEnemyFigure(), enemyMove) == 5)
 				return Integer.MIN_VALUE;
 			if (depth == 0) {
-				return -(this.data.getTurn().longestRow(board, this.data.getEnemyFigure(), enemyMove));
+				return (this.data.getTurn().longestRow(board, this.getFigure(), myMove));
 			}
 			value = bestValue = Integer.MIN_VALUE;
 			var myMoves = this.addSquare(myMove);
-			points.addAll(myMoves);
-			points.addAll(previousMoves);
+			points = this.addPoints(myMoves, previousMoves);
 			for (var point : points) {
 				if (board[point.x][point.y] == ' ') {
 					board[point.x][point.y] = this.getFigure();
@@ -108,12 +127,11 @@ public class AI extends Player {
 			}
 			value = bestValue = Integer.MAX_VALUE;
 			var enemyMoves = this.addSquare(enemyMove);
-			points.addAll(enemyMoves);
-			points.addAll(previousMoves);
+			points = this.addPoints(previousMoves, enemyMoves);
 			for (var point : points) {
 				if (board[point.x][point.y] == ' ') {
-					board[point.x][point.y] = this.getFigure();
-					value = this.minimax(board, point, enemyMove, enemyMoves, depth - 1, true);
+					board[point.x][point.y] = this.data.getEnemyFigure();
+					value = this.minimax(board, myMove, point, enemyMoves, depth - 1, true);
 					board[point.x][point.y] = ' ';
 					bestValue = Math.min(value, bestValue);
 				}
@@ -127,5 +145,27 @@ public class AI extends Player {
 		randomPoint.x = (int) ((Math.random() * (this.data.getBoardSize())));
 		randomPoint.y = (int) ((Math.random() * (this.data.getBoardSize())));
 		return randomPoint;
+	}
+
+	private Point secondMove() {
+		Point secondMovePoint = null;
+		int side = (int) (Math.random() * 4);
+		switch (side) {
+			case 0:
+				secondMovePoint = new Point(0, (int) (Math.random() * this.data.getBoardSize()));
+				break;
+			case 1:
+				secondMovePoint = new Point(this.data.getBoardSize() - 1,
+						(int) (Math.random() * this.data.getBoardSize()));
+				break;
+			case 2:
+				secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()), 0);
+				break;
+			case 3:
+				secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()),
+						this.data.getBoardSize() - 1);
+				break;
+		}
+		return secondMovePoint;
 	}
 }
