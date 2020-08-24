@@ -95,6 +95,19 @@ public class AI extends Player {
 		}
 		Board.printBoard(squareBoard);
 	}
+	
+	/**
+	 * should evaluate the board for minimax algorithm
+	 * @param board			boardstate after several recursions 
+	 * @param myLastMove  	last point ai placed a figure
+	 * @param enemyLastMove	last point enemy placed a figure
+	 * @param isMaximizing	if minimax is maximizing or minimizing
+	 * @return				calculated evaluation of board
+	 */
+	@SuppressWarnings("unused")
+	private int evaluateBoard(char[][] board, Point myLastMove, Point enemyLastMove, boolean isMaximizing) {
+		return (Integer) null;
+	}
 
 	private int minimax(char[][] board, Point myMove, Point enemyMove, ArrayList<Point> previousMoves, int depth,
 			boolean isMaximizing) {
