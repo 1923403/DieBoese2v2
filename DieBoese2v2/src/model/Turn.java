@@ -13,6 +13,41 @@ public class Turn {
 		this.board = board;
 	}
 
+	public void capture(char[][] board, final Point coordinates, final char figure, final char enemyFigure) {
+		final var direction = new Point();
+		// right
+		direction.setLocation(1, 0);
+		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+
+		// left
+		direction.setLocation(-1, 0);
+		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+
+		// top
+		direction.setLocation(0, 1);
+		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+
+		// bottom
+		direction.setLocation(0, -1);
+		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+
+		// top right
+		direction.setLocation(1, 1);
+		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+
+		// bottom right
+		direction.setLocation(1, -1);
+		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+
+		// bottom left
+		direction.setLocation(-1, -1);
+		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+
+		// top left
+		direction.setLocation(-1, 1);
+		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+	}
+
 	// determines if game is over and a player has won
 	public boolean hasWon(final char figure, final Point coordinates) {
 
@@ -82,48 +117,13 @@ public class Turn {
 		else
 			this.setMove(player.getMyMove(), player.getFigure());
 
-		this.capture(player.getMyMove(), player.getFigure(), data.getEnemyFigure());
+		this.capture(this.board.getBoard(), player.getMyMove(), player.getFigure(), data.getEnemyFigure());
 		if (turnCount == 8)
 			Board.printBoard(this.secondMove());
 	}
 
 	private void block(final Point coordinates) {
 		this.setMove(coordinates, 'B');
-	}
-
-	private void capture(final Point coordinates, final char figure, final char enemyFigure) {
-		final var direction = new Point();
-		// right
-		direction.setLocation(1, 0);
-		this.captureDirections(coordinates, direction, figure, enemyFigure);
-
-		// left
-		direction.setLocation(-1, 0);
-		this.captureDirections(coordinates, direction, figure, enemyFigure);
-
-		// top
-		direction.setLocation(0, 1);
-		this.captureDirections(coordinates, direction, figure, enemyFigure);
-
-		// bottom
-		direction.setLocation(0, -1);
-		this.captureDirections(coordinates, direction, figure, enemyFigure);
-
-		// top right
-		direction.setLocation(1, 1);
-		this.captureDirections(coordinates, direction, figure, enemyFigure);
-
-		// bottom right
-		direction.setLocation(1, -1);
-		this.captureDirections(coordinates, direction, figure, enemyFigure);
-
-		// bottom left
-		direction.setLocation(-1, -1);
-		this.captureDirections(coordinates, direction, figure, enemyFigure);
-
-		// top left
-		direction.setLocation(-1, 1);
-		this.captureDirections(coordinates, direction, figure, enemyFigure);
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class Turn {
 	 * @param figure
 	 * @param enemyFigure
 	 */
-	private void captureDirections(final Point coordinates, final Point direction, final char figure,
+	private void captureDirections(char[][] board, final Point coordinates, final Point direction, final char figure,
 			final char enemyFigure) {
 		final var point1 = new Point(coordinates.x + direction.x, coordinates.y + direction.y); // should be enemys
 																								// figure for capturing
@@ -144,15 +144,15 @@ public class Turn {
 		final var point3 = new Point(point2.x + direction.x, point2.y + direction.y); // should be players figure for
 																						// capturing
 
-		if ((point3.x < this.board.getBoard().length) && (point3.y < this.board.getBoard().length) && (point3.x >= 0)
+		if ((point3.x < board.length) && (point3.y < board.length) && (point3.x >= 0)
 				&& (point3.y >= 0) && (point3.x >= 0)) {// checks if this point is located on board
-			if ((this.board.getBoard()[point3.x][point3.y] == figure)
-					&& (this.board.getBoard()[point1.x][point1.y] == enemyFigure)
-					&& (this.board.getBoard()[point2.x][point2.y] == enemyFigure)) {// checks if p3 == own figure and p1
-																					// == p2 == enemy figure
+			if ((board[point3.x][point3.y] == figure)
+					&& (board[point1.x][point1.y] == enemyFigure)
+					&& (board[point2.x][point2.y] == enemyFigure)) {// checks if p3 == own figure and p1
+																	// == p2 == enemy figure
 				ConsoleOutput.printCapture(enemyFigure);
-				this.setMove(point1, ' '); // deletes enemy figure
-				this.setMove(point2, ' ');
+				board[point1.x][point1.y] = ' '; // deletes enemy figure
+				board[point2.x][point2.y] = ' ';
 			}
 		}
 	}

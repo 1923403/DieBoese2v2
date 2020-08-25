@@ -74,6 +74,8 @@ public class AI extends Player {
 		for (var point : points) {
 			if (board[point.x][point.y] == ' ') {
 				board[point.x][point.y] = this.getFigure();
+				// this.data.getTurn().capture(board, point, getFigure(),
+				// data.getEnemyFigure());//capture not working yet
 				var value = this.minimax(board, point, this.data.getEnemyMove(), myMoves, depth - 1, false);
 				// System.out.println("VALUE: " + value + ", POINT: " + point);
 				board[point.x][point.y] = ' ';
@@ -83,7 +85,8 @@ public class AI extends Player {
 				}
 			}
 		}
-		if(bestPoint.x==-1) return this.randomMove(); // no good move found...has to be changed
+		if (bestPoint.x == -1)
+			return this.randomMove(); // no good move found...has to be changed
 		return bestPoint;
 	}
 
@@ -95,25 +98,30 @@ public class AI extends Player {
 		}
 		Board.printBoard(squareBoard);
 	}
-	
+
 	/**
-	 * should evaluate the board for minimax algorithm !!!absolutely not final yet!!! just for testing
-	 * @param board			boardstate after several recursions 
-	 * @param myLastMove  	last point ai placed a figure
-	 * @param enemyLastMove	last point enemy placed a figure
-	 * @param isMaximizing	if minimax is maximizing or minimizing
-	 * @return				calculated evaluation of board
+	 * should evaluate the board for minimax algorithm !!!absolutely not final
+	 * yet!!! just for testing
+	 *
+	 * @param board         boardstate after several recursions
+	 * @param myLastMove    last point ai placed a figure
+	 * @param enemyLastMove last point enemy placed a figure
+	 * @param isMaximizing  if minimax is maximizing or minimizing
+	 * @return calculated evaluation of board
 	 */
 	private int evaluateBoard(char[][] board, Point myLastMove, Point enemyLastMove, boolean isMaximizing) {
 		int enemyRow = this.data.getTurn().longestRow(board, this.data.getEnemyFigure(), enemyLastMove);
-		int myRow = this.data.getTurn().longestRow(board, getFigure(), myLastMove);
-		if(isMaximizing) {
-			if(enemyRow < myRow) return myRow;
+		int myRow = this.data.getTurn().longestRow(board, this.getFigure(), myLastMove);
+		if (isMaximizing) {
+			if (enemyRow < myRow)
+				return myRow;
+			return -enemyRow;
+		} else {
+			if (enemyRow <= myRow)
+				return myRow;
 			return -enemyRow;
 		}
-		if(enemyRow <= myRow) return myRow;
-		return -enemyRow;
-		
+
 	}
 
 	private int minimax(char[][] board, Point myMove, Point enemyMove, ArrayList<Point> previousMoves, int depth,
@@ -122,8 +130,9 @@ public class AI extends Player {
 		int bestValue;
 		ArrayList<Point> points;
 
-		if (depth == 0) return evaluateBoard(board, myMove, enemyMove, !isMaximizing);
-				
+		if (depth == 0)
+			return this.evaluateBoard(board, myMove, enemyMove, !isMaximizing);
+
 		if (isMaximizing) {
 			if (this.data.getTurn().longestRow(board, this.data.getEnemyFigure(), enemyMove) == 5)
 				return Integer.MIN_VALUE;
