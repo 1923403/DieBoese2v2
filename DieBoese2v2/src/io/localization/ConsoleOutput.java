@@ -3,22 +3,7 @@ package io.localization;
 import model.Settings;
 
 public class ConsoleOutput {
-	private static String language = "english"; // default
 	private static final String[] supportedLanguages = { "english", "deutsch" };
-
-	public static void changeLanguage(String language) {
-		var languageSupported = false;
-		for (var l : ConsoleOutput.supportedLanguages) {
-			if (l == language) {
-				languageSupported = true;
-				ConsoleOutput.language = language;
-			}
-		}
-		if (!languageSupported) {
-			System.err.println(language + " is not supported! Language changed to default (english)");
-			ConsoleOutput.language = "english";
-		}
-	}
 
 	public static void debugInformation(String information) {
 		System.err.println(information);
