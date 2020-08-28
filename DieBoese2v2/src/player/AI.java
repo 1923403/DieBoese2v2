@@ -2,6 +2,7 @@ package player;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Deque;
 
 import model.Board;
 import model.Data;
@@ -9,16 +10,21 @@ import model.InvalidMoveException;
 
 public class AI extends Player {
 	private final int analyzingRange = 5;
-	private final int wantedDepth = 4; // could be increased during the game
+	private final int wantedDepth = 3; // could be increased during the game
+	private Deque<Point> lastEnemyMoves;
+	private Deque<Point> myLastMoves;
 
 	public AI(final char figure, Data data) {
 		super(figure, data);
+//		lastEnemyMoves = new ArrayDeque<Point>();
+//		myLastMoves = new ArrayDeque<Point>();
 	}
 
 	@Override
 	public void move() {
 		// creates random move
 		boolean exceptionThrown;
+//		addMove();
 		do {
 			exceptionThrown = false;
 
@@ -38,6 +44,19 @@ public class AI extends Player {
 			}
 		} while (exceptionThrown);
 		this.data.load(this.getFigure(), this.getMyMove());
+	}
+
+	private void addMove() {
+		lastEnemyMoves.addFirst(this.data.getEnemyMove());
+		myLastMoves.addFirst(getMyMove());
+
+		while (lastEnemyMoves.size() > 2) {
+			lastEnemyMoves.removeLast();
+		}
+
+		while (myLastMoves.size() > 2) {
+			myLastMoves.removeLast();
+		}
 	}
 
 	// for removing duplicates
@@ -78,9 +97,10 @@ public class AI extends Player {
 																												// not
 																												// working
 																												// yet
+				myMoves.addAll(capturedPos);
 				var value = this.minimax(board, point, this.data.getEnemyMove(), myMoves, depth - 1, false);
 				resetCapture(board, capturedPos, this.data.getEnemyFigure());
-				// System.out.println("VALUE: " + value + ", POINT: " + point);
+				System.out.println("VALUE: " + value + ", POINT: " + point);
 				board[point.x][point.y] = ' ';
 				if (value > bestValue) {
 					bestValue = value;
@@ -120,18 +140,39 @@ public class AI extends Player {
 	 * @return calculated evaluation of board
 	 */
 	private int evaluateBoard(char[][] board, Point myLastMove, Point enemyLastMove, boolean isMaximizing) {
-		int enemyRow = this.data.getTurn().longestRow(board, this.data.getEnemyFigure(), enemyLastMove);
-		int myRow = this.data.getTurn().longestRow(board, this.getFigure(), myLastMove);
+		ArrayList<Point> winPossible = winPossible(board);
+		int enemyRow = 0;
+		int myRow = 0;
+		for (var point : winPossible) {
+			if (board[point.x][point.y] == getFigure()) {
+				myRow = Math.max(this.data.getTurn().longestRow(board, getFigure(), point), myRow);
+			} else if (board[point.x][point.y] == data.getEnemyFigure()) {
+				enemyRow = Math.max(this.data.getTurn().longestRow(board, data.getEnemyFigure(), point), enemyRow);
+			}
+		}
+
 		if (isMaximizing) {
 			if (enemyRow < myRow)
 				return myRow;
 			return -enemyRow;
-		} else {
-			if (enemyRow <= myRow)
-				return myRow;
-			return -enemyRow;
 		}
+		if (enemyRow <= myRow)
+			return myRow;
+		return -enemyRow;
 
+	}
+
+	private ArrayList<Point> winPossible(char[][] board) {
+		var winPossible = new ArrayList<Point>();
+		for (var x = 0; x < board.length; x++) {
+			for (var y = 0; y < board.length; y++) {
+				if (this.data.getTurn().longestRow(board, getFigure(), ' ', new Point(x, y)) > 4)
+					winPossible.add(new Point(x, y));
+				if (this.data.getTurn().longestRow(board, data.getEnemyFigure(), ' ', new Point(x, y)) > 4)
+					winPossible.add(new Point(x, y));
+			}
+		}
+		return winPossible;
 	}
 
 	private int minimax(char[][] board, Point myMove, Point enemyMove, ArrayList<Point> previousMoves, int depth,
