@@ -153,6 +153,7 @@ public class AI extends Player {
 				if (board[point.x][point.y] == ' ') {
 					board[point.x][point.y] = this.getFigure();
 					var capturedPos = this.data.getTurn().capture(board, point, getFigure(), data.getEnemyFigure());
+					myMoves.addAll(capturedPos);
 					value = this.minimax(board, point, enemyMove, myMoves, depth - 1, false);
 					resetCapture(board, capturedPos, this.data.getEnemyFigure());
 					board[point.x][point.y] = ' ';
@@ -169,6 +170,7 @@ public class AI extends Player {
 				if (board[point.x][point.y] == ' ') {
 					board[point.x][point.y] = this.data.getEnemyFigure();
 					var capturedPos = this.data.getTurn().capture(board, point, data.getEnemyFigure(), getFigure());
+					enemyMoves.addAll(capturedPos);
 					value = this.minimax(board, myMove, point, enemyMoves, depth - 1, true);
 					resetCapture(board, capturedPos, this.getFigure());
 					board[point.x][point.y] = ' ';
