@@ -74,9 +74,12 @@ public class AI extends Player {
 		for (var point : points) {
 			if (board[point.x][point.y] == ' ') {
 				board[point.x][point.y] = this.getFigure();
-				// this.data.getTurn().capture(board, point, getFigure(),
-				// data.getEnemyFigure());//capture not working yet
+				var capturedPos = this.data.getTurn().capture(board, point, getFigure(), data.getEnemyFigure());// capture
+																												// not
+																												// working
+																												// yet
 				var value = this.minimax(board, point, this.data.getEnemyMove(), myMoves, depth - 1, false);
+				resetCapture(board, capturedPos, this.data.getEnemyFigure());
 				// System.out.println("VALUE: " + value + ", POINT: " + point);
 				board[point.x][point.y] = ' ';
 				if (value > bestValue) {
@@ -88,6 +91,13 @@ public class AI extends Player {
 		if (bestPoint.x == -1)
 			return this.randomMove(); // no good move found...has to be changed
 		return bestPoint;
+	}
+
+	private void resetCapture(char[][] board, ArrayList<Point> capturedPos, char figure) {
+		for (var pos : capturedPos) {
+			if (pos != null)
+				board[pos.x][pos.y] = figure;
+		}
 	}
 
 	private void drawPoints(ArrayList<Point> points) {// for debugging
@@ -142,7 +152,9 @@ public class AI extends Player {
 			for (var point : points) {
 				if (board[point.x][point.y] == ' ') {
 					board[point.x][point.y] = this.getFigure();
+					var capturedPos = this.data.getTurn().capture(board, point, getFigure(), data.getEnemyFigure());
 					value = this.minimax(board, point, enemyMove, myMoves, depth - 1, false);
+					resetCapture(board, capturedPos, this.data.getEnemyFigure());
 					board[point.x][point.y] = ' ';
 					bestValue = Math.max(value, bestValue);
 				}
@@ -156,7 +168,9 @@ public class AI extends Player {
 			for (var point : points) {
 				if (board[point.x][point.y] == ' ') {
 					board[point.x][point.y] = this.data.getEnemyFigure();
+					var capturedPos = this.data.getTurn().capture(board, point, data.getEnemyFigure(), getFigure());
 					value = this.minimax(board, myMove, point, enemyMoves, depth - 1, true);
+					resetCapture(board, capturedPos, this.getFigure());
 					board[point.x][point.y] = ' ';
 					bestValue = Math.min(value, bestValue);
 				}
@@ -176,20 +190,18 @@ public class AI extends Player {
 		Point secondMovePoint = null;
 		int side = (int) (Math.random() * 4);
 		switch (side) {
-			case 0:
-				secondMovePoint = new Point(0, (int) (Math.random() * this.data.getBoardSize()));
-				break;
-			case 1:
-				secondMovePoint = new Point(this.data.getBoardSize() - 1,
-						(int) (Math.random() * this.data.getBoardSize()));
-				break;
-			case 2:
-				secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()), 0);
-				break;
-			case 3:
-				secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()),
-						this.data.getBoardSize() - 1);
-				break;
+		case 0:
+			secondMovePoint = new Point(0, (int) (Math.random() * this.data.getBoardSize()));
+			break;
+		case 1:
+			secondMovePoint = new Point(this.data.getBoardSize() - 1, (int) (Math.random() * this.data.getBoardSize()));
+			break;
+		case 2:
+			secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()), 0);
+			break;
+		case 3:
+			secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()), this.data.getBoardSize() - 1);
+			break;
 		}
 		return secondMovePoint;
 	}

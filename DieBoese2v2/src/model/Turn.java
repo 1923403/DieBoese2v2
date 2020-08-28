@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import io.localization.ConsoleOutput;
 import player.Player;
@@ -13,39 +14,42 @@ public class Turn {
 		this.board = board;
 	}
 
-	public void capture(char[][] board, final Point coordinates, final char figure, final char enemyFigure) {
+	public ArrayList<Point> capture(char[][] board, final Point coordinates, final char figure, final char enemyFigure) {
+		var capturedPos = new ArrayList<Point>();
 		final var direction = new Point();
 		// right
 		direction.setLocation(1, 0);
-		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
 
 		// left
 		direction.setLocation(-1, 0);
-		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
 
 		// top
 		direction.setLocation(0, 1);
-		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
 
 		// bottom
 		direction.setLocation(0, -1);
-		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
 
 		// top right
 		direction.setLocation(1, 1);
-		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
 
 		// bottom right
 		direction.setLocation(1, -1);
-		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
 
 		// bottom left
 		direction.setLocation(-1, -1);
-		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
 
 		// top left
 		direction.setLocation(-1, 1);
-		this.captureDirections(board, coordinates, direction, figure, enemyFigure);
+		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
+		
+		return capturedPos;
 	}
 
 	// determines if game is over and a player has won
@@ -135,7 +139,7 @@ public class Turn {
 	 * @param figure
 	 * @param enemyFigure
 	 */
-	private void captureDirections(char[][] board, final Point coordinates, final Point direction, final char figure,
+	private ArrayList<Point> captureDirections(char[][] board, final Point coordinates, final Point direction, final char figure,
 			final char enemyFigure) {
 		final var point1 = new Point(coordinates.x + direction.x, coordinates.y + direction.y); // should be enemys
 																								// figure for capturing
@@ -150,11 +154,16 @@ public class Turn {
 					&& (board[point1.x][point1.y] == enemyFigure)
 					&& (board[point2.x][point2.y] == enemyFigure)) {// checks if p3 == own figure and p1
 																	// == p2 == enemy figure
-				ConsoleOutput.printCapture(enemyFigure);
+				//ConsoleOutput.printCapture(enemyFigure);
 				board[point1.x][point1.y] = ' '; // deletes enemy figure
 				board[point2.x][point2.y] = ' ';
+				var capturedPos = new ArrayList<Point>();
+				capturedPos.add(point1);
+				capturedPos.add(point2);
+				return capturedPos;
 			}
 		}
+		return new ArrayList<Point>();
 	}
 
 	/**
