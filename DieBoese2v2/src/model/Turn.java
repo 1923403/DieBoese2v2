@@ -14,7 +14,8 @@ public class Turn {
 		this.board = board;
 	}
 
-	public ArrayList<Point> capture(char[][] board, final Point coordinates, final char figure, final char enemyFigure) {
+	public ArrayList<Point> capture(char[][] board, final Point coordinates, final char figure,
+			final char enemyFigure) {
 		var capturedPos = new ArrayList<Point>();
 		final var direction = new Point();
 		// right
@@ -48,7 +49,7 @@ public class Turn {
 		// top left
 		direction.setLocation(-1, 1);
 		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
-		
+
 		return capturedPos;
 	}
 
@@ -71,31 +72,36 @@ public class Turn {
 	 * @return longest row
 	 */
 	public int longestRow(char[][] board, final char figure, final Point coordinates) {
+		return longestRow(board, figure, figure, coordinates); // row
+	}
+
+	public int longestRow(char[][] board, final char figure, final char blank, final Point coordinates) {
+		// only coordinates required, figure not needed
 
 		// horizontal row
 //		System.out.println(coordinates);
 		final Point direction = new Point();
 
 		direction.setLocation(1, 0);
-		final var horizontalFigures = this.figuresInRow(board, figure, coordinates, direction);
+		final var horizontalFigures = this.figuresInRow(board, figure, blank, coordinates, direction);
 
 		// vertical row
 		direction.setLocation(0, 1);
-		final var verticalFigures = this.figuresInRow(board, figure, coordinates, direction);
+		final var verticalFigures = this.figuresInRow(board, figure, blank, coordinates, direction);
 
 		// diagonal row (top right to bottom left)
 		direction.setLocation(1, 1);
-		final var diagonalFigures1 = this.figuresInRow(board, figure, coordinates, direction);
+		final var diagonalFigures1 = this.figuresInRow(board, figure, blank, coordinates, direction);
 
 		// diagonal row (top left to bottom right)
 		direction.setLocation(1, -1);
-		final var diagonalFigures2 = this.figuresInRow(board, figure, coordinates, direction);
+		final var diagonalFigures2 = this.figuresInRow(board, figure, blank, coordinates, direction);
 
 		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2)); // max
 																														// value
 																														// /
 																														// longest
-																														// row
+
 	}
 
 	// checks if there is an empty space on the board
@@ -139,8 +145,8 @@ public class Turn {
 	 * @param figure
 	 * @param enemyFigure
 	 */
-	private ArrayList<Point> captureDirections(char[][] board, final Point coordinates, final Point direction, final char figure,
-			final char enemyFigure) {
+	private ArrayList<Point> captureDirections(char[][] board, final Point coordinates, final Point direction,
+			final char figure, final char enemyFigure) {
 		final var point1 = new Point(coordinates.x + direction.x, coordinates.y + direction.y); // should be enemys
 																								// figure for capturing
 		final var point2 = new Point(point1.x + direction.x, point1.y + direction.y); // should be enemys figure for
@@ -148,13 +154,12 @@ public class Turn {
 		final var point3 = new Point(point2.x + direction.x, point2.y + direction.y); // should be players figure for
 																						// capturing
 
-		if ((point3.x < board.length) && (point3.y < board.length) && (point3.x >= 0)
-				&& (point3.y >= 0) && (point3.x >= 0)) {// checks if this point is located on board
-			if ((board[point3.x][point3.y] == figure)
-					&& (board[point1.x][point1.y] == enemyFigure)
+		if ((point3.x < board.length) && (point3.y < board.length) && (point3.x >= 0) && (point3.y >= 0)
+				&& (point3.x >= 0)) {// checks if this point is located on board
+			if ((board[point3.x][point3.y] == figure) && (board[point1.x][point1.y] == enemyFigure)
 					&& (board[point2.x][point2.y] == enemyFigure)) {// checks if p3 == own figure and p1
 																	// == p2 == enemy figure
-				//ConsoleOutput.printCapture(enemyFigure);
+				// ConsoleOutput.printCapture(enemyFigure);
 				board[point1.x][point1.y] = ' '; // deletes enemy figure
 				board[point2.x][point2.y] = ' ';
 				var capturedPos = new ArrayList<Point>();
@@ -174,21 +179,23 @@ public class Turn {
 	 * @param direction
 	 * @return
 	 */
-	private int figuresInRow(char[][] board, final char figure, final Point coordinates, final Point direction) {
+	private int figuresInRow(char[][] board, final char figure, final char blank, final Point coordinates,
+			final Point direction) {
 
 		var counter = 1;
 		var posX = coordinates.x + direction.x;
 		var posY = coordinates.y + direction.y;
 		final var boardLength = board.length;
 		while ((posX < boardLength) && (posY < boardLength) && (posY >= 0)
-				&& (board[posX][posY] == figure)) {
+				&& ((board[posX][posY] == figure) || (board[posX][posY] == blank))) {
 			counter++;
 			posX += direction.x;
 			posY += direction.y;
 		}
 		posX = coordinates.x - direction.x;
 		posY = coordinates.y - direction.y;
-		while ((posX >= 0) && (posY < boardLength) && (posY >= 0) && (board[posX][posY] == figure)) {
+		while ((posX >= 0) && (posY < boardLength) && (posY >= 0)
+				&& ((board[posX][posY] == figure) || (board[posX][posY] == blank))) {
 			counter++;
 			posX -= direction.x;
 			posY -= direction.y;
