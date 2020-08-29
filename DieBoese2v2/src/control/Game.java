@@ -3,6 +3,7 @@ package control;
 import io.localization.ConsoleOutput;
 import model.Data;
 import model.Menu;
+import model.Settings;
 import player.AI;
 import player.HumanPlayer;
 import player.Player;
@@ -11,12 +12,15 @@ public class Game {
 
 	private Data data;
 	private boolean DEBUG = false;
-	private Menu menu = new Menu();
+	private Menu menu;
 	private Player player1;
 	private boolean player1Next = true;
 	private Player player2;
+	private Settings settings;
 
 	protected Game() {
+		this.settings = new Settings();
+		this.menu = new Menu(this.settings);
 		do {
 			// wait
 		} while (!this.menu.settingsChoosen()); // if no changes were made (0 pressed)
@@ -53,15 +57,15 @@ public class Game {
 	 * loads settings (default / new)
 	 */
 	private void getSettings() {
-		this.data = new Data(this.menu.getBoardSize());
+		this.data = new Data(this.settings.getBoardSize());
 		this.player1 = new HumanPlayer('X', this.data);
 
-		if (this.menu.isPvp())
+		if (this.settings.isPvp())
 			this.player2 = new HumanPlayer('O', this.data);
 		else {
 			this.player2 = new AI('O', this.data);
 
-			if (this.menu.getStart()) {
+			if (this.settings.getStart()) {
 				this.player1Next = true;
 				this.data.setEnemyFigure(this.player2.getFigure());
 			} else {
