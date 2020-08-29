@@ -14,20 +14,15 @@ import model.InvalidMoveException;
 public class AI extends Player {
 	private final int analyzingRange = 5;
 	private final int wantedDepth = 3; // could be increased during the game
-	private Deque<Point> lastEnemyMoves;
-	private Deque<Point> myLastMoves;
 
 	public AI(final char figure, Data data) {
 		super(figure, data);
-//		lastEnemyMoves = new ArrayDeque<Point>();
-//		myLastMoves = new ArrayDeque<Point>();
 	}
 
 	@Override
 	public void move() {
 		// creates random move
 		boolean exceptionThrown;
-//		addMove();
 		do {
 			exceptionThrown = false;
 
@@ -49,18 +44,6 @@ public class AI extends Player {
 		this.data.load(this.getFigure(), this.getMyMove());
 	}
 
-	private void addMove() {
-		lastEnemyMoves.addFirst(this.data.getEnemyMove());
-		myLastMoves.addFirst(getMyMove());
-
-		while (lastEnemyMoves.size() > 2) {
-			lastEnemyMoves.removeLast();
-		}
-
-		while (myLastMoves.size() > 2) {
-			myLastMoves.removeLast();
-		}
-	}
 
 	// for removing duplicates
 	private ArrayList<Point> addPoints(ArrayList<Point> myPoints, ArrayList<Point> enemyPoints) {
