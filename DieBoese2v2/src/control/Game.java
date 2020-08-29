@@ -21,9 +21,7 @@ public class Game {
 	protected Game() {
 		this.settings = new Settings();
 		this.menu = new Menu(this.settings);
-		do {
-			// wait
-		} while (!this.menu.settingsChoosen()); // if no changes were made (0 pressed)
+		this.menu.chooseSettings();
 		this.getSettings();
 		this.runGame();
 	}
