@@ -87,7 +87,7 @@ public class Minimax {
 	private int minimax(char[][] board, Point[] lastMoves, boolean isMaximizing, int depth) {
 		int bestValue = Integer.MAX_VALUE;
 		var allMoves = createPoints(board);
-		if (evaluation.hasWon(board, lastMoves[wantedDepth - (depth)])) {
+		if (evaluation.hasWon(board, lastMoves[wantedDepth - (depth+1)])) {
 			if (isMaximizing)
 				return Integer.MIN_VALUE;
 			else
