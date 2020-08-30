@@ -2,52 +2,62 @@ package player;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Minimax {
 	private final int availibleThreads = Runtime.getRuntime().availableProcessors();
 	private final int analyzingRange = 5;
 	private final int wantedDepth = 3; // could be increased during the game
+	private BoardEvaluation evaluation;
+
+	public Minimax() {
+		evaluation = new BoardEvaluation();
+	}
 
 	private Point parallelizedSearch(ArrayList<ArrayList<Point>> threadLists) {
-		for(var i = 0; i < availibleThreads; i++) {
-			new Thread(new Runnable(){
-
-				@Override
-				public void run() {
-					bestMove(threadLists.get(1));
-					
-				}
-				
+		for (var i = 0; i < availibleThreads; i++) {
+			var list = threadLists.get(i);
+			new Thread(() -> {
+				bestMove(list);
 			}).start();
 		}
 		return null;
 	}
-	
+
 	private Point bestMove(ArrayList<Point> allMoves) {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param board
+	 * @return best point calculated by minimax
+	 */
 	public Point createMove(char[][] board) {
 		var pointList = createPoints(board);
-		sortPoints(pointList);
-		var threadList = createThreadList(pointList);
+		var evaluatedPoints = evaluation.evaluatePoints(pointList);
+		var sortedPoints = sortPoints(evaluatedPoints);
+		var threadList = createThreadList(sortedPoints);
 		return parallelizedSearch(threadList);
 	}
-	
+
 	/**
 	 * sorts all points from guessed best to worst move
 	 * 
 	 * @param pointList
 	 */
-	private void sortPoints(ArrayList<Point> pointList) {
-		//sort
+	private ArrayList<Point> sortPoints(HashMap<Point, Integer> evaluatedPoints) {
+		// sort
+		var sortedList = new ArrayList<Point>();
+
+		return sortedList;
 	}
-	
-	private ArrayList<Point> createPoints(char[][] board){
+
+	private ArrayList<Point> createPoints(char[][] board) {
 		return null;
 	}
 
-	/** 
+	/**
 	 * splits points to all threads starting with the best move
 	 * 
 	 * @param allMoves
