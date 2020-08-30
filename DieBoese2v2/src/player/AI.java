@@ -10,7 +10,7 @@ public class AI extends Player {
 
 	public AI(final char figure, Data data) {
 		super(figure, data);
-		minimax = new Minimax();
+		minimax = new Minimax(this.getFigure(), data.getEnemyFigure());
 	}
 
 	@Override
