@@ -26,7 +26,7 @@ public class AI extends Player {
 				this.setMyMove(this.secondMove()); // secondMove
 			} else {
 				// ai logic
-				this.setMyMove(minimax.createMove(null));
+				this.setMyMove(minimax.createMove(this.data.getBoard().getBoard()));
 			}
 			try {
 				this.data.getTurn().setMove(this.data, this);
