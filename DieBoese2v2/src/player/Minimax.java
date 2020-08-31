@@ -8,7 +8,8 @@ import model.Board;
 
 public class Minimax {
 	private final int availibleThreads = Runtime.getRuntime().availableProcessors();
-	private final int wantedDepth = 3; // could be increased during the game
+	private final int wantedDepth = 4; // could be increased during the game
+	private final int squareSize = 2;
 	private BoardEvaluation evaluation;
 	private HashMap<Point, Integer> bestMoves;
 	private final char myFigure;
@@ -167,21 +168,31 @@ public class Minimax {
 	private ArrayList<Point> createPoints(char[][] board) {
 		var examinePoints = new ArrayList<Point>();
 		// small board / move evaluation needed
-
-		// just for testing:
-		// all empty positions
 		for (var x = 0; x < board.length; x++) {
 			for (var y = 0; y < board.length; y++) {
-				if (board[x][y] == ' ')
-					examinePoints.add(new Point(x, y));
+				if (board[x][y] == myFigure || board[x][y] == enemyFigure) {
+					var square = createSquare(board, new Point(x, y));
+					for (var point : square) {
+						if (!examinePoints.contains(point))
+							examinePoints.add(point);
+					}
+				}
 			}
 		}
 		return examinePoints;
 	}
 
-	private ArrayList<Point> createSquare(Point center) {
+	private ArrayList<Point> createSquare(char[][] board, Point center) {
 		var square = new ArrayList<Point>();
-
+		for (int x = center.x - squareSize; x <= center.x + squareSize; x++) {
+			for (int y = center.y - squareSize; y <= center.y + squareSize; y++) {
+				if ((x >= 0 && x < board.length) && (y >= 0 && y < board.length)) {
+					if (board[x][y] == ' ') {
+						square.add(new Point(x, y));
+					}
+				}
+			}
+		}
 		return square;
 	}
 
