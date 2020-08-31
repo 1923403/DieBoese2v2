@@ -10,7 +10,7 @@ public class AI extends Player {
 
 	public AI(final char figure, Data data) {
 		super(figure, data);
-		minimax = new Minimax(this.getFigure(), data.getEnemyFigure());
+		minimax = new Minimax('O', 'X');
 	}
 
 	@Override
@@ -49,18 +49,20 @@ public class AI extends Player {
 		Point secondMovePoint = null;
 		int side = (int) (Math.random() * 4);
 		switch (side) {
-		case 0:
-			secondMovePoint = new Point(0, (int) (Math.random() * this.data.getBoardSize()));
-			break;
-		case 1:
-			secondMovePoint = new Point(this.data.getBoardSize() - 1, (int) (Math.random() * this.data.getBoardSize()));
-			break;
-		case 2:
-			secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()), 0);
-			break;
-		case 3:
-			secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()), this.data.getBoardSize() - 1);
-			break;
+			case 0:
+				secondMovePoint = new Point(0, (int) (Math.random() * this.data.getBoardSize()));
+				break;
+			case 1:
+				secondMovePoint = new Point(this.data.getBoardSize() - 1,
+						(int) (Math.random() * this.data.getBoardSize()));
+				break;
+			case 2:
+				secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()), 0);
+				break;
+			case 3:
+				secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()),
+						this.data.getBoardSize() - 1);
+				break;
 		}
 		return secondMovePoint;
 	}

@@ -20,7 +20,6 @@ public class BoardEvaluation {
 			if (winPossible(board, point)) {
 				var evaluation = Math.max(longestRow(board, myFigure, point), longestRow(board, enemyFigure, point));
 				evaluatedPoints.put(point, evaluation);
-				// System.out.println(point + " Wert: " + evaluation);
 			}
 		}
 		return evaluatedPoints;
@@ -30,14 +29,14 @@ public class BoardEvaluation {
 		return ((longestRow(board, myFigure, ' ', move) > 4) || (longestRow(board, enemyFigure, ' ', move) > 4));
 	}
 
-	public int evaluateBoard(char[][] board, Point[] lastMoves, boolean isMaximizing) {
+	public int evaluateBoard(char[][] board, ArrayList<Point> lastMoves, boolean isMaximizing) {
 		var myLongestRow = 0;
 		var longestEnemyRow = 0;
-		for (var i = 0; i < lastMoves.length; i++) {
+		for (var i = 0; i < lastMoves.size(); i++) {
 			if (i % 2 == 0) {
-				myLongestRow = Math.max(myLongestRow, longestRow(board, myFigure, lastMoves[i]));
+				myLongestRow = Math.max(myLongestRow, longestRow(board, myFigure, lastMoves.get(i)));
 			} else {
-				longestEnemyRow = Math.max(longestEnemyRow, longestRow(board, enemyFigure, lastMoves[i]));
+				longestEnemyRow = Math.max(longestEnemyRow, longestRow(board, enemyFigure, lastMoves.get(i)));
 			}
 		}
 		if (isMaximizing) {
@@ -55,10 +54,7 @@ public class BoardEvaluation {
 
 	public boolean hasWon(char[][] board, Point lastMove) {
 		var figure = board[lastMove.x][lastMove.y];
-		if (figure == ' ')
-			System.err.println("leeres feld!!!!!!!!!!!!!!");
-		var hasWon = (longestRow(board, figure, lastMove) > 4);
-		return hasWon;
+		return (longestRow(board, figure, lastMove) > 4);
 
 	}
 
