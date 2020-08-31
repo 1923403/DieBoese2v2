@@ -40,7 +40,9 @@ public class Board {
 		this.initialize();
 	}
 
-	// makes a copy of the original board
+	/**
+	 * creates a copy of the original board
+	 */
 	public char[][] copyBoard() {
 		char[][] clonedBoard = new char[this.board.length][this.board.length];
 		for (int i = 0; i < this.board.length; i++) {
