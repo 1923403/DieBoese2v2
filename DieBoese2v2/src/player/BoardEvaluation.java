@@ -54,7 +54,8 @@ public class BoardEvaluation {
 
 	public boolean hasWon(char[][] board, Point lastMove) {
 		var figure = board[lastMove.x][lastMove.y];
-		if(figure == ' ') System.err.println("leeres feld!!!!!!!!!!!!!!");
+		if (figure == ' ')
+			System.err.println("leeres feld!!!!!!!!!!!!!!");
 		var hasWon = (longestRow(board, figure, lastMove) > 4);
 		return hasWon;
 
