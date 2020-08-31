@@ -179,6 +179,12 @@ public class Minimax {
 		return examinePoints;
 	}
 
+	private ArrayList<Point> createSquare(Point center) {
+		var square = new ArrayList<Point>();
+
+		return square;
+	}
+
 	/**
 	 * splits points to all threads starting with the best move
 	 * 
