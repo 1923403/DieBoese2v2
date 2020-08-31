@@ -20,6 +20,7 @@ public class BoardEvaluation {
 			if (winPossible(board, point)) {
 				var evaluation = Math.max(longestRow(board, myFigure, point), longestRow(board, enemyFigure, point));
 				evaluatedPoints.put(point, evaluation);
+				// System.out.println(point + " Wert: " + evaluation);
 			}
 		}
 		return evaluatedPoints;

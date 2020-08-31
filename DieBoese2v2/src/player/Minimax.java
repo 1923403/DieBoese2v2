@@ -7,8 +7,8 @@ import java.util.HashMap;
 import model.Board;
 
 public class Minimax {
-	private final int availibleThreads = 1;// Runtime.getRuntime().availableProcessors();
-	private final int wantedDepth = 3; // could be increased during the game
+	private final int availibleThreads = Runtime.getRuntime().availableProcessors();
+	private final int wantedDepth = 4; // could be increased during the game
 	private BoardEvaluation evaluation;
 	private HashMap<Point, Integer> bestMoves;
 	private final char myFigure;
@@ -63,8 +63,8 @@ public class Minimax {
 				bestMove = move;
 			}
 		}
-		System.out.println(bestMove + ": " + bestValue);
-		System.out.println("Worst value: " + worstValue);
+//		System.out.println(bestMove + ": " + bestValue);
+//		System.out.println("Worst value: " + worstValue);
 		bestMoves.put(bestMove, bestValue);
 	}
 
@@ -106,6 +106,7 @@ public class Minimax {
 		for (var move : allMoves) {
 			lastMoves[wantedDepth - depth] = move;
 			var value = setFigure(board, lastMoves, isMaximizing, depth);
+//			System.out.println(move + " Value: " + value);
 			if (isMaximizing)
 				bestValue = Math.max(value, bestValue);
 			else
