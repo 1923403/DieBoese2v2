@@ -16,12 +16,15 @@ public class BoardEvaluation {
 
 	public HashMap<Point, Integer> evaluatePoints(char[][] board, ArrayList<Point> allPoints) {
 		var evaluatedPoints = new HashMap<Point, Integer>();
+		// System.out.println("Vorbewertung:");
 		for (var point : allPoints) {
 			if (winPossible(board, point)) {
 				var evaluation = Math.max(longestRow(board, myFigure, point), longestRow(board, enemyFigure, point));
 				evaluatedPoints.put(point, evaluation);
+				// System.out.println(point + " " + evaluation);
 			}
 		}
+		// System.out.println("---Ende---");
 		return evaluatedPoints;
 	}
 

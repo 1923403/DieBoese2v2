@@ -7,14 +7,14 @@ import java.util.HashMap;
 import model.Board;
 
 public class Minimax {
-	private final int availibleThreads = 1;// Runtime.getRuntime().availableProcessors();
+	private final int availibleThreads = Runtime.getRuntime().availableProcessors();
 	private final int wantedDepth = 4; // could be increased during the game
 	private final int squareSize = 2;
-	private BoardEvaluation evaluation;
-	private HashMap<Point, Integer> bestMoves;
-	// private ArrayList<Point> sortedPoints;
+	private volatile BoardEvaluation evaluation;
+	private volatile HashMap<Point, Integer> bestMoves;
 	private final char myFigure;
 	private final char enemyFigure;
+	private ArrayList<Point> sortedPoints;
 
 	public Minimax(char myFigure, char enemyFigure) {
 		evaluation = new BoardEvaluation(myFigure, enemyFigure);
@@ -35,10 +35,10 @@ public class Minimax {
 		Thread threads[] = new Thread[availibleThreads];
 
 		for (var i = 0; i < availibleThreads; i++) {
-			var list = threadLists.get(i);
+			var allMoves = threadLists.get(i);
 			threads[i] = new Thread(() -> {
 
-				bestMove(realBoard.copyBoard(), list);
+				bestMove(realBoard.copyBoard(), allMoves);
 			});
 			threads[i].start();
 		}
@@ -57,11 +57,11 @@ public class Minimax {
 		var bestMove = new Point();
 		var bestValue = Integer.MIN_VALUE;
 		var worstValue = Integer.MAX_VALUE;
-		var moves = new ArrayList<Point>();
-		var clonedMoves = cloneList(allMoves);
-		for (var move : clonedMoves) {
-			moves.add(move);
-			var value = setFigure(board, moves, true, clonedMoves, wantedDepth);
+		var previousMoves = new ArrayList<Point>();
+		var clonedMoves = cloneList(sortedPoints);
+		for (var move : allMoves) {
+			previousMoves.add(move);
+			var value = setFigure(board, previousMoves, true, clonedMoves, wantedDepth);
 			worstValue = Math.min(value, bestValue);
 			if (value > bestValue) {
 				bestValue = value;
@@ -87,18 +87,19 @@ public class Minimax {
 			ArrayList<Point> possibleMoves, int depth) {
 		var x = previousMoves.get(previousMoves.size() - 1).x;
 		var y = previousMoves.get(previousMoves.size() - 1).y;
-		addSquare(board, previousMoves.get(previousMoves.size() - 1), possibleMoves);
+		var allMoves = cloneList(possibleMoves);
+		addSquare(board, new Point(x, y), allMoves);
 		if (isMaximizing)
 			board[x][y] = this.myFigure;
 		else
 			board[x][y] = this.enemyFigure;
-		var value = minimax(board, previousMoves, !isMaximizing, possibleMoves, depth - 1);
+		var value = minimax(board, previousMoves, !isMaximizing, allMoves, depth - 1);
 		board[x][y] = ' ';
 		previousMoves.remove(previousMoves.size() - 1);
 		return value;
 	}
 
-	private int minimax(char[][] board, ArrayList<Point> lastMoves, boolean isMaximizing,
+	private synchronized int minimax(char[][] board, ArrayList<Point> lastMoves, boolean isMaximizing,
 			ArrayList<Point> possibleMoves, int depth) {
 		int bestValue = Integer.MAX_VALUE;
 		ArrayList<Point> allMoves = possibleMoves;
@@ -133,7 +134,7 @@ public class Minimax {
 	public Point createMove(Board board) {
 		var pointList = createPoints(board.getBoard());
 		var evaluatedPoints = evaluation.evaluatePoints(board.getBoard(), pointList);
-		var sortedPoints = sortPoints(evaluatedPoints);
+		sortedPoints = sortPoints(evaluatedPoints);
 		var threadList = createThreadList(sortedPoints);
 		return parallelizedSearch(board, threadList);
 	}
@@ -147,12 +148,12 @@ public class Minimax {
 		var sortedList = new ArrayList<Point>();
 		var sorted = false;
 		int highestValue;
-		Point bestPoint = new Point(0, 0);
+		Point bestPoint = new Point(-1, -1);
 		while (!sorted) {
 			highestValue = Integer.MIN_VALUE;
 			sorted = true;
 			for (var point : evaluatedPoints.keySet()) {
-				if (evaluatedPoints.get(point) > highestValue) {
+				if (evaluatedPoints.get(point) >= highestValue) {
 					bestPoint = point;
 					highestValue = evaluatedPoints.get(point);
 					sorted = false;
@@ -223,6 +224,17 @@ public class Minimax {
 			ArrayList<Point> currentList = threadList.get(threadNumber);
 			currentList.add(point);
 		}
+		printThreadList(threadList);
 		return threadList;
+	}
+
+	private void printThreadList(ArrayList<ArrayList<Point>> threadlist) {
+		for (var list : threadlist) {
+			System.out.println("Thread " + threadlist.indexOf(list));
+			for (var point : list) {
+				System.out.println(point);
+			}
+			System.out.println();
+		}
 	}
 }
