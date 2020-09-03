@@ -5,8 +5,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BoardEvaluation {
+	private enum Directions {
+		diagonal1, diagonal2, horizontal, vertical
+	}
 
+	public int maxValue = Integer.MIN_VALUE;
+
+	public int minValue = Integer.MAX_VALUE;
+
+	private final Point[] directions = { new Point(1, 0), new Point(0, 1), new Point(1, 1), new Point(1, -1) };
 	private final char enemyFigure;
+
 	private final char myFigure;
 
 	public BoardEvaluation(char myFigure, char enemyFigure) {
@@ -19,12 +28,10 @@ public class BoardEvaluation {
 		var longestEnemyRow = 0;
 		for (var i = 0; i < lastMoves.size(); i++) {
 			if ((i % 2) == 0) {
-				if (this.longestRow(board, this.myFigure, ' ', lastMoves.get(i)) >= 5)
-					myLongestRow = Math.max(myLongestRow, this.longestRow(board, this.myFigure, lastMoves.get(i)));
+				myLongestRow = Math.max(myLongestRow, this.longestRow(board, this.myFigure, lastMoves.get(i)));
 			} else {
-				if (this.longestRow(board, this.enemyFigure, ' ', lastMoves.get(i)) >= 5)
-					longestEnemyRow = Math.max(longestEnemyRow,
-							this.longestRow(board, this.enemyFigure, lastMoves.get(i)));
+				longestEnemyRow = Math.max(longestEnemyRow,
+						this.longestRow(board, this.enemyFigure, lastMoves.get(i)));
 			}
 		}
 		// win possible muss fuer jede richtung ausprobieren und nicht fuer alle
@@ -37,15 +44,21 @@ public class BoardEvaluation {
 //			System.err.println("444444444444444444444444444444");
 //		}
 		if (isMaximizing) {
-			if (myLongestRow >= longestEnemyRow)
+			if (myLongestRow >= longestEnemyRow) {
+				this.maxValue = Math.max(myLongestRow, this.maxValue);
 				return myLongestRow;
-			else
+			} else {
+				this.minValue = Math.min(-longestEnemyRow, this.minValue);
 				return -longestEnemyRow;
+			}
 		} else {
-			if (myLongestRow > longestEnemyRow)
+			if (myLongestRow > longestEnemyRow) {
+				this.maxValue = Math.max(myLongestRow, this.maxValue);
 				return myLongestRow;
-			else
+			} else {
+				this.minValue = Math.min(-longestEnemyRow, this.minValue);
 				return -longestEnemyRow;
+			}
 		}
 	}
 
@@ -91,6 +104,8 @@ public class BoardEvaluation {
 			counter++;
 			posX += direction.x;
 			posY += direction.y;
+			if (counter > 4)
+				break;
 		}
 		posX = coordinates.x - direction.x;
 		posY = coordinates.y - direction.y;
@@ -99,6 +114,8 @@ public class BoardEvaluation {
 			counter++;
 			posX -= direction.x;
 			posY -= direction.y;
+			if (counter > 4)
+				break;
 		}
 		return counter;
 	}
@@ -109,20 +126,28 @@ public class BoardEvaluation {
 		// only coordinates required, figure not needed
 
 		// horizontal row
-		final Point horizontal = new Point(1, 0);
-		final var horizontalFigures = this.figuresInRow(board, figure, blank, coordinates, horizontal);
+		final Point horizontal = new Point(1, 0);// with enum?
+		var horizontalFigures = 0;
+		if (this.figuresInRow(board, figure, ' ', coordinates, horizontal) > 4)
+			horizontalFigures = this.figuresInRow(board, figure, blank, coordinates, horizontal);
 
 		// vertical row
 		final Point vertical = new Point(0, 1);
-		final var verticalFigures = this.figuresInRow(board, figure, blank, coordinates, vertical);
+		var verticalFigures = 0;
+		if (this.figuresInRow(board, figure, ' ', coordinates, vertical) > 4)
+			verticalFigures = this.figuresInRow(board, figure, blank, coordinates, vertical);
 
 		// diagonal row (top right to bottom left)
 		final Point diagonal1 = new Point(1, 1);
-		final var diagonalFigures1 = this.figuresInRow(board, figure, blank, coordinates, diagonal1);
+		var diagonalFigures1 = 0;
+		if (this.figuresInRow(board, figure, ' ', coordinates, diagonal1) > 4)
+			diagonalFigures1 = this.figuresInRow(board, figure, blank, coordinates, diagonal1);
 
 		// diagonal row (top left to bottom right)
 		final Point diagonal2 = new Point(1, -1);
-		final var diagonalFigures2 = this.figuresInRow(board, figure, blank, coordinates, diagonal2);
+		var diagonalFigures2 = 0;
+		if (this.figuresInRow(board, figure, ' ', coordinates, diagonal2) > 4)
+			diagonalFigures2 = this.figuresInRow(board, figure, blank, coordinates, diagonal2);
 
 		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2));
 	}

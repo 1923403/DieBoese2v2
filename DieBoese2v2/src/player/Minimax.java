@@ -7,14 +7,14 @@ import java.util.HashMap;
 import model.Board;
 
 public class Minimax {
-	private final int availibleThreads = 1;// Runtime.getRuntime().availableProcessors();
+	private final int availibleThreads = Runtime.getRuntime().availableProcessors();
 	private volatile HashMap<Point, Integer> bestMoves;
 	private final char enemyFigure;
 	private volatile BoardEvaluation evaluation;
 	private final char myFigure;
 	private ArrayList<Point> sortedPoints;
 	private final int squareSize = 2;
-	private final int wantedDepth = 4; // could be increased during the game
+	private final int wantedDepth = 2; // could be increased during the game
 
 	public Minimax(char myFigure, char enemyFigure) {
 		this.evaluation = new BoardEvaluation(myFigure, enemyFigure);
@@ -61,7 +61,7 @@ public class Minimax {
 		for (var move : allMoves) {
 			previousMoves.add(move);
 			var value = this.setFigure(board, previousMoves, true, clonedMoves, this.wantedDepth);
-			System.out.println(move + " " + value);
+			System.out.println("BestMove: " + move + " " + value);
 			worstValue = Math.min(value, bestValue);
 			if (value > bestValue) {
 				bestValue = value;
@@ -113,7 +113,6 @@ public class Minimax {
 		for (var i = 0; i < this.availibleThreads; i++) {
 			threadList.add(new ArrayList<>());
 		}
-		System.out.println(allMoves);
 		for (var point : allMoves) {
 			var threadNumber = allMoves.indexOf(point) % this.availibleThreads;
 			ArrayList<Point> currentList = threadList.get(threadNumber);
@@ -140,7 +139,8 @@ public class Minimax {
 		for (var move : allMoves) {
 			lastMoves.add(move);
 			var value = this.setFigure(board, lastMoves, isMaximizing, possibleMoves, depth);
-//			System.out.println(move + " Value: " + value);
+			if (depth == 1)
+				System.out.println(move + " Value: " + value);
 			if (isMaximizing)
 				bestValue = Math.max(value, bestValue);
 			else
@@ -178,9 +178,8 @@ public class Minimax {
 				System.err.println("Thread error");
 			}
 		}
-		for (var thread : threads) {
-			System.out.println(thread.getState());
-		}
+		System.out.println("ev min: " + this.evaluation.minValue);
+		System.out.println("ev max: " + this.evaluation.maxValue);
 		return this.sortPoints(this.bestMoves).get(0); // returns best evaluated point
 	}
 
