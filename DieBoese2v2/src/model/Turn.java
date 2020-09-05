@@ -14,6 +14,15 @@ public class Turn {
 		this.board = board;
 	}
 
+	/**
+	 * captures enemy figures if possible
+	 * 
+	 * @param board
+	 * @param coordinates last placed figure
+	 * @param figure      myFigure
+	 * @param enemyFigure enemyFigure
+	 * @return Point array of captured figures
+	 */
 	public ArrayList<Point> capture(char[][] board, final Point coordinates, final char figure,
 			final char enemyFigure) {
 		var capturedPos = new ArrayList<Point>();
@@ -51,6 +60,21 @@ public class Turn {
 		capturedPos.addAll(this.captureDirections(board, coordinates, direction, figure, enemyFigure));
 
 		return capturedPos;
+	}
+
+	/**
+	 * resets the captured figures (used in minimax algorithm)
+	 * 
+	 * @param board
+	 * @param capturedFigures
+	 * @param figure          figure symbol
+	 * @return returns reseted board
+	 */
+	public char[][] resetCapture(char[][] board, ArrayList<Point> capturedFigures, char figure) {
+		for (var pos : capturedFigures) {
+			board[pos.x][pos.y] = figure;
+		}
+		return board;
 	}
 
 	// determines if game is over and a player has won
