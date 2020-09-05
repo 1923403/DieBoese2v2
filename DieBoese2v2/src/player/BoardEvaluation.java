@@ -23,21 +23,21 @@ public class BoardEvaluation {
 		this.enemyFigure = enemyFigure;
 	}
 
-	public int evaluateBoard(char[][] board, ArrayList<Point> lastMoves, boolean isMaximizing) {
+	public int evaluateBoard(char[][] board, Point[] lastMoves, boolean isMaximizing) {
 		var myLongestRow = 0;
 		var longestEnemyRow = 0;
-		for (var i = 0; i < lastMoves.size(); i++) {
+		for (var i = 0; i < lastMoves.length; i++) {
 			if ((i % 2) == 0) {
-				if (board[lastMoves.get(i).x][lastMoves.get(i).y] != myFigure)
-					System.err.println("Error in lastMoves! " + board[lastMoves.get(i).x][lastMoves.get(i).y]
+				if (board[lastMoves[i].x][lastMoves[i].y] != myFigure)
+					System.err.println("Error in lastMoves! " + board[lastMoves[i].x][lastMoves[i].y]
 							+ " instead of " + myFigure);
-				myLongestRow = Math.max(myLongestRow, this.longestRow(board, this.myFigure, lastMoves.get(i)));
+				myLongestRow = Math.max(myLongestRow, this.longestRow(board, this.myFigure, lastMoves[i]));
 			} else {
-				if (board[lastMoves.get(i).x][lastMoves.get(i).y] != enemyFigure)
-					System.err.println("Error in lastMoves! " + board[lastMoves.get(i).x][lastMoves.get(i).y]
+				if (board[lastMoves[i].x][lastMoves[i].y] != enemyFigure)
+					System.err.println("Error in lastMoves! " + board[lastMoves[i].x][lastMoves[i].y]
 							+ " instead of " + enemyFigure);
 				longestEnemyRow = Math.max(longestEnemyRow,
-						this.longestRow(board, this.enemyFigure, lastMoves.get(i)));
+						this.longestRow(board, this.enemyFigure, lastMoves[i]));
 			}
 		}
 		// win possible muss fuer jede richtung ausprobieren und nicht fuer alle
