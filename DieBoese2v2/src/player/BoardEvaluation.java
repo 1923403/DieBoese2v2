@@ -27,28 +27,18 @@ public class BoardEvaluation {
 		var myLongestRow = 0;
 		var longestEnemyRow = 0;
 		for (var i = 0; i < lastMoves.length; i++) {
-			if ((i % 2) == 0) {
-				if (board[lastMoves[i].x][lastMoves[i].y] != myFigure)
-					System.err.println("Error in lastMoves! " + board[lastMoves[i].x][lastMoves[i].y]
-							+ " instead of " + myFigure);
-				myLongestRow = Math.max(myLongestRow, this.longestRow(board, this.myFigure, lastMoves[i]));
-			} else {
-				if (board[lastMoves[i].x][lastMoves[i].y] != enemyFigure)
-					System.err.println("Error in lastMoves! " + board[lastMoves[i].x][lastMoves[i].y]
-							+ " instead of " + enemyFigure);
-				longestEnemyRow = Math.max(longestEnemyRow,
-						this.longestRow(board, this.enemyFigure, lastMoves[i]));
+			if (board[lastMoves[i].x][lastMoves[i].y] == ' ') { // if figure got captured during minimax
+				if ((i % 2) == 0)
+					myLongestRow = Math.max(myLongestRow, this.longestRow(board, this.myFigure, lastMoves[i]));
+				else
+					longestEnemyRow = Math.max(longestEnemyRow,
+							this.longestRow(board, this.enemyFigure, lastMoves[i]));
 			}
 		}
 		// win possible muss fuer jede richtung ausprobieren und nicht fuer alle
 		// gleichzeitig
 		// gleiches fuer longest row
 
-//		System.out.println("MylongestRow: " + myLongestRow);
-//		System.out.println("longestEnemyRow: " + longestEnemyRow);
-//		if ((myLongestRow >= 3) || (longestEnemyRow >= 3)) {
-//			System.err.println("444444444444444444444444444444");
-//		}
 		if (isMaximizing) {
 			if (myLongestRow >= longestEnemyRow) {
 				this.maxValue = Math.max(myLongestRow, this.maxValue);

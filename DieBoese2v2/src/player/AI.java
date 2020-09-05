@@ -10,7 +10,7 @@ public class AI extends Player {
 
 	public AI(final char figure, Data data) {
 		super(figure, data);
-		minimax = new Minimax('O', 'X');
+		minimax = new Minimax(data.getTurn(), 'O', 'X');
 	}
 
 	@Override
@@ -25,7 +25,6 @@ public class AI extends Player {
 			else if (this.data.getTurnCounter() == 9) {
 				this.setMyMove(this.secondMove()); // secondMove
 			} else {
-				// ai logic
 				this.setMyMove(minimax.createMove(this.data.getBoard()));
 			}
 			try {

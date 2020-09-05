@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.Board;
+import model.Turn;
 
 public class Minimax {
 	private final int availibleThreads = Runtime.getRuntime().availableProcessors();
@@ -15,11 +16,13 @@ public class Minimax {
 	private ArrayList<Point> sortedPoints;
 	private final int squareSize = 2;
 	private final int wantedDepth = 4; // could be increased during the game
+	private Turn turn;
 
-	public Minimax(char myFigure, char enemyFigure) {
+	public Minimax(Turn turn, char myFigure, char enemyFigure) {
 		this.evaluation = new BoardEvaluation(myFigure, enemyFigure);
 		this.myFigure = myFigure;
 		this.enemyFigure = enemyFigure;
+		this.turn = turn;
 	}
 
 	/**
@@ -119,7 +122,6 @@ public class Minimax {
 			ArrayList<Point> currentList = threadList.get(threadNumber);
 			currentList.add(point);
 		}
-		// this.printThreadList(threadList);
 		return threadList;
 	}
 
@@ -141,8 +143,6 @@ public class Minimax {
 			if (board[move.x][move.y] == ' ') {
 				previousMoves[wantedDepth - depth] = new Point(move.x, move.y);
 				var value = this.setFigure(board, previousMoves, isMaximizing, possibleMoves, depth);
-//			if (depth == 1)
-//				System.out.println(move + " Value: " + value);
 				if (isMaximizing)
 					bestValue = Math.max(value, bestValue);
 				else
@@ -181,8 +181,8 @@ public class Minimax {
 				System.err.println("Thread error");
 			}
 		}
-		System.out.println("ev min: " + this.evaluation.minValue);
-		System.out.println("ev max: " + this.evaluation.maxValue);
+//		System.out.println("ev min: " + this.evaluation.minValue);
+//		System.out.println("ev max: " + this.evaluation.maxValue);
 		return this.sortPoints(this.bestMoves).get(0); // returns best evaluated point
 	}
 
@@ -213,17 +213,21 @@ public class Minimax {
 	 */
 	private int setFigure(char[][] board, Point[] previousMoves, boolean isMaximizing,
 			ArrayList<Point> possibleMoves, int depth) {
-		if (previousMoves[wantedDepth - depth] == null)
-			System.exit(6);
 		var x = previousMoves[wantedDepth - depth].x;
 		var y = previousMoves[wantedDepth - depth].y;
 		var allMoves = this.cloneList(possibleMoves);
 		this.addSquare(board, new Point(x, y), allMoves);
-		if (isMaximizing)
-			board[x][y] = this.myFigure;
-		else
-			board[x][y] = this.enemyFigure;
+		var placeFigure = this.enemyFigure;
+		var figure2 = this.myFigure;
+		if (isMaximizing) {
+			placeFigure = this.myFigure;
+			figure2 = this.enemyFigure;
+		}
+		board[x][y] = placeFigure;
+//		var capturedFigures = turn.capture(board, new Point(x, y), placeFigure, // doesn´t work....?
+//				figure2);
 		var value = this.minimax(board, previousMoves, !isMaximizing, allMoves, depth - 1);
+//		board = turn.resetCapture(board, capturedFigures, figure2);
 		board[x][y] = ' ';
 		return value;
 	}
