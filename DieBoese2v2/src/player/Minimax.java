@@ -14,7 +14,7 @@ public class Minimax {
 	private final char myFigure;
 	private ArrayList<Point> sortedPoints;
 	private final int squareSize = 2;
-	private final int wantedDepth = 2; // could be increased during the game
+	private final int wantedDepth = 4; // could be increased during the game
 
 	public Minimax(char myFigure, char enemyFigure) {
 		this.evaluation = new BoardEvaluation(myFigure, enemyFigure);
@@ -61,7 +61,7 @@ public class Minimax {
 		for (var move : allMoves) {
 			previousMoves.add(move);
 			var value = this.setFigure(board, previousMoves, true, clonedMoves, this.wantedDepth);
-			System.out.println("BestMove: " + move + " " + value);
+//			System.out.println("BestMove: " + move + " " + value);
 			worstValue = Math.min(value, bestValue);
 			if (value > bestValue) {
 				bestValue = value;
@@ -69,7 +69,7 @@ public class Minimax {
 			}
 		}
 		System.out.println(bestMove + ": " + bestValue);
-		System.out.println("Worst value: " + worstValue);
+//		System.out.println("Worst value: " + worstValue);
 		if (bestMove.x == -1) {
 			this.bestMoves.put(this.randomMove(allMoves), Integer.MIN_VALUE);
 		} else
@@ -122,25 +122,25 @@ public class Minimax {
 		return threadList;
 	}
 
-	private int minimax(char[][] board, ArrayList<Point> lastMoves, boolean isMaximizing,
+	private int minimax(char[][] board, ArrayList<Point> previousMoves, boolean isMaximizing,
 			ArrayList<Point> possibleMoves, int depth) {
 		int bestValue = Integer.MAX_VALUE;
 		ArrayList<Point> allMoves = possibleMoves;
-		if (this.evaluation.hasWon(board, lastMoves.get(lastMoves.size() - 1))) {
+		if (this.evaluation.hasWon(board, previousMoves.get(previousMoves.size() - 1))) {
 			if (isMaximizing) {
 				return Integer.MIN_VALUE;
 			} else
 				return Integer.MAX_VALUE;
 		}
 		if (depth == 0)
-			return this.evaluation.evaluateBoard(board, lastMoves, isMaximizing);
+			return this.evaluation.evaluateBoard(board, previousMoves, isMaximizing);
 		if (isMaximizing)
 			bestValue = Integer.MIN_VALUE;
 		for (var move : allMoves) {
-			lastMoves.add(move);
-			var value = this.setFigure(board, lastMoves, isMaximizing, possibleMoves, depth);
-			if (depth == 1)
-				System.out.println(move + " Value: " + value);
+			previousMoves.add(move);
+			var value = this.setFigure(board, previousMoves, isMaximizing, possibleMoves, depth);
+//			if (depth == 1)
+//				System.out.println(move + " Value: " + value);
 			if (isMaximizing)
 				bestValue = Math.max(value, bestValue);
 			else

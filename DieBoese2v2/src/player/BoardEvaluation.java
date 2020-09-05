@@ -28,8 +28,14 @@ public class BoardEvaluation {
 		var longestEnemyRow = 0;
 		for (var i = 0; i < lastMoves.size(); i++) {
 			if ((i % 2) == 0) {
+				if (board[lastMoves.get(i).x][lastMoves.get(i).y] != myFigure)
+					System.err.println("Error in lastMoves! " + board[lastMoves.get(i).x][lastMoves.get(i).y]
+							+ " instead of " + myFigure);
 				myLongestRow = Math.max(myLongestRow, this.longestRow(board, this.myFigure, lastMoves.get(i)));
 			} else {
+				if (board[lastMoves.get(i).x][lastMoves.get(i).y] != enemyFigure)
+					System.err.println("Error in lastMoves! " + board[lastMoves.get(i).x][lastMoves.get(i).y]
+							+ " instead of " + enemyFigure);
 				longestEnemyRow = Math.max(longestEnemyRow,
 						this.longestRow(board, this.enemyFigure, lastMoves.get(i)));
 			}
@@ -64,17 +70,13 @@ public class BoardEvaluation {
 
 	public HashMap<Point, Integer> evaluatePoints(char[][] board, ArrayList<Point> allPoints) {
 		var evaluatedPoints = new HashMap<Point, Integer>();
-		// System.out.println("Vorbewertung:");
 		for (var point : allPoints) {
 			if (this.winPossible(board, point)) {
 				var evaluation = Math.max(this.longestRow(board, this.myFigure, point),
 						this.longestRow(board, this.enemyFigure, point));
 				evaluatedPoints.put(point, evaluation);
-				// System.out.println(point + " " + evaluation);
 			}
 		}
-		// System.out.println("---Ende---");
-//		System.out.println(evaluatedPoints);
 		return evaluatedPoints;
 	}
 
