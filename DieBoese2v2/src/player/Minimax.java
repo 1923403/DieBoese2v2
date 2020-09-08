@@ -80,6 +80,12 @@ public class Minimax {
 			this.bestMoves.put(bestMove, bestValue);
 	}
 
+	/**
+	 * clones the given list
+	 * 
+	 * @param list list that should be cloned
+	 * @return cloned list
+	 */
 	private ArrayList<Point> cloneList(ArrayList<Point> list) {
 		var clonedList = new ArrayList<Point>();
 		for (var element : list) {
@@ -129,7 +135,6 @@ public class Minimax {
 	private int minimax(char[][] board, Point[] previousMoves, boolean isMaximizing,
 			ArrayList<Point> possibleMoves, int depth, int alpha, int beta) {
 		int bestValue = Integer.MAX_VALUE;
-		ArrayList<Point> allMoves = possibleMoves;
 		if (this.evaluation.hasWon(board, previousMoves[wantedDepth - (depth + 1)])) {
 			if (isMaximizing) {
 				return Integer.MIN_VALUE;
@@ -140,7 +145,7 @@ public class Minimax {
 			return this.evaluation.evaluateBoard(board, previousMoves, isMaximizing);
 		if (isMaximizing)
 			bestValue = Integer.MIN_VALUE;
-		for (var move : allMoves) {
+		for (var move : possibleMoves) {
 			if (board[move.x][move.y] == ' ') {
 				previousMoves[wantedDepth - depth] = new Point(move.x, move.y);
 				var value = this.setFigure(board, previousMoves, isMaximizing, possibleMoves, depth, alpha, beta);
@@ -197,16 +202,12 @@ public class Minimax {
 		return this.sortPoints(this.bestMoves).get(0); // returns best evaluated point
 	}
 
-	private void printThreadList(ArrayList<ArrayList<Point>> threadlist) {
-		for (var list : threadlist) {
-			System.out.println("Thread " + threadlist.indexOf(list));
-			for (var point : list) {
-				System.out.println(point);
-			}
-			System.out.println();
-		}
-	}
-
+	/**
+	 * picks one move randomly out of the given moves
+	 * 
+	 * @param bestMoves moves that are chosen from
+	 * @return randomly picked move
+	 */
 	private Point randomMove(ArrayList<Point> bestMoves) {
 		var random = (int) (Math.random() * bestMoves.size());
 		return bestMoves.get(random);
@@ -235,7 +236,7 @@ public class Minimax {
 			figure2 = this.enemyFigure;
 		}
 		board[x][y] = placeFigure;
-		var capturedFigures = turn.capture(board, new Point(x, y), placeFigure, // doesn´t work....?
+		var capturedFigures = turn.capture(board, new Point(x, y), placeFigure,
 				figure2);
 		var value = this.minimax(board, previousMoves, !isMaximizing, allMoves, depth - 1, alpha, beta);
 		board = turn.resetCapture(board, capturedFigures, figure2);

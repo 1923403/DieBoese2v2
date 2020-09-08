@@ -60,6 +60,13 @@ public class BoardEvaluation {
 		}
 	}
 
+	/**
+	 * creates a hashmap containing all points and a simple evaluation of it
+	 * 
+	 * @param board
+	 * @param allPoints all points that should be evaluated
+	 * @return evaluated hashmap
+	 */
 	public HashMap<Point, Integer> evaluatePoints(char[][] board, ArrayList<Point> allPoints) {
 		var evaluatedPoints = new HashMap<Point, Integer>();
 		for (var point : allPoints) {
