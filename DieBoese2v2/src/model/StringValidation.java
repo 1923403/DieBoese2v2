@@ -94,7 +94,7 @@ public class StringValidation {
 	 */
 	private void validateOrder() throws InvalidStringException {
 		if ((this.coordinates.length() == 3)
-				&& ((this.coordinates.charAt(1) <= '0') || (this.coordinates.charAt(1) >= '9')))
+				&& ((this.coordinates.charAt(1) < '0') || (this.coordinates.charAt(1) > '9')))
 			throw new InvalidStringException("Please don't enter more than one number!");
 	}
 }
