@@ -27,7 +27,9 @@ public class BoardEvaluation {
 		var myLongestRow = 0;
 		var longestEnemyRow = 0;
 		for (var i = 0; i < lastMoves.length; i++) {
-			if (board[lastMoves[i].x][lastMoves[i].y] == ' ') { // if figure got captured during minimax
+			if (lastMoves[i].x == 0 && lastMoves[i].y == 0 && board[lastMoves[i].x][lastMoves[i].y] == ' ')
+				System.err.println("last moves fehler!!!");
+			if (board[lastMoves[i].x][lastMoves[i].y] != ' ') { // if figure got captured during minimax
 				if ((i % 2) == 0)
 					myLongestRow = Math.max(myLongestRow, this.longestRow(board, this.myFigure, lastMoves[i]));
 				else
