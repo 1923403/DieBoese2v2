@@ -5,17 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BoardEvaluation {
-	private enum Directions {
-		diagonal1, diagonal2, horizontal, vertical
-	}
-
 	public int maxValue = Integer.MIN_VALUE;
-
 	public int minValue = Integer.MAX_VALUE;
-
-	private final Point[] directions = { new Point(1, 0), new Point(0, 1), new Point(1, 1), new Point(1, -1) };
 	private final char enemyFigure;
-
 	private final char myFigure;
 
 	public BoardEvaluation(char myFigure, char enemyFigure) {
@@ -37,10 +29,6 @@ public class BoardEvaluation {
 							this.longestRow(board, this.enemyFigure, lastMoves[i]));
 			}
 		}
-		// win possible muss fuer jede richtung ausprobieren und nicht fuer alle
-		// gleichzeitig
-		// gleiches fuer longest row
-
 		if (isMaximizing) {
 			if (myLongestRow >= longestEnemyRow) {
 				this.maxValue = Math.max(myLongestRow, this.maxValue);
@@ -60,6 +48,8 @@ public class BoardEvaluation {
 		}
 	}
 
+	// evaluatePoints and evaluateBoard could use the same evaluation for code
+	// reduction / simplification
 	/**
 	 * creates a hashmap containing all points and a simple evaluation of it
 	 * 

@@ -15,7 +15,7 @@ public class Minimax {
 	private final char myFigure;
 	private ArrayList<Point> sortedPoints;
 	private final int squareSize = 2;
-	private final int wantedDepth = 6; // could be increased during the game
+	private final int wantedDepth = 5; // could be increased during the game
 	private Turn turn;
 
 	public Minimax(Turn turn, char myFigure, char enemyFigure) {
@@ -36,6 +36,14 @@ public class Minimax {
 		this.sortedPoints = this.sortPoints(evaluatedPoints);
 		var threadList = this.createThreadList(this.sortedPoints);
 		return this.parallelizedSearch(board, threadList);
+	}
+
+//	public static void main(String[] args) {
+//		System.out.println(translatePoint(14, new Point(0,0)));
+//	}
+	private String translatePoint(int length, Point point) {
+		String pointString = "Point: " + (char) (point.x + 97) + ", " + (length - point.y) + "  ";
+		return pointString;
 	}
 
 	private void addSquare(char[][] board, Point center, ArrayList<Point> list) {
@@ -72,7 +80,7 @@ public class Minimax {
 				alpha = bestValue;
 			}
 		}
-		System.out.println(bestMove + ": " + bestValue);
+		System.out.println(translatePoint(board.length, bestMove) + ": " + bestValue);
 		if (bestMove.x == -1) {
 			System.out.println("random move...");
 			this.bestMoves.put(this.randomMove(allMoves), Integer.MIN_VALUE);
