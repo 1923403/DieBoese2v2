@@ -20,7 +20,6 @@ public class HumanPlayer extends Player {
 		do {
 			ConsoleOutput.printCoordinateInput();
 			this.readCoordinates();
-			this.setMyMove(this.convertCoordinates());
 		} while (!this.validCoordinates() || !this.isValidMove());
 		this.updateData();
 	}
@@ -63,6 +62,7 @@ public class HumanPlayer extends Player {
 	}
 
 	private boolean isValidMove() {
+		this.setMyMove(this.convertCoordinates());
 		try {
 			this.setMoveInData();
 		} catch (final InvalidMoveException e) {
