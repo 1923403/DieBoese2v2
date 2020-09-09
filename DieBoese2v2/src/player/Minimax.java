@@ -9,7 +9,7 @@ import model.Turn;
 
 public class Minimax {
 	private volatile int alpha;
-	private final int availibleThreads = Runtime.getRuntime().availableProcessors();
+	private final int availableThreads = Runtime.getRuntime().availableProcessors();
 	private volatile HashMap<Point, Integer> bestMoves;
 	private final char enemyFigure;
 	private volatile BoardEvaluation evaluation;
@@ -123,11 +123,11 @@ public class Minimax {
 	 */
 	private ArrayList<ArrayList<Point>> createThreadList(ArrayList<Point> allMoves) {
 		var threadList = new ArrayList<ArrayList<Point>>();
-		for (var i = 0; i < this.availibleThreads; i++) {
+		for (var i = 0; i < this.availableThreads; i++) {
 			threadList.add(new ArrayList<>());
 		}
 		for (var point : allMoves) {
-			var threadNumber = allMoves.indexOf(point) % this.availibleThreads;
+			var threadNumber = allMoves.indexOf(point) % this.availableThreads;
 			ArrayList<Point> currentList = threadList.get(threadNumber);
 			currentList.add(point);
 		}
@@ -181,9 +181,9 @@ public class Minimax {
 	 */
 	private Point parallelizedSearch(Board realBoard, ArrayList<ArrayList<Point>> threadLists) {
 		this.bestMoves = new HashMap<>();
-		Thread threads[] = new Thread[this.availibleThreads];
+		Thread threads[] = new Thread[this.availableThreads];
 
-		for (var i = 0; i < this.availibleThreads; i++) {
+		for (var i = 0; i < this.availableThreads; i++) {
 			var allMoves = threadLists.get(i);
 			threads[i] = new Thread(() -> {
 
