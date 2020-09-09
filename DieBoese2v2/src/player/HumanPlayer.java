@@ -17,14 +17,11 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void move() {
-		boolean exception;
 		do {
-			exception = false;
 			ConsoleOutput.printCoordinateInput();
 			this.readCoordinates();
-			if (this.validCoordinates())
-				exception = this.setMove();
-		} while (exception);
+			this.setMyMove(this.convertCoordinates());
+		} while (!this.validCoordinates() || !this.isValidMove());
 		this.updateData();
 	}
 
@@ -65,19 +62,18 @@ public class HumanPlayer extends Player {
 		return (this.coordinates.charAt(position) >= '0') && (this.coordinates.charAt(position) <= '9');
 	}
 
-	private void readCoordinates() {
-		this.coordinates = Input.readInput().toLowerCase();
-	}
-
-	private boolean setMove() {
-		this.setMyMove(this.convertCoordinates());
+	private boolean isValidMove() {
 		try {
 			this.setMoveInData();
 		} catch (final InvalidMoveException e) {
 			System.out.println(e.getMessage());
-			return true;
+			return false;
 		}
-		return false;
+		return true;
+	}
+
+	private void readCoordinates() {
+		this.coordinates = Input.readInput().toLowerCase();
 	}
 
 	private void setMoveInData() throws InvalidMoveException {
