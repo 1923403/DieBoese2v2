@@ -11,7 +11,7 @@ import model.Data;
 public class HumanPlayer extends Player {
 	private String coordinates;
 
-	public HumanPlayer(final char figure, Data data) {
+	public HumanPlayer(final char figure, final Data data) {
 		super(figure, data);
 	}
 
@@ -22,14 +22,13 @@ public class HumanPlayer extends Player {
 			exception = false;
 			ConsoleOutput.printCoordinateInput();
 			this.readCoordinates();
-			if (this.validCoordinates()) {
+			if (this.validCoordinates())
 				exception = this.setMove();
-			}
 		} while (exception);
 		this.updateData();
 	}
 
-	private int adaptNumberToBoardOrder(String number) {
+	private int adaptNumberToBoardOrder(final String number) {
 		return this.data.getBoardSize() - Integer.valueOf(number);
 	}
 
@@ -58,11 +57,11 @@ public class HumanPlayer extends Player {
 		return this.adaptNumberToBoardOrder(number);
 	}
 
-	private boolean isLetter(int position) {
+	private boolean isLetter(final int position) {
 		return (this.coordinates.charAt(position) >= 'a') && (this.coordinates.charAt(position) <= 'z');
 	}
 
-	private boolean isNumber(int position) {
+	private boolean isNumber(final int position) {
 		return (this.coordinates.charAt(position) >= '0') && (this.coordinates.charAt(position) <= '9');
 	}
 
@@ -74,7 +73,7 @@ public class HumanPlayer extends Player {
 		this.setMyMove(this.convertCoordinates());
 		try {
 			this.setMoveInData();
-		} catch (InvalidMoveException e) {
+		} catch (final InvalidMoveException e) {
 			System.out.println(e.getMessage());
 			return true;
 		}
