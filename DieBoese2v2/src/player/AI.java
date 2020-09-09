@@ -14,55 +14,91 @@ public class AI extends Player {
 
 	@Override
 	public void move() {
-		// creates random move
-		boolean exceptionThrown;
 		do {
-			exceptionThrown = false;
+			this.chooseMove();
+		} while (!this.isValidMove());
+		this.updateData();
+	}
 
-			if ((this.data.getTurnCounter() < 9))
-				this.setMyMove(this.randomMove());// first 4 moves
-			else if (this.data.getTurnCounter() == 9) {
-				this.setMyMove(this.secondMove()); // secondMove
-			} else {
-				minimax = new Minimax(data.getTurn(), getFigure(), this.data.getEnemyFigure());
-				this.setMyMove(minimax.createMove(this.data.getBoard()));
-			}
-			try {
-				this.data.getTurn().setMove(this.data, this);
-			} catch (InvalidMoveException e) {
-				System.out.println(e.getMessage());
-				exceptionThrown = true;
-			}
-		} while (exceptionThrown);
-		this.data.load(this.getFigure(), this.getMyMove());
+	private void chooseMove() {
+		if (this.data.getTurnCounter() < 9)
+			this.performRandomMove();
+		else if (this.data.getTurnCounter() == 9)
+			this.performSecondMove();
+		else
+			this.performMinimax();
+	}
+
+	private int createCoordinate() {
+		return (int) (Math.random() * this.data.getBoardSize());
+	}
+
+	private Point createPoint(int x, int y) {
+		return new Point(x, y);
+	}
+
+	private Point createPointBottom() {
+		return this.createPoint(this.createCoordinate(), this.data.getBoardSize() - 1);
+	}
+
+	private Point createPointLeft() {
+		return this.createPoint(0, this.createCoordinate());
+	}
+
+	private Point createPointRight() {
+		return this.createPoint(this.data.getBoardSize() - 1, this.createCoordinate());
+	}
+
+	private Point createPointTop() {
+		return this.createPoint(this.createCoordinate(), 0);
+	}
+
+	private boolean isValidMove() {
+		try {
+			this.setMoveInData();
+		} catch (final InvalidMoveException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	private void performMinimax() {
+		this.minimax = new Minimax(this.data.getTurn(), this.getFigure(), this.data.getEnemyFigure());
+		this.setMyMove(this.minimax.createMove(this.data.getBoard()));
+	}
+
+	private void performRandomMove() {
+		this.setMyMove(this.randomMove());
+	}
+
+	private void performSecondMove() {
+		this.setMyMove(this.secondMove());
 	}
 
 	private Point randomMove() {
-		Point randomPoint = new Point();
-		randomPoint.x = (int) ((Math.random() * (this.data.getBoardSize())));
-		randomPoint.y = (int) ((Math.random() * (this.data.getBoardSize())));
-		return randomPoint;
+		return this.createPoint(this.createCoordinate(), this.createCoordinate());
 	}
 
 	private Point secondMove() {
-		Point secondMovePoint = null;
-		int side = (int) (Math.random() * 4);
-		switch (side) {
+		switch ((int) (Math.random() * 4)) {
 			case 0:
-				secondMovePoint = new Point(0, (int) (Math.random() * this.data.getBoardSize()));
-				break;
+				return this.createPointLeft();
 			case 1:
-				secondMovePoint = new Point(this.data.getBoardSize() - 1,
-						(int) (Math.random() * this.data.getBoardSize()));
-				break;
+				return this.createPointRight();
 			case 2:
-				secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()), 0);
-				break;
+				return this.createPointTop();
 			case 3:
-				secondMovePoint = new Point((int) (Math.random() * this.data.getBoardSize()),
-						this.data.getBoardSize() - 1);
-				break;
+				return this.createPointBottom();
 		}
-		return secondMovePoint;
+		return null;
+	}
+
+	private void setMoveInData() throws InvalidMoveException {
+		this.data.getTurn().setMove(this.data, this);
+	}
+
+	private void updateData() {
+		this.data.load(this.getFigure(), this.getMyMove());
 	}
 }

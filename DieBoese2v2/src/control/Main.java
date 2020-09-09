@@ -9,5 +9,4 @@ public class Main {
 		game.runGame();
 		ConsoleOutput.printExit();
 	}
-
 }
