@@ -10,7 +10,6 @@ import model.Data;
 
 public class HumanPlayer extends Player {
 	private String coordinates;
-	private final boolean DEBUG = false;
 
 	public HumanPlayer(final char figure, Data data) {
 		super(figure, data);
@@ -18,29 +17,20 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void move() {
-		boolean exceptionThrown;
+		boolean exception;
 		do {
-			exceptionThrown = false;
+			exception = false;
 			ConsoleOutput.printCoordinateInput();
 			this.readCoordinates();
-			try {
-				this.data.getValidation().validateString(this.data.getBoardSize(), this.coordinates);
-			} catch (final InvalidStringException e) {
-				System.out.println(e.getMessage());
-				exceptionThrown = true;
+			if (this.validCoordinates()) {
+				exception = this.setMove();
 			}
-			if (!exceptionThrown) {
-				this.setMyMove(this.convertCoordinates());
-				try {
-					this.data.getTurn().setMove(this.data, this);
-				} catch (InvalidMoveException e) {
-					System.out.println(e.getMessage());
-					exceptionThrown = true;
-				}
-			}
-		} while (exceptionThrown);
-		this.data.load(this.getFigure(), this.getMyMove());
+		} while (exception);
+		this.updateData();
+	}
 
+	private int adaptNumberToBoardOrder(String number) {
+		return this.data.getBoardSize() - Integer.valueOf(number);
 	}
 
 	private Point convertCoordinates() {
@@ -51,11 +41,10 @@ public class HumanPlayer extends Player {
 	 * converts letter in string to int
 	 */
 	private int convertLetter() {
-		var letter = 0;
 		for (var i = 0; i < this.coordinates.length(); i++)
-			if (((this.coordinates.charAt(i) >= 'a') && (this.coordinates.charAt(i) <= 'z')))
-				letter = this.coordinates.charAt(i) - 'a';
-		return letter;
+			if (this.isLetter(i))
+				return this.coordinates.charAt(i) - 'a';
+		return 0;
 	}
 
 	/**
@@ -64,12 +53,53 @@ public class HumanPlayer extends Player {
 	private int convertNumber() {
 		var number = "";
 		for (var i = 0; i < this.coordinates.length(); i++)
-			if (((this.coordinates.charAt(i) >= '0') && (this.coordinates.charAt(i) <= '9')))
+			if (this.isNumber(i))
 				number += this.coordinates.charAt(i);
-		return (this.data.getBoardSize() - Integer.valueOf(number));
+		return this.adaptNumberToBoardOrder(number);
+	}
+
+	private boolean isLetter(int position) {
+		return (this.coordinates.charAt(position) >= 'a') && (this.coordinates.charAt(position) <= 'z');
+	}
+
+	private boolean isNumber(int position) {
+		return (this.coordinates.charAt(position) >= '0') && (this.coordinates.charAt(position) <= '9');
 	}
 
 	private void readCoordinates() {
 		this.coordinates = Input.readInput().toLowerCase();
+	}
+
+	private boolean setMove() {
+		this.setMyMove(this.convertCoordinates());
+		try {
+			this.setMoveInData();
+		} catch (InvalidMoveException e) {
+			System.out.println(e.getMessage());
+			return true;
+		}
+		return false;
+	}
+
+	private void setMoveInData() throws InvalidMoveException {
+		this.data.getTurn().setMove(this.data, this);
+	}
+
+	private void updateData() {
+		this.data.load(this.getFigure(), this.getMyMove());
+	}
+
+	private void validateCoordinates() throws InvalidStringException {
+		this.data.getValidation().validateString(this.data.getBoardSize(), this.coordinates);
+	}
+
+	private boolean validCoordinates() {
+		try {
+			this.validateCoordinates();
+		} catch (final InvalidStringException e) {
+			System.out.println(e.getMessage());
+			return true;
+		}
+		return false;
 	}
 }

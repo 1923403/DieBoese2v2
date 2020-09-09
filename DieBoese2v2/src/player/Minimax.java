@@ -44,10 +44,9 @@ public class Minimax {
 		var square = new ArrayList<Point>();
 		for (int x = center.x - this.squareSize; x <= (center.x + this.squareSize); x++) {
 			for (int y = center.y - this.squareSize; y <= (center.y + this.squareSize); y++) {
-				if (((x >= 0) && (x < board.length)) && ((y >= 0) && (y < board.length))) {
-					if (board[x][y] == ' ') {
-						square.add(new Point(x, y));
-					}
+				// check if point is within board and add to list
+				if (((x >= 0) && (x < board.length)) && ((y >= 0) && (y < board.length)) && (board[x][y] == ' ')) {
+					square.add(new Point(x, y));
 				}
 			}
 		}
