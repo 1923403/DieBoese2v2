@@ -2,8 +2,6 @@ package model;
 
 public class Board {
 
-	private char[][] board;
-
 	// for testing only
 	public static void main(String[] args) {
 
@@ -34,6 +32,8 @@ public class Board {
 		}
 		System.out.println("\n"); // empty line after every board
 	}
+
+	private char[][] board;
 
 	public Board(int boardSize) {
 		this.board = new char[boardSize][boardSize];
