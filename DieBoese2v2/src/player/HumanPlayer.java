@@ -97,8 +97,8 @@ public class HumanPlayer extends Player {
 			this.validateCoordinates();
 		} catch (final InvalidStringException e) {
 			System.out.println(e.getMessage());
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 }
