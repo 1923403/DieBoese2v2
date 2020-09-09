@@ -1,6 +1,6 @@
 package model;
 
-import player.InvalidStringException;
+import exceptions.InvalidStringException;
 
 public class StringValidation {
 

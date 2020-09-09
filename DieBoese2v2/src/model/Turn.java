@@ -3,6 +3,7 @@ package model;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import exceptions.InvalidMoveException;
 import io.localization.ConsoleOutput;
 import player.Player;
 

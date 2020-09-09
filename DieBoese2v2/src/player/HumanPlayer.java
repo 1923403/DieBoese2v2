@@ -2,10 +2,11 @@ package player;
 
 import java.awt.Point;
 
+import exceptions.InvalidMoveException;
+import exceptions.InvalidStringException;
 import io.Input;
 import io.localization.ConsoleOutput;
 import model.Data;
-import model.InvalidMoveException;
 
 public class HumanPlayer extends Player {
 	private String coordinates;
