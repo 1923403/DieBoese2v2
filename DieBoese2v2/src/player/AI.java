@@ -33,24 +33,20 @@ public class AI extends Player {
 		return (int) (Math.random() * this.data.getBoardSize());
 	}
 
-	private Point createPoint(int x, int y) {
-		return new Point(x, y);
-	}
-
 	private Point createPointBottom() {
-		return this.createPoint(this.createCoordinate(), this.data.getBoardSize() - 1);
+		return new Point(this.createCoordinate(), this.data.getBoardSize() - 1);
 	}
 
 	private Point createPointLeft() {
-		return this.createPoint(0, this.createCoordinate());
+		return new Point(0, this.createCoordinate());
 	}
 
 	private Point createPointRight() {
-		return this.createPoint(this.data.getBoardSize() - 1, this.createCoordinate());
+		return new Point(this.data.getBoardSize() - 1, this.createCoordinate());
 	}
 
 	private Point createPointTop() {
-		return this.createPoint(this.createCoordinate(), 0);
+		return new Point(this.createCoordinate(), 0);
 	}
 
 	private boolean isValidMove() {
@@ -77,7 +73,7 @@ public class AI extends Player {
 	}
 
 	private Point randomMove() {
-		return this.createPoint(this.createCoordinate(), this.createCoordinate());
+		return new Point(this.createCoordinate(), this.createCoordinate());
 	}
 
 	private Point secondMove() {
