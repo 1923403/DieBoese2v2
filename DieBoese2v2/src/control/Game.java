@@ -56,7 +56,7 @@ public class Game {
 	 */
 	private void getSettings() {
 		this.data = new Data(this.settings.getBoardSize());
-		this.player1 = new HumanPlayer('X', this.data);
+		this.player1 = new AI('X', this.data);
 
 		if (this.settings.isPvp())
 			this.player2 = new HumanPlayer('O', this.data);
