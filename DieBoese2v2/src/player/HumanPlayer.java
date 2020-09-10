@@ -76,14 +76,6 @@ public class HumanPlayer extends Player {
 		this.coordinates = Input.readInput().toLowerCase();
 	}
 
-	private void setMoveInData() throws InvalidMoveException {
-		this.data.getTurn().setMove(this.data, this);
-	}
-
-	private void updateData() {
-		this.data.load(this.getFigure(), this.getMyMove());
-	}
-
 	private void validateCoordinates() throws InvalidStringException {
 		this.data.getValidation().validateString(this.data.getBoardSize(), this.coordinates);
 	}

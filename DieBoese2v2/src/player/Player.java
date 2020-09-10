@@ -2,6 +2,7 @@ package player;
 
 import java.awt.Point;
 
+import exceptions.InvalidMoveException;
 import model.Data;
 
 public abstract class Player {
@@ -24,7 +25,15 @@ public abstract class Player {
 
 	public abstract void move();
 
+	protected void setMoveInData() throws InvalidMoveException {
+		this.data.getTurn().setMove(this.data, this);
+	}
+
 	protected void setMyMove(final Point move) {
 		this.myMove = move;
+	}
+
+	protected void updateData() {
+		this.data.load(this.getFigure(), this.getMyMove());
 	}
 }

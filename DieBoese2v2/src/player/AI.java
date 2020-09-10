@@ -89,12 +89,4 @@ public class AI extends Player {
 		}
 		return null;
 	}
-
-	private void setMoveInData() throws InvalidMoveException {
-		this.data.getTurn().setMove(this.data, this);
-	}
-
-	private void updateData() {
-		this.data.load(this.getFigure(), this.getMyMove());
-	}
 }
