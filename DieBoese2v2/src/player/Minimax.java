@@ -78,7 +78,6 @@ public class Minimax {
 			this.bestMoves.put(this.randomMove(allMoves), Integer.MIN_VALUE);
 		} else
 			this.bestMoves.put(bestMove, bestValue);
-		this.resetAlpha();
 	}
 
 	/**
@@ -212,10 +211,6 @@ public class Minimax {
 	private Point randomMove(ArrayList<Point> bestMoves) {
 		var random = (int) (Math.random() * bestMoves.size());
 		return bestMoves.get(random);
-	}
-
-	private void resetAlpha() {
-		this.alpha = Integer.MIN_VALUE;
 	}
 
 	/**
