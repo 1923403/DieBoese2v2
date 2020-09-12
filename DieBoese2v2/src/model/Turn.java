@@ -17,7 +17,7 @@ public class Turn {
 
 	/**
 	 * captures enemy figures if possible
-	 * 
+	 *
 	 * @param board
 	 * @param coordinates last placed figure
 	 * @param figure      myFigure
@@ -63,21 +63,6 @@ public class Turn {
 		return capturedPos;
 	}
 
-	/**
-	 * resets the captured figures (used in minimax algorithm)
-	 * 
-	 * @param board
-	 * @param capturedFigures
-	 * @param figure          figure symbol
-	 * @return returns reseted board
-	 */
-	public char[][] resetCapture(char[][] board, ArrayList<Point> capturedFigures, char figure) {
-		for (var pos : capturedFigures) {
-			board[pos.x][pos.y] = figure;
-		}
-		return board;
-	}
-
 	// determines if game is over and a player has won
 	public boolean hasWon(final char figure, final Point coordinates) {
 
@@ -88,16 +73,6 @@ public class Turn {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 *
-	 * @param figure      figure which the algorithm is looking for
-	 * @param coordinates starting point
-	 * @return longest row
-	 */
-	public int longestRow(char[][] board, final char figure, final Point coordinates) {
-		return longestRow(board, figure, figure, coordinates); // row
 	}
 
 	public int longestRow(char[][] board, final char figure, final char blank, final Point coordinates) {
@@ -129,6 +104,16 @@ public class Turn {
 
 	}
 
+	/**
+	 *
+	 * @param figure      figure which the algorithm is looking for
+	 * @param coordinates starting point
+	 * @return longest row
+	 */
+	public int longestRow(char[][] board, final char figure, final Point coordinates) {
+		return this.longestRow(board, figure, figure, coordinates); // row
+	}
+
 	// checks if there is an empty space on the board
 	public boolean movePossible() {
 		for (final char[] element : this.board.getBoard())
@@ -136,6 +121,21 @@ public class Turn {
 				if (element[y] == ' ')
 					return true;
 		return false;
+	}
+
+	/**
+	 * resets the captured figures (used in minimax algorithm)
+	 *
+	 * @param board
+	 * @param capturedFigures
+	 * @param figure          figure symbol
+	 * @return returns reseted board
+	 */
+	public char[][] resetCapture(char[][] board, ArrayList<Point> capturedFigures, char figure) {
+		for (var pos : capturedFigures) {
+			board[pos.x][pos.y] = figure;
+		}
+		return board;
 	}
 
 	// places given figure at given coordinates on the board if possible
@@ -193,7 +193,7 @@ public class Turn {
 				return capturedPos;
 			}
 		}
-		return new ArrayList<Point>();
+		return new ArrayList<>();
 	}
 
 	/**
@@ -235,36 +235,8 @@ public class Turn {
 		throw new InvalidMoveException("Field is not empty!");
 	}
 
-	// second regular move of first player where several fields are blocked
 	private char[][] secondMove() {
-		ConsoleOutput.debugInformation("secondMove..."); // debug
-		final var tmpArray = this.board.copyBoard();
-		final var block = 'B';
-
-		// up
-		tmpArray[0][tmpArray.length / 2] = block;
-		// down
-		tmpArray[tmpArray.length - 1][tmpArray.length / 2] = block;
-		// left
-		tmpArray[tmpArray.length / 2][0] = block;
-		// right
-		tmpArray[tmpArray.length / 2][tmpArray.length - 1] = block;
-
-		if ((tmpArray.length % 2) == 0) {
-			// up
-			tmpArray[0][(tmpArray.length / 2) + 1] = block;
-			// down
-			tmpArray[tmpArray.length - 1][(tmpArray.length / 2) + 1] = block;
-			// left
-			tmpArray[(tmpArray.length / 2) + 1][0] = block;
-			// right
-			tmpArray[(tmpArray.length / 2) + 1][tmpArray.length - 1] = block;
-		}
-
-		for (var x = 1; x < (tmpArray.length - 1); x++)
-			for (var y = 1; y < (tmpArray.length - 1); y++)
-				tmpArray[x][y] = block;
-		return tmpArray;
+		return new SecondMove().run(this.board);
 	}
 
 	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
