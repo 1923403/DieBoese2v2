@@ -236,7 +236,7 @@ public class Turn {
 	}
 
 	private char[][] secondMove() {
-		return new SecondMove().run(this.board);
+		return new SecondMove(this.board).run();
 	}
 
 	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
