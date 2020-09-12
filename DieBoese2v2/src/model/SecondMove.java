@@ -24,7 +24,7 @@ public class SecondMove {
 	}
 
 	private void blockField(final int x, final int y) {
-		this.board[y][x] = 'B';
+		this.board[x][y] = 'B';
 	}
 
 	private void blockLeftRow() {

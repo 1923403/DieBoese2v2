@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import model.Board;
+import model.Capture;
 import model.Turn;
 
 public class Minimax {
@@ -239,7 +240,8 @@ public class Minimax {
 		var capturedFigures = this.turn.capture(board, new Point(x, y), placeFigure,
 				figure2);
 		var value = this.minimax(board, previousMoves, !isMaximizing, allMoves, depth - 1, beta);
-		board = this.turn.resetCapture(board, capturedFigures, figure2);
+		board = Capture.resetCapture(board, capturedFigures, figure2);
+//		board = this.turn.resetCapture(board, capturedFigures, figure2);
 		board[x][y] = ' ';
 		return value;
 	}
