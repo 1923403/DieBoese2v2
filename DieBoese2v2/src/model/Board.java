@@ -30,7 +30,7 @@ public class Board {
 		return (y == 0) || (y == (board.length + 1));
 	}
 
-	private static void printBrackets(final char[][] board, final int x, final int y) {
+	private static void printFields(final char[][] board, final int x, final int y) {
 		System.out.print("[" + board[x][y - 1] + "]");
 	}
 
@@ -39,7 +39,7 @@ public class Board {
 			if (Board.isTopOrBottomRow(board, y))
 				Board.printLetters(x);
 			else
-				Board.printBrackets(board, x, y);
+				Board.printFields(board, x, y);
 	}
 
 	private static void printLetters(final int x) {
