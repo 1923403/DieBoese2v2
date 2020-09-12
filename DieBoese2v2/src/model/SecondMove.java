@@ -2,7 +2,7 @@ package model;
 
 public class SecondMove {
 
-	private char[][] board;
+	private final char[][] board;
 
 	public SecondMove(final Board board) {
 		this.board = board.copyBoard();
