@@ -39,8 +39,9 @@ public class LongestRow {
 		return this.figuresInRow(board, figure, blank, coordinates, new Point(0, 1));
 	}
 
-	private int countFiguresInNegativeDirection(final char[][] board, final char figure, final char blank, int counter,
+	private int countFiguresInNegativeDirection(final char[][] board, final char figure, final char blank,
 			final Point coordinates, final Point direction) {
+		var counter = 0;
 		var x = coordinates.x - direction.x;
 		var y = coordinates.y - direction.y;
 		while (this.figureIsOnBoard(board, x, y, figure, blank)) {
@@ -51,8 +52,9 @@ public class LongestRow {
 		return counter;
 	}
 
-	private int countFiguresInPositiveDirection(final char[][] board, final char figure, final char blank, int counter,
+	private int countFiguresInPositiveDirection(final char[][] board, final char figure, final char blank,
 			final Point coordinates, final Point direction) {
+		var counter = 0;
 		var x = coordinates.x + direction.x;
 		var y = coordinates.y + direction.y;
 		while (this.figureIsOnBoard(board, x, y, figure, blank)) {
@@ -80,8 +82,8 @@ public class LongestRow {
 	private int figuresInRow(char[][] board, final char figure, final char blank, final Point coordinates,
 			final Point direction) {
 		var counter = 1;
-		counter += this.countFiguresInNegativeDirection(board, figure, blank, counter, coordinates, direction);
-		counter += this.countFiguresInPositiveDirection(board, figure, blank, counter, coordinates, direction);
+		counter += this.countFiguresInNegativeDirection(board, figure, blank, coordinates, direction);
+		counter += this.countFiguresInPositiveDirection(board, figure, blank, coordinates, direction);
 		return counter;
 	}
 
