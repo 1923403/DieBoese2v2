@@ -56,11 +56,7 @@ public class Turn {
 
 	// checks if there is an empty space on the board
 	public boolean movePossible() {
-		for (final char[] element : this.board.getBoard())
-			for (var y = 0; y < this.board.getBoard().length; y++)
-				if (element[y] == ' ')
-					return true;
-		return false;
+		return this.hasEmptyField(this.board.getBoard());
 	}
 
 	// places given figure at given coordinates on the board if possible
@@ -85,6 +81,14 @@ public class Turn {
 
 	private boolean has5InARow(final char figure, final Point coordinates) {
 		return (this.longestRow(this.board.getBoard(), figure, coordinates) >= 5);
+	}
+
+	private boolean hasEmptyField(final char[][] board) {
+		for (final char[] element : this.board.getBoard())
+			for (var y = 0; y < this.board.getBoard().length; y++)
+				if (element[y] == ' ')
+					return true;
+		return false;
 	}
 
 	// checks if space is empty
