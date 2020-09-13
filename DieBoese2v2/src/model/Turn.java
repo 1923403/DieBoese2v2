@@ -26,6 +26,11 @@ public class Turn {
 		return new CheckWin(board, coordinates, figure).run();
 	}
 
+	public static int longestPossibleRow(final char[][] board, final char figure, final char blank,
+			final Point coordinates) {
+		return new LongestRow(board, coordinates, figure).longestPossibleRow(blank);
+	}
+
 	/**
 	 * returns longest row starting from given coordinates
 	 *
@@ -37,12 +42,8 @@ public class Turn {
 		return new LongestRow(board, coordinates, figure).run();
 	}
 
-	public int longestPossibleRow(final char[][] board, final char figure, final char blank, final Point coordinates) {
-		return new LongestRow(board, coordinates, figure).longestPossibleRow(blank);
-	}
-
 	// places given figure at given coordinates on the board if possible
-	public void setMove(final Player player, final Data data) throws InvalidMoveException {
+	public static void setMove(final Player player, final Data data) throws InvalidMoveException {
 		new SetMove(player, data).run();
 	}
 }
