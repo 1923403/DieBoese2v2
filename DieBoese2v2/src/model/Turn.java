@@ -66,42 +66,42 @@ public class Turn {
 
 	// determines if game is over and a player has won
 	public boolean hasWon(final char figure, final Point coordinates) {
-
-		if ((coordinates != null) && (this.longestRow(this.board.getBoard(), figure, coordinates) >= 5))
+		if ((coordinates != null) && (this.has5InARow(figure, coordinates)))
 			return true;
 		if (!this.movePossible()) {
-			System.out.println("no more move possible");
+			System.out.println("no move possible");
 			return true;
 		}
 		return false;
 	}
 
-	public int longestRow(char[][] board, final char figure, final char blank, final Point coordinates) {
-		// only coordinates required, figure not needed
-
-		// horizontal row
+	public int longestPossibleRow(char[][] board, final char figure, final char blank, final Point coordinates) {
+		return new LongestRow().longestPossibleRow(board, figure, blank, coordinates);
+//		 only coordinates required, figure not needed
+//
+//		 horizontal row
 //		System.out.println(coordinates);
-		final Point direction = new Point();
-
-		direction.setLocation(1, 0);
-		final var horizontalFigures = this.figuresInRow(board, figure, blank, coordinates, direction);
-
-		// vertical row
-		direction.setLocation(0, 1);
-		final var verticalFigures = this.figuresInRow(board, figure, blank, coordinates, direction);
-
-		// diagonal row (top right to bottom left)
-		direction.setLocation(1, 1);
-		final var diagonalFigures1 = this.figuresInRow(board, figure, blank, coordinates, direction);
-
-		// diagonal row (top left to bottom right)
-		direction.setLocation(1, -1);
-		final var diagonalFigures2 = this.figuresInRow(board, figure, blank, coordinates, direction);
-
-		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2)); // max
-																														// value
-																														// /
-																														// longest
+//		final Point direction = new Point();
+//
+//		direction.setLocation(1, 0);
+//		final var horizontalFigures = this.figuresInRow(board, figure, blank, coordinates, direction);
+//
+//		// vertical row
+//		direction.setLocation(0, 1);
+//		final var verticalFigures = this.figuresInRow(board, figure, blank, coordinates, direction);
+//
+//		// diagonal row (top right to bottom left)
+//		direction.setLocation(1, 1);
+//		final var diagonalFigures1 = this.figuresInRow(board, figure, blank, coordinates, direction);
+//
+//		// diagonal row (top left to bottom right)
+//		direction.setLocation(1, -1);
+//		final var diagonalFigures2 = this.figuresInRow(board, figure, blank, coordinates, direction);
+//
+//		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2)); // max
+//																														// value
+//																														// /
+//																														// longest
 
 	}
 
@@ -112,7 +112,8 @@ public class Turn {
 	 * @return longest row
 	 */
 	public int longestRow(char[][] board, final char figure, final Point coordinates) {
-		return this.longestRow(board, figure, figure, coordinates); // row
+		return new LongestRow().run(board, figure, coordinates);
+//		return this.longestPossibleRow(board, figure, figure, coordinates); // row
 	}
 
 	// checks if there is an empty space on the board
@@ -123,21 +124,6 @@ public class Turn {
 					return true;
 		return false;
 	}
-
-//	/**
-//	 * resets the captured figures (used in minimax algorithm)
-//	 *
-//	 * @param board
-//	 * @param capturedFigures
-//	 * @param figure          figure symbol
-//	 * @return returns reseted board
-//	 */
-//	public char[][] resetCapture(char[][] board, ArrayList<Point> capturedFigures, char figure) {
-//		for (var pos : capturedFigures) {
-//			board[pos.x][pos.y] = figure;
-//		}
-//		return board;
-//	}
 
 	// places given figure at given coordinates on the board if possible
 	public void setMove(Data data, Player player) throws InvalidMoveException {
@@ -158,9 +144,56 @@ public class Turn {
 			Board.printBoard(this.secondMove());
 	}
 
+//	/**
+//	 * resets the captured figures (used in minimax algorithm)
+//	 *
+//	 * @param board
+//	 * @param capturedFigures
+//	 * @param figure          figure symbol
+//	 * @return returns reseted board
+//	 */
+//	public char[][] resetCapture(char[][] board, ArrayList<Point> capturedFigures, char figure) {
+//		for (var pos : capturedFigures) {
+//			board[pos.x][pos.y] = figure;
+//		}
+//		return board;
+//	}
+
 	private void block(final Point coordinates) {
 		this.setMove(coordinates, 'B');
 	}
+
+	/**
+	 * counts how many same figures are in the row next to the last placed figure
+	 *
+	 * @param figure      placed figure / symbol
+	 * @param coordinates position where figure was placed
+	 * @param direction
+	 * @return
+	 */
+//	private int figuresInRow(char[][] board, final char figure, final char blank, final Point coordinates,
+//			final Point direction) {
+//
+//		var counter = 1;
+//		var posX = coordinates.x + direction.x;
+//		var posY = coordinates.y + direction.y;
+//		final var boardLength = board.length;
+//		while ((posX < boardLength) && (posY < boardLength) && (posY >= 0)
+//				&& ((board[posX][posY] == figure) || (board[posX][posY] == blank))) {
+//			counter++;
+//			posX += direction.x;
+//			posY += direction.y;
+//		}
+//		posX = coordinates.x - direction.x;
+//		posY = coordinates.y - direction.y;
+//		while ((posX >= 0) && (posY < boardLength) && (posY >= 0)
+//				&& ((board[posX][posY] == figure) || (board[posX][posY] == blank))) {
+//			counter++;
+//			posX -= direction.x;
+//			posY -= direction.y;
+//		}
+//		return counter;
+//	}
 
 //	/**
 //	 * direction from capture, checks if capturing is possible in this specific
@@ -197,36 +230,8 @@ public class Turn {
 //		return new ArrayList<>();
 //	}
 
-	/**
-	 * counts how many same figures are in the row next to the last placed figure
-	 *
-	 * @param figure      placed figure / symbol
-	 * @param coordinates position where figure was placed
-	 * @param direction
-	 * @return
-	 */
-	private int figuresInRow(char[][] board, final char figure, final char blank, final Point coordinates,
-			final Point direction) {
-
-		var counter = 1;
-		var posX = coordinates.x + direction.x;
-		var posY = coordinates.y + direction.y;
-		final var boardLength = board.length;
-		while ((posX < boardLength) && (posY < boardLength) && (posY >= 0)
-				&& ((board[posX][posY] == figure) || (board[posX][posY] == blank))) {
-			counter++;
-			posX += direction.x;
-			posY += direction.y;
-		}
-		posX = coordinates.x - direction.x;
-		posY = coordinates.y - direction.y;
-		while ((posX >= 0) && (posY < boardLength) && (posY >= 0)
-				&& ((board[posX][posY] == figure) || (board[posX][posY] == blank))) {
-			counter++;
-			posX -= direction.x;
-			posY -= direction.y;
-		}
-		return counter;
+	private boolean has5InARow(final char figure, final Point coordinates) {
+		return (this.longestRow(this.board.getBoard(), figure, coordinates) >= 5);
 	}
 
 	// checks if space is empty
