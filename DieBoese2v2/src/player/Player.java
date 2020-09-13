@@ -26,7 +26,7 @@ public abstract class Player {
 	public abstract void move();
 
 	protected void setMoveInData() throws InvalidMoveException {
-		this.data.getTurn().setMove(this.data, this);
+		this.data.getTurn().setMove(this, this.data);
 	}
 
 	protected void setMyMove(final Point move) {

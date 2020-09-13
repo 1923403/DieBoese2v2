@@ -4,7 +4,6 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import exceptions.InvalidMoveException;
-import io.localization.ConsoleOutput;
 import player.Player;
 
 public class Turn {
@@ -60,23 +59,8 @@ public class Turn {
 	}
 
 	// places given figure at given coordinates on the board if possible
-	public void setMove(final Data data, final Player player) throws InvalidMoveException {
-		final int turnCount = data.getTurnCounter();
-		if (turnCount == 9)
-			this.isValidMove(this.secondMove(), player.getMyMove());
-		else
-			this.isValidMove(this.board.getBoard(), player.getMyMove());
-		if (turnCount < 7)
-			this.block(player.getMyMove());
-		else
-			this.setMove(player.getMyMove(), player.getFigure());
-		Turn.capture(this.board.getBoard(), player.getMyMove(), player.getFigure(), data.getEnemyFigure());
-		if (turnCount == 8)
-			Board.printBoard(this.secondMove());
-	}
-
-	private void block(final Point coordinates) {
-		this.setMove(coordinates, 'B');
+	public void setMove(final Player player, final Data data) throws InvalidMoveException {
+		new SetMove(player, data).run();
 	}
 
 	private boolean has5InARow(final char figure, final Point coordinates) {
@@ -89,22 +73,5 @@ public class Turn {
 				if (element[y] == ' ')
 					return true;
 		return false;
-	}
-
-	// checks if space is empty
-	private boolean isValidMove(final char[][] board, final Point coordinates) throws InvalidMoveException {
-		if (board[coordinates.x][coordinates.y] == ' ')
-			return true;
-		throw new InvalidMoveException("Field is not empty!");
-	}
-
-	private char[][] secondMove() {
-		return new SecondMove(this.board.getBoard()).run();
-	}
-
-	// access through setMove(Point, char, int), block(Point), and secondMove(Point)
-	private void setMove(final Point coordinates, final char figure) {
-		ConsoleOutput.debugInformation("places figure on: " + coordinates.x + ", " + coordinates.y);
-		this.board.getBoard()[coordinates.x][coordinates.y] = figure;
 	}
 }

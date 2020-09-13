@@ -10,14 +10,16 @@ public class SetMove {
 
 	private final char[][] board;
 	private final char enemyFigure;
-	private final Player player;
+	private final char myFigure;
+	private final Point myMove;
 	private final int turnCount;
 
-	public SetMove(final Player player, final char enemyFigure, final char[][] board, final int turnCount) {
-		this.player = player;
-		this.enemyFigure = enemyFigure;
-		this.board = board;
-		this.turnCount = turnCount;
+	public SetMove(final Player player, final Data data) {
+		this.board = data.getBoard().getBoard();
+		this.enemyFigure = data.getEnemyFigure();
+		this.myFigure = player.getFigure();
+		this.myMove = player.getMyMove();
+		this.turnCount = data.getTurnCounter();
 	}
 
 	// places given figure at given coordinates on the board if possible
@@ -25,7 +27,7 @@ public class SetMove {
 		this.checkMove();
 		this.performMove();
 		this.capture();
-		this.printSecondMoveBoard();
+		this.printBoardForSecondMove();
 	}
 
 	private void block() {
@@ -33,19 +35,19 @@ public class SetMove {
 	}
 
 	private void capture() {
-		Turn.capture(this.board, this.player.getMyMove(), this.player.getFigure(), this.enemyFigure);
+		Turn.capture(this.board, this.myMove, this.myFigure, this.enemyFigure);
 	}
 
 	private void checkMove() throws InvalidMoveException {
 		if (this.turnCount == 9)
-			this.isValidMove(this.secondMove(), this.player.getMyMove());
+			this.isValidMove(this.secondMove());
 		else
-			this.isValidMove(this.board, this.player.getMyMove());
+			this.isValidMove(this.board);
 	}
 
 	// checks if space is empty
-	private boolean isValidMove(final char[][] board, final Point coordinates) throws InvalidMoveException {
-		if (board[coordinates.x][coordinates.y] == ' ')
+	private boolean isValidMove(final char[][] board) throws InvalidMoveException {
+		if (board[this.myMove.x][this.myMove.y] == ' ')
 			return true;
 		throw new InvalidMoveException("Field is not empty!");
 	}
@@ -54,10 +56,10 @@ public class SetMove {
 		if (this.turnCount < 7)
 			this.block();
 		else
-			this.setMove(this.player.getFigure());
+			this.setMove(this.myFigure);
 	}
 
-	private void printSecondMoveBoard() {
+	private void printBoardForSecondMove() {
 		if (this.turnCount == 8)
 			Board.printBoard(this.secondMove());
 	}
@@ -68,7 +70,7 @@ public class SetMove {
 
 	private void setMove(final char figure) {
 		ConsoleOutput
-				.debugInformation("places figure on: " + this.player.getMyMove().x + ", " + this.player.getMyMove().y);
-		this.board[this.player.getMyMove().x][this.player.getMyMove().y] = figure;
+				.debugInformation("places figure on: " + this.myMove.x + ", " + this.myMove.y);
+		this.board[this.myMove.x][this.myMove.y] = figure;
 	}
 }
