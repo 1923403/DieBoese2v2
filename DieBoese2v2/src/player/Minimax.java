@@ -237,7 +237,7 @@ public class Minimax {
 			figure2 = this.enemyFigure;
 		}
 		board[x][y] = placeFigure;
-		var capturedFigures = this.turn.capture(board, new Point(x, y), placeFigure,
+		var capturedFigures = Turn.capture(board, new Point(x, y), placeFigure,
 				figure2);
 		var value = this.minimax(board, previousMoves, !isMaximizing, allMoves, depth - 1, beta);
 		board = Capture.resetCapture(board, capturedFigures, figure2);

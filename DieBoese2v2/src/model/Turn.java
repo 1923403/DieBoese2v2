@@ -11,10 +11,6 @@ public class Turn {
 
 	private final Board board;
 
-	public Turn(final Board board) {
-		this.board = board;
-	}
-
 	/**
 	 * captures enemy figures if possible
 	 *
@@ -24,9 +20,13 @@ public class Turn {
 	 * @param enemyFigure enemyFigure
 	 * @return Point array of captured figures
 	 */
-	public ArrayList<Point> capture(final char[][] board, final Point coordinates, final char figure,
+	public static ArrayList<Point> capture(final char[][] board, final Point coordinates, final char figure,
 			final char enemyFigure) {
 		return new Capture(coordinates, board, figure, enemyFigure).run();
+	}
+
+	public Turn(final Board board) {
+		this.board = board;
 	}
 
 	// determines if game is over and a player has won
@@ -70,7 +70,7 @@ public class Turn {
 			this.block(player.getMyMove());
 		else
 			this.setMove(player.getMyMove(), player.getFigure());
-		this.capture(this.board.getBoard(), player.getMyMove(), player.getFigure(), data.getEnemyFigure());
+		Turn.capture(this.board.getBoard(), player.getMyMove(), player.getFigure(), data.getEnemyFigure());
 		if (turnCount == 8)
 			Board.printBoard(this.secondMove());
 	}

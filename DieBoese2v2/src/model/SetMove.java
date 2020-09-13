@@ -33,7 +33,7 @@ public class SetMove {
 	}
 
 	private void capture() {
-		new Capture(this.player.getMyMove(), this.board, this.player.getFigure(), this.enemyFigure);
+		Turn.capture(this.board, this.player.getMyMove(), this.player.getFigure(), this.enemyFigure);
 	}
 
 	private void checkMove() throws InvalidMoveException {
