@@ -11,6 +11,14 @@ public class Board {
 //		testBoard.printBoard();
 //	}
 
+	public static char[][] copyBoard(final char[][] board) {
+		final char[][] copy = new char[board.length][board.length];
+		for (int x = 0; x < board.length; x++)
+			for (int y = 0; y < board.length; y++)
+				copy[x][y] = board[x][y];
+		return copy;
+	}
+
 	public static void printBoard(final char[][] board) {
 		for (int y = 0; y <= (board.length + 1); y++) {
 			System.out.println();
@@ -69,11 +77,7 @@ public class Board {
 	 * creates a copy of the original board
 	 */
 	public char[][] copyBoard() {
-		final char[][] copy = new char[this.board.length][this.board.length];
-		for (int x = 0; x < this.board.length; x++)
-			for (int y = 0; y < this.board.length; y++)
-				copy[x][y] = this.board[x][y];
-		return copy;
+		return Board.copyBoard(this.board);
 	}
 
 	/**
