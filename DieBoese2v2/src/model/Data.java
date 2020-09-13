@@ -12,7 +12,7 @@ public class Data {
 
 	public Data(int boardSize) {
 		this.board = new Board(boardSize);
-		this.move = new Turn(this.board);
+		this.move = new Turn();
 		this.validation = new StringValidation();
 	}
 
