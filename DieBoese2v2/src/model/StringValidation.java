@@ -10,7 +10,6 @@ public class StringValidation {
 	public void validateString(final int boardSize, final String coordinates) throws InvalidStringException {
 		this.boardSize = boardSize;
 		this.coordinates = coordinates;
-
 		this.validateLength();
 		this.validateCharacters();
 		this.validateLetterCount();

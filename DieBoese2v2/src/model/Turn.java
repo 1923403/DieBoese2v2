@@ -24,54 +24,30 @@ public class Turn {
 		return new Capture(coordinates, board, figure, enemyFigure).run();
 	}
 
-	public Turn(final Board board) {
-		this.board = board;
-	}
-
-	// determines if game is over and a player has won
-	public boolean hasWon(final char figure, final Point coordinates) {
-		if ((coordinates != null) && (this.has5InARow(figure, coordinates)))
-			return true;
-		if (!this.movePossible()) {
-			System.out.println("no move possible");
-			return true;
-		}
-		return false;
-	}
-
-	public int longestPossibleRow(final char[][] board, final char figure, final char blank, final Point coordinates) {
-		return new LongestRow().longestPossibleRow(board, figure, blank, coordinates);
-	}
-
 	/**
 	 *
 	 * @param figure      figure which the algorithm is looking for
 	 * @param coordinates starting point
 	 * @return longest row
 	 */
-	public int longestRow(final char[][] board, final char figure, final Point coordinates) {
+	public static int longestRow(final char[][] board, final char figure, final Point coordinates) {
 		return new LongestRow().run(board, figure, coordinates);
 	}
 
-	// checks if there is an empty space on the board
-	public boolean movePossible() {
-		return this.hasEmptyField(this.board.getBoard());
+	public Turn(final Board board) {
+		this.board = board;
+	}
+
+	public boolean hasWon(final Point coordinates, final char[][] board, final char figure) {
+		return new CheckWin(coordinates, board, figure).run();
+	}
+
+	public int longestPossibleRow(final char[][] board, final char figure, final char blank, final Point coordinates) {
+		return new LongestRow().longestPossibleRow(board, figure, blank, coordinates);
 	}
 
 	// places given figure at given coordinates on the board if possible
 	public void setMove(final Player player, final Data data) throws InvalidMoveException {
 		new SetMove(player, data).run();
-	}
-
-	private boolean has5InARow(final char figure, final Point coordinates) {
-		return (this.longestRow(this.board.getBoard(), figure, coordinates) >= 5);
-	}
-
-	private boolean hasEmptyField(final char[][] board) {
-		for (final char[] element : this.board.getBoard())
-			for (var y = 0; y < this.board.getBoard().length; y++)
-				if (element[y] == ' ')
-					return true;
-		return false;
 	}
 }
