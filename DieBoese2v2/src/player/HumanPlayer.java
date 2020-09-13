@@ -7,6 +7,7 @@ import exceptions.InvalidStringException;
 import io.Input;
 import io.localization.ConsoleOutput;
 import model.Data;
+import model.StringValidation;
 
 public class HumanPlayer extends Player {
 	private String coordinates;
@@ -77,7 +78,7 @@ public class HumanPlayer extends Player {
 	}
 
 	private void validateCoordinates() throws InvalidStringException {
-		this.data.getValidation().validateString(this.data.getBoardSize(), this.coordinates);
+		new StringValidation(this.data.getBoardSize(), this.coordinates).run();
 	}
 
 	private boolean validCoordinates() {

@@ -7,11 +7,9 @@ public class Data {
 	private char enemyFigure;
 	private Point enemyMove;
 	private int turnCounter = 0;
-	private StringValidation validation;
 
 	public Data(int boardSize) {
 		this.board = new Board(boardSize);
-		this.validation = new StringValidation();
 	}
 
 	public Board getBoard() {
@@ -32,10 +30,6 @@ public class Data {
 
 	public int getTurnCounter() {
 		return this.turnCounter;
-	}
-
-	public StringValidation getValidation() {
-		return this.validation;
 	}
 
 	public void incTurnCounter() {
