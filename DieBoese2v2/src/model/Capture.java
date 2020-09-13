@@ -69,7 +69,6 @@ public class Capture {
 				return this.createCaptureList(enemyFigure1, enemyFigure2);
 			}
 		}
-		// HIER ELSE?
 		return new ArrayList<>();
 	}
 
