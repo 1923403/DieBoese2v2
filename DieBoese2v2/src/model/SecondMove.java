@@ -18,9 +18,9 @@ public class SecondMove {
 	}
 
 	private void blockBottomRow() {
-		this.blockField(this.board.length / 2, this.board.length - 1);
+		this.blockField(this.board.length - 1, this.board.length / 2);
 		if (this.hasEvenLength())
-			this.blockField((this.board.length / 2) - 1, this.board.length - 1);
+			this.blockField(this.board.length - 1, (this.board.length / 2) - 1);
 	}
 
 	private void blockField(final int x, final int y) {
@@ -28,15 +28,15 @@ public class SecondMove {
 	}
 
 	private void blockLeftRow() {
-		this.blockField(0, this.board.length / 2);
+		this.blockField(this.board.length / 2, 0);
 		if (this.hasEvenLength())
-			this.blockField(0, (this.board.length / 2) - 1);
+			this.blockField((this.board.length / 2) - 1, 0);
 	}
 
 	private void blockRightRow() {
-		this.blockField(this.board.length - 1, this.board.length / 2);
+		this.blockField(this.board.length / 2, this.board.length - 1);
 		if (this.hasEvenLength())
-			this.blockField(this.board.length - 1, (this.board.length / 2) - 1);
+			this.blockField((this.board.length / 2) - 1, this.board.length - 1);
 	}
 
 	private void blockSquare() {
@@ -46,9 +46,9 @@ public class SecondMove {
 	}
 
 	private void blockTopRow() {
-		this.blockField(this.board.length / 2, 0);
+		this.blockField(0, this.board.length / 2);
 		if (this.hasEvenLength())
-			this.blockField((this.board.length / 2) - 1, 0);
+			this.blockField(0, (this.board.length / 2) - 1);
 	}
 
 	private boolean hasEvenLength() {
