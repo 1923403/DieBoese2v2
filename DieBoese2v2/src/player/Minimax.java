@@ -17,14 +17,12 @@ public class Minimax {
 	private final char myFigure;
 	private ArrayList<Point> sortedPoints;
 	private final int squareSize = 2;
-	private Turn turn;
 	private final int wantedDepth = 5; // could be increased during the game
 
-	public Minimax(Turn turn, char myFigure, char enemyFigure) {
+	public Minimax(char myFigure, char enemyFigure) {
 		this.evaluation = new BoardEvaluation(myFigure, enemyFigure);
 		this.myFigure = myFigure;
 		this.enemyFigure = enemyFigure;
-		this.turn = turn;
 		this.alpha = Integer.MIN_VALUE;
 	}
 

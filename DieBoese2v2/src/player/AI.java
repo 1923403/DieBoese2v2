@@ -60,7 +60,7 @@ public class AI extends Player {
 	}
 
 	private void performMinimax() {
-		this.minimax = new Minimax(this.data.getTurn(), this.getFigure(), this.data.getEnemyFigure());
+		this.minimax = new Minimax(this.getFigure(), this.data.getEnemyFigure());
 		this.setMyMove(this.minimax.createMove(this.data.getBoard()));
 	}
 
