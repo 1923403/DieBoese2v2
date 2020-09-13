@@ -1,10 +1,10 @@
 package control;
 
 import io.localization.ConsoleOutput;
-import model.CheckWin;
 import model.Data;
 import model.Menu;
 import model.Settings;
+import model.Turn;
 import player.AI;
 import player.HumanPlayer;
 import player.Player;
@@ -76,10 +76,8 @@ public class Game {
 
 	private boolean isRunning() {
 		if (this.player1Next)
-			return !(new CheckWin(this.player2.getMyMove(), this.data.getBoard().getBoard(), this.player2.getFigure())
-					.run());
-		return !(new CheckWin(this.player1.getMyMove(), this.data.getBoard().getBoard(), this.player1.getFigure())
-				.run());
+			return !(Turn.hasWon(this.data.getBoard().getBoard(), this.player2.getMyMove(), this.player2.getFigure()));
+		return !(Turn.hasWon(this.data.getBoard().getBoard(), this.player1.getMyMove(), this.player1.getFigure()));
 	}
 
 	/**

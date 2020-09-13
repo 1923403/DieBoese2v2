@@ -26,10 +26,10 @@ public class Capture {
 	private final char enemyFigure;
 	private final char figure;
 
-	public Capture(final Point coordinates, final char[][] board, final char figure, final char enemyFigure) {
+	public Capture(final char[][] board, final Point coordinates, final char figure, final char enemyFigure) {
+		this.board = board;
 		this.capturedPositions = new ArrayList<>();
 		this.coordinates = coordinates;
-		this.board = board;
 		this.figure = figure;
 		this.enemyFigure = enemyFigure;
 	}

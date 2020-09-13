@@ -8,8 +8,6 @@ import player.Player;
 
 public class Turn {
 
-	private final Board board;
-
 	/**
 	 * captures enemy figures if possible
 	 *
@@ -21,29 +19,26 @@ public class Turn {
 	 */
 	public static ArrayList<Point> capture(final char[][] board, final Point coordinates, final char figure,
 			final char enemyFigure) {
-		return new Capture(coordinates, board, figure, enemyFigure).run();
+		return new Capture(board, coordinates, figure, enemyFigure).run();
+	}
+
+	public static boolean hasWon(final char[][] board, final Point coordinates, final char figure) {
+		return new CheckWin(board, coordinates, figure).run();
 	}
 
 	/**
+	 * returns longest row starting from given coordinates
 	 *
 	 * @param figure      figure which the algorithm is looking for
 	 * @param coordinates starting point
 	 * @return longest row
 	 */
 	public static int longestRow(final char[][] board, final char figure, final Point coordinates) {
-		return new LongestRow().run(board, figure, coordinates);
-	}
-
-	public Turn(final Board board) {
-		this.board = board;
-	}
-
-	public boolean hasWon(final Point coordinates, final char[][] board, final char figure) {
-		return new CheckWin(coordinates, board, figure).run();
+		return new LongestRow(board, coordinates, figure).run();
 	}
 
 	public int longestPossibleRow(final char[][] board, final char figure, final char blank, final Point coordinates) {
-		return new LongestRow().longestPossibleRow(board, figure, blank, coordinates);
+		return new LongestRow(board, coordinates, figure).longestPossibleRow(blank);
 	}
 
 	// places given figure at given coordinates on the board if possible

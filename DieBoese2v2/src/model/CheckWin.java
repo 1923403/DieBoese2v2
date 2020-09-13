@@ -4,13 +4,13 @@ import java.awt.Point;
 
 public class CheckWin {
 
-	final char[][] board;
-	final Point coordinates;
-	final char figure;
+	private final char[][] board;
+	private final Point coordinates;
+	private final char figure;
 
-	public CheckWin(final Point coordinates, final char[][] board, final char figure) {
-		this.coordinates = coordinates;
+	public CheckWin(final char[][] board, final Point coordinates, final char figure) {
 		this.board = board;
+		this.coordinates = coordinates;
 		this.figure = figure;
 	}
 
