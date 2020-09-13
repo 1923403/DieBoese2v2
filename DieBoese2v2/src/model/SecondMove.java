@@ -4,8 +4,8 @@ public class SecondMove {
 
 	private final char[][] board;
 
-	public SecondMove(final Board board) {
-		this.board = board.copyBoard();
+	public SecondMove(final char[][] board) {
+		this.board = Board.copyBoard(board);
 	}
 
 	public char[][] run() {
