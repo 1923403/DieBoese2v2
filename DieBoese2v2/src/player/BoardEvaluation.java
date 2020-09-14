@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.Turn;
+
 public class BoardEvaluation {
 	public int maxValue = Integer.MIN_VALUE;
 	public int minValue = Integer.MAX_VALUE;
@@ -19,7 +21,7 @@ public class BoardEvaluation {
 		var myLongestRow = 0;
 		var longestEnemyRow = 0;
 		for (var i = 0; i < lastMoves.length; i++) {
-			if (lastMoves[i].x == 0 && lastMoves[i].y == 0 && board[lastMoves[i].x][lastMoves[i].y] == ' ')
+			if ((lastMoves[i].x == 0) && (lastMoves[i].y == 0) && (board[lastMoves[i].x][lastMoves[i].y] == ' '))
 				System.err.println("last moves fehler!!!");
 			if (board[lastMoves[i].x][lastMoves[i].y] != ' ') { // if figure got captured during minimax
 				if ((i % 2) == 0)
@@ -52,7 +54,7 @@ public class BoardEvaluation {
 	// reduction / simplification
 	/**
 	 * creates a hashmap containing all points and a simple evaluation of it
-	 * 
+	 *
 	 * @param board
 	 * @param allPoints all points that should be evaluated
 	 * @return evaluated hashmap
@@ -70,9 +72,9 @@ public class BoardEvaluation {
 	}
 
 	public boolean hasWon(char[][] board, Point lastMove) {
-		var figure = board[lastMove.x][lastMove.y];
-		return (this.longestRow(board, figure, lastMove) > 4);
-
+		return Turn.hasWon(board, lastMove, board[lastMove.x][lastMove.y]);
+//		var figure = board[lastMove.x][lastMove.y];
+//		return (this.longestRow(board, figure, lastMove) > 4);
 	}
 
 	/**

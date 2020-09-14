@@ -16,7 +16,7 @@ public class CheckWin {
 
 	// determines if game is over and a player has won
 	public boolean run() {
-		if ((this.isValidCoordinate() && this.has5InARow())
+		if (((this.coordinates != null) && this.has5InARow())
 				|| (!this.movePossible()))
 			return true;
 		return false;
@@ -24,10 +24,6 @@ public class CheckWin {
 
 	private boolean has5InARow() {
 		return (Turn.longestRow(this.board, this.figure, this.coordinates) >= 5);
-	}
-
-	private boolean isValidCoordinate() {
-		return this.coordinates != null;
 	}
 
 	// checks if there is an empty space on the board
