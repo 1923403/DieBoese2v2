@@ -106,9 +106,8 @@ public class BoardEvaluation {
 				this.longestRow(board, this.enemyFigure, coordinates));
 	}
 
-	private int longestPossibleRow(final char[][] board, final char figure, final char blank,
-			final Point coordinates) {
-		return new LongestRow(board, coordinates, figure).longestPossibleRow(blank);
+	private int longestPossibleRow(final char[][] board, final char figure, final Point coordinates) {
+		return new LongestRow(board, coordinates, figure).longestPossibleRow(' ');
 	}
 
 	/**
@@ -127,8 +126,8 @@ public class BoardEvaluation {
 	}
 
 	private boolean winPossible(char[][] board, Point move) {
-		return ((this.longestPossibleRow(board, this.myFigure, ' ', move) > 4)
-				|| (this.longestPossibleRow(board, this.enemyFigure, ' ', move) > 4));
+		return ((this.longestPossibleRow(board, this.myFigure, move) > 4)
+				|| (this.longestPossibleRow(board, this.enemyFigure, move) > 4));
 //		return ((this.longestRow(board, this.myFigure, ' ', move) > 4)
 //				|| (this.longestRow(board, this.enemyFigure, ' ', move) > 4));
 	}
