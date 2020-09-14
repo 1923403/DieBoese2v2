@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.LongestRow;
 import model.Turn;
 
 public class BoardEvaluation {
@@ -77,86 +78,28 @@ public class BoardEvaluation {
 //		return (this.longestRow(board, figure, lastMove) > 4);
 	}
 
-	/**
-	 * counts how many same figures are in the row next to the last placed figure
-	 *
-	 * @param figure      placed figure / symbol
-	 * @param coordinates position where figure was placed
-	 * @param direction
-	 * @return
-	 */
-	private int figuresInRow(char[][] board, final char figure, final char blank, final Point coordinates,
-			final Point direction) {
-
-		var counter = 1;
-		var posX = coordinates.x + direction.x;
-		var posY = coordinates.y + direction.y;
-		final var boardLength = board.length;
-		while ((posX < boardLength) && (posY < boardLength) && (posY >= 0)
-				&& ((board[posX][posY] == figure) || (board[posX][posY] == blank))) {
-			counter++;
-			posX += direction.x;
-			posY += direction.y;
-			if (counter > 4)
-				break;
-		}
-		posX = coordinates.x - direction.x;
-		posY = coordinates.y - direction.y;
-		while ((posX >= 0) && (posY < boardLength) && (posY >= 0)
-				&& ((board[posX][posY] == figure) || (board[posX][posY] == blank))) {
-			counter++;
-			posX -= direction.x;
-			posY -= direction.y;
-			if (counter > 4)
-				break;
-		}
-		return counter;
+	public int longestPossibleRow(final char[][] board, final char figure, final char blank,
+			final Point coordinates) {
+		return new LongestRow(board, coordinates, figure).longestPossibleRow(blank);
 	}
 
 	// from class Turn
 
-	private int longestRow(char[][] board, final char figure, final char blank, final Point coordinates) {
-		// only coordinates required, figure not needed
-
-		// horizontal row
-		final Point horizontal = new Point(1, 0);// with enum?
-		var horizontalFigures = 0;
-		if (this.figuresInRow(board, figure, ' ', coordinates, horizontal) > 4)
-			horizontalFigures = this.figuresInRow(board, figure, blank, coordinates, horizontal);
-
-		// vertical row
-		final Point vertical = new Point(0, 1);
-		var verticalFigures = 0;
-		if (this.figuresInRow(board, figure, ' ', coordinates, vertical) > 4)
-			verticalFigures = this.figuresInRow(board, figure, blank, coordinates, vertical);
-
-		// diagonal row (top right to bottom left)
-		final Point diagonal1 = new Point(1, 1);
-		var diagonalFigures1 = 0;
-		if (this.figuresInRow(board, figure, ' ', coordinates, diagonal1) > 4)
-			diagonalFigures1 = this.figuresInRow(board, figure, blank, coordinates, diagonal1);
-
-		// diagonal row (top left to bottom right)
-		final Point diagonal2 = new Point(1, -1);
-		var diagonalFigures2 = 0;
-		if (this.figuresInRow(board, figure, ' ', coordinates, diagonal2) > 4)
-			diagonalFigures2 = this.figuresInRow(board, figure, blank, coordinates, diagonal2);
-
-		return Math.max(Math.max(horizontalFigures, verticalFigures), Math.max(diagonalFigures1, diagonalFigures2));
-	}
-
 	/**
+	 * returns longest row starting from given coordinates
 	 *
 	 * @param figure      figure which the algorithm is looking for
 	 * @param coordinates starting point
 	 * @return longest row
 	 */
-	private int longestRow(char[][] board, final char figure, final Point coordinates) {
-		return this.longestRow(board, figure, figure, coordinates); // row
+	public int longestRow(final char[][] board, final char figure, final Point coordinates) {
+		return new LongestRow(board, coordinates, figure).run();
 	}
 
 	private boolean winPossible(char[][] board, Point move) {
-		return ((this.longestRow(board, this.myFigure, ' ', move) > 4)
-				|| (this.longestRow(board, this.enemyFigure, ' ', move) > 4));
+		return ((this.longestPossibleRow(board, this.myFigure, ' ', move) > 4)
+				|| (this.longestPossibleRow(board, this.enemyFigure, ' ', move) > 4));
+//		return ((this.longestRow(board, this.myFigure, ' ', move) > 4)
+//				|| (this.longestRow(board, this.enemyFigure, ' ', move) > 4));
 	}
 }

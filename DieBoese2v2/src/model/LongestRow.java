@@ -32,6 +32,10 @@ public class LongestRow {
 		return this.longestPossibleRow(this.figure);
 	}
 
+	public boolean winPossible(final Point direction) {
+		return this.figuresInRow(' ', direction) > 4;
+	}
+
 	private int checkDiagonalRowDown(final char blank) {
 		if (this.winPossible(new Point(1, -1)))
 			return this.figuresInRow(blank, new Point(1, -1));
@@ -105,9 +109,5 @@ public class LongestRow {
 
 	private int getMaxValue(final int a, final int b, final int c, final int d) {
 		return Math.max(Math.max(a, b), Math.max(c, d));
-	}
-
-	private boolean winPossible(final Point direction) {
-		return this.figuresInRow(' ', direction) > 4;
 	}
 }

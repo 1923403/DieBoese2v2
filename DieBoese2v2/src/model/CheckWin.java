@@ -23,7 +23,7 @@ public class CheckWin {
 	}
 
 	private boolean has5InARow() {
-		return (Turn.longestRow(this.board, this.figure, this.coordinates) >= 5);
+		return (new LongestRow(this.board, this.coordinates, this.figure).run() > 4);
 	}
 
 	// checks if there is an empty space on the board
