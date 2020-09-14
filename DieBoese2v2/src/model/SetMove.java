@@ -45,9 +45,13 @@ public class SetMove {
 			this.isValidMove(this.board);
 	}
 
+	private boolean fieldIsEmpty(final char[][] board) {
+		return board[this.myMove.x][this.myMove.y] == ' ';
+	}
+
 	// checks if space is empty
 	private boolean isValidMove(final char[][] board) throws InvalidMoveException {
-		if (board[this.myMove.x][this.myMove.y] == ' ')
+		if (this.fieldIsEmpty(board))
 			return true;
 		throw new InvalidMoveException("Field is not empty!");
 	}
