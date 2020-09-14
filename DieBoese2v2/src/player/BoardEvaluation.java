@@ -78,7 +78,7 @@ public class BoardEvaluation {
 //		return (this.longestRow(board, figure, lastMove) > 4);
 	}
 
-	public int longestPossibleRow(final char[][] board, final char figure, final char blank,
+	private int longestPossibleRow(final char[][] board, final char figure, final char blank,
 			final Point coordinates) {
 		return new LongestRow(board, coordinates, figure).longestPossibleRow(blank);
 	}
@@ -92,7 +92,7 @@ public class BoardEvaluation {
 	 * @param coordinates starting point
 	 * @return longest row
 	 */
-	public int longestRow(final char[][] board, final char figure, final Point coordinates) {
+	private int longestRow(final char[][] board, final char figure, final Point coordinates) {
 		return new LongestRow(board, coordinates, figure).run();
 	}
 
