@@ -34,14 +34,6 @@ public class BoardEvaluation {
 			}
 		}
 		return this.getEvaluation(myLongestRow, longestEnemyRow, isMaximizing);
-//		if ((isMaximizing && (myLongestRow >= longestEnemyRow))
-//				|| (!isMaximizing && (myLongestRow > longestEnemyRow))) {
-//			this.maxValue = Math.max(myLongestRow, this.maxValue);
-//			return myLongestRow;
-//		} else {
-//			this.minValue = Math.min(-longestEnemyRow, this.minValue);
-//			return -longestEnemyRow;
-//		}
 
 //		if (isMaximizing) {
 //			if (myLongestRow >= longestEnemyRow) {
@@ -84,30 +76,13 @@ public class BoardEvaluation {
 	}
 
 	public int getEvaluation(final int myLongestRow, final int longestEnemyRow, final boolean isMaximizing) {
-//		if ((isMaximizing && (myLongestRow >= longestEnemyRow))
-//				|| (!isMaximizing && (myLongestRow > longestEnemyRow))) {
-//			this.maxValue = Math.max(myLongestRow, this.maxValue);
-//			return myLongestRow;
-//		} else {
-//			this.minValue = Math.min(-longestEnemyRow, this.minValue);
-//			return -longestEnemyRow;
-//		}
-		if (isMaximizing) {
-			if (myLongestRow >= longestEnemyRow) {
-				this.maxValue = Math.max(myLongestRow, this.maxValue);
-				return myLongestRow;
-			} else {
-				this.minValue = Math.min(-longestEnemyRow, this.minValue);
-				return -longestEnemyRow;
-			}
+		if ((isMaximizing && (myLongestRow >= longestEnemyRow))
+				|| (!isMaximizing && (myLongestRow > longestEnemyRow))) {
+			this.maxValue = Math.max(myLongestRow, this.maxValue);
+			return myLongestRow;
 		} else {
-			if (myLongestRow > longestEnemyRow) {
-				this.maxValue = Math.max(myLongestRow, this.maxValue);
-				return myLongestRow;
-			} else {
-				this.minValue = Math.min(-longestEnemyRow, this.minValue);
-				return -longestEnemyRow;
-			}
+			this.minValue = Math.min(-longestEnemyRow, this.minValue);
+			return -longestEnemyRow;
 		}
 	}
 
