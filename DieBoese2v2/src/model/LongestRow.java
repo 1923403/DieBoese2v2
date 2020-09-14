@@ -33,41 +33,51 @@ public class LongestRow {
 	}
 
 	private int checkDiagonalRowDown(final char blank) {
-		return this.figuresInRow(blank, new Point(1, -1));
+		if (this.winPossible(new Point(1, -1)))
+			return this.figuresInRow(blank, new Point(1, -1));
+		return 0;
 	}
 
 	private int checkDiagonalRowUp(final char blank) {
-		return this.figuresInRow(blank, new Point(1, 1));
+		if (this.winPossible(new Point(1, 1)))
+			return this.figuresInRow(blank, new Point(1, 1));
+		return 0;
 	}
 
 	private int checkHorizontalRow(final char blank) {
-		return this.figuresInRow(blank, new Point(1, 0));
+		if (this.winPossible(new Point(1, 0)))
+			return this.figuresInRow(blank, new Point(1, 0));
+		return 0;
 	}
 
 	private int checkVerticalRow(final char blank) {
-		return this.figuresInRow(blank, new Point(0, 1));
+		if (this.winPossible(new Point(0, 1)))
+			return this.figuresInRow(blank, new Point(0, 1));
+		return 0;
 	}
 
-	private int countFiguresInNegativeDirection(final char blank, final Point direction) {
-		var counter = 0;
+	private int countFiguresInNegativeDirection(final char blank, int counter, final Point direction) {
 		var x = this.coordinates.x - direction.x;
 		var y = this.coordinates.y - direction.y;
 		while (this.figureIsOnBoard(x, y, blank)) {
 			counter++;
 			x -= direction.x;
 			y -= direction.y;
+			if (counter > 4)
+				break;
 		}
 		return counter;
 	}
 
-	private int countFiguresInPositiveDirection(final char blank, final Point direction) {
-		var counter = 0;
+	private int countFiguresInPositiveDirection(final char blank, int counter, final Point direction) {
 		var x = this.coordinates.x + direction.x;
 		var y = this.coordinates.y + direction.y;
 		while (this.figureIsOnBoard(x, y, blank)) {
 			counter++;
 			x += direction.x;
 			y += direction.y;
+			if (counter > 4)
+				break;
 		}
 		return counter;
 	}
@@ -87,12 +97,17 @@ public class LongestRow {
 	 */
 	private int figuresInRow(final char blank, final Point direction) {
 		var counter = 1;
-		counter += this.countFiguresInNegativeDirection(blank, direction);
-		counter += this.countFiguresInPositiveDirection(blank, direction);
+		counter = this.countFiguresInNegativeDirection(blank, counter, direction);
+		if (counter < 5)
+			counter = this.countFiguresInPositiveDirection(blank, counter, direction);
 		return counter;
 	}
 
 	private int getMaxValue(final int a, final int b, final int c, final int d) {
 		return Math.max(Math.max(a, b), Math.max(c, d));
+	}
+
+	private boolean winPossible(final Point direction) {
+		return this.figuresInRow(' ', direction) > 4;
 	}
 }
