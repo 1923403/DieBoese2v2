@@ -39,20 +39,8 @@ public class Minimax {
 		return this.parallelizedSearch(board, threadList);
 	}
 
-	private void addSquare(char[][] board, Point center, ArrayList<Point> list) {
-		var square = new ArrayList<Point>();
-		for (int x = center.x - this.squareSize; x <= (center.x + this.squareSize); x++) {
-			for (int y = center.y - this.squareSize; y <= (center.y + this.squareSize); y++) {
-				// check if point is within board and add to list
-				if (((x >= 0) && (x < board.length)) && ((y >= 0) && (y < board.length)) && (board[x][y] == ' ')) {
-					square.add(new Point(x, y));
-				}
-			}
-		}
-		for (var point : square) {
-			if (!list.contains(point))
-				list.add(point);
-		}
+	private void addSquare(final char[][] board, final Point center, final ArrayList<Point> list) {
+		new AddSquare(board, center, list, this.squareSize).run();
 	}
 
 	private void bestMove(char[][] board, ArrayList<Point> allMoves) {
@@ -250,26 +238,7 @@ public class Minimax {
 	 * @param pointList
 	 */
 	private ArrayList<Point> sortPoints(HashMap<Point, Integer> evaluatedPoints) {
-		var sortedList = new ArrayList<Point>();
-		var sorted = false;
-		int highestValue;
-		Point bestPoint = new Point(-1, -1);
-		while (!sorted) {
-			highestValue = Integer.MIN_VALUE;
-			sorted = true;
-			for (var point : evaluatedPoints.keySet()) {
-				if (evaluatedPoints.get(point) >= highestValue) {
-					bestPoint = point;
-					highestValue = evaluatedPoints.get(point);
-					sorted = false;
-				}
-			}
-			if (!sorted)
-				sortedList.add(bestPoint);
-			evaluatedPoints.remove(bestPoint);
-		}
-		System.out.println(sortedList);
-		return sortedList;
+		return new SortPoints(evaluatedPoints).run();
 	}
 
 	// public static void main(String[] args) {
