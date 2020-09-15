@@ -73,8 +73,8 @@ public class SetMove {
 	}
 
 	private void setMove(final char figure) {
-		ConsoleOutput
-				.debugInformation("places figure on: " + this.myMove.x + ", " + this.myMove.y);
+		ConsoleOutput.printCoordinates(board.length, myMove, ": '" + figure + "' got placed");
+
 		this.board[this.myMove.x][this.myMove.y] = figure;
 	}
 }

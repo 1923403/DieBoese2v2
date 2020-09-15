@@ -16,7 +16,7 @@ public class ConsoleOutput {
 	}
 
 	public static void printCoordinates(int boardLength, Point point, String message) {
-		String pointString = "Point: " + (char) (point.x + 97) + ", " + (boardLength - point.y) + "  ";
+		String pointString = "Point: (" + (char) (point.x + 97) + ", " + (boardLength - point.y) + ")  ";
 		System.out.println(pointString + message);
 	}
 

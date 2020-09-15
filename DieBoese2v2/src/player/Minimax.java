@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import io.localization.ConsoleOutput;
 import model.Board;
 import model.Capture;
 import model.Turn;
@@ -57,10 +58,11 @@ public class Minimax {
 			}
 		}
 		if (bestMove.x == -1) {
-			System.out.println("random move...");
-			this.bestMoves.put(this.randomMove(allMoves), Integer.MIN_VALUE);
+			var randomMove = this.randomMove(allMoves);
+			ConsoleOutput.printCoordinates(board.length, randomMove, "randomly chosen...");
+			this.bestMoves.put(randomMove, Integer.MIN_VALUE);
 		} else {
-			System.out.println(this.translatePoint(board.length, bestMove) + ": " + bestValue);
+			ConsoleOutput.printCoordinates(board.length, bestMove, ": " + bestValue);
 			this.bestMoves.put(bestMove, bestValue);
 		}
 	}
@@ -225,10 +227,5 @@ public class Minimax {
 	 */
 	private ArrayList<Point> sortPoints(HashMap<Point, Integer> evaluatedPoints) {
 		return new SortPoints(evaluatedPoints).run();
-	}
-
-	private String translatePoint(int length, Point point) {
-		String pointString = "Point: " + (char) (point.x + 97) + ", " + (length - point.y) + "  ";
-		return pointString;
 	}
 }
