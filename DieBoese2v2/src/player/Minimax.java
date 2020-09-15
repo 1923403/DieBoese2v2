@@ -9,12 +9,11 @@ import model.Capture;
 import model.Turn;
 
 public class Minimax {
-	private volatile int alpha;
+	private volatile int alpha = Integer.MIN_VALUE;;
 	private final int availableThreads = Runtime.getRuntime().availableProcessors();
 	private volatile HashMap<Point, Integer> bestMoves;
-	private final char enemyFigure;
+	private final char myFigure, enemyFigure;
 	private volatile BoardEvaluation evaluation;
-	private final char myFigure;
 	private ArrayList<Point> sortedPoints;
 	private final int squareSize = 2;
 	private final int wantedDepth = 5; // could be increased during the game
@@ -23,7 +22,6 @@ public class Minimax {
 		this.evaluation = new BoardEvaluation(myFigure, enemyFigure);
 		this.myFigure = myFigure;
 		this.enemyFigure = enemyFigure;
-		this.alpha = Integer.MIN_VALUE;
 	}
 
 	/**
@@ -52,19 +50,19 @@ public class Minimax {
 		for (var move : allMoves) {
 			previousMoves[0] = new Point(move.x, move.y);
 			var value = this.setFigure(board, previousMoves, true, clonedMoves, this.wantedDepth, beta);
-//			System.out.println("BestMove: " + move + " " + value);
 			if (value > bestValue) {
 				bestValue = value;
 				bestMove = move;
 				this.alpha = bestValue;
 			}
 		}
-		System.out.println(this.translatePoint(board.length, bestMove) + ": " + bestValue);
 		if (bestMove.x == -1) {
 			System.out.println("random move...");
 			this.bestMoves.put(this.randomMove(allMoves), Integer.MIN_VALUE);
-		} else
+		} else {
+			System.out.println(this.translatePoint(board.length, bestMove) + ": " + bestValue);
 			this.bestMoves.put(bestMove, bestValue);
+		}
 	}
 
 	/**
@@ -108,6 +106,7 @@ public class Minimax {
 	 */
 	private ArrayList<ArrayList<Point>> createThreadList(ArrayList<Point> allMoves) {
 		var threadList = new ArrayList<ArrayList<Point>>();
+		// adds i lists to threadList, i = availableThreads
 		for (var i = 0; i < this.availableThreads; i++) {
 			threadList.add(new ArrayList<>());
 		}
@@ -184,8 +183,6 @@ public class Minimax {
 				System.err.println("Thread error");
 			}
 		}
-//		System.out.println("ev min: " + this.evaluation.minValue);
-//		System.out.println("ev max: " + this.evaluation.maxValue);
 		return this.sortPoints(this.bestMoves).get(0); // returns best evaluated point
 	}
 
@@ -227,7 +224,6 @@ public class Minimax {
 				figure2);
 		var value = this.minimax(board, previousMoves, !isMaximizing, allMoves, depth - 1, beta);
 		board = Capture.resetCapture(board, capturedFigures, figure2);
-//		board = this.turn.resetCapture(board, capturedFigures, figure2);
 		board[x][y] = ' ';
 		return value;
 	}
@@ -241,9 +237,6 @@ public class Minimax {
 		return new SortPoints(evaluatedPoints).run();
 	}
 
-	// public static void main(String[] args) {
-//		System.out.println(translatePoint(14, new Point(0,0)));
-//	}
 	private String translatePoint(int length, Point point) {
 		String pointString = "Point: " + (char) (point.x + 97) + ", " + (length - point.y) + "  ";
 		return pointString;
