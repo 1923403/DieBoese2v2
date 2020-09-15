@@ -1,5 +1,7 @@
 package io.localization;
 
+import java.awt.Point;
+
 import model.Settings;
 
 public class ConsoleOutput {
@@ -7,6 +9,15 @@ public class ConsoleOutput {
 
 	public static void debugInformation(String information) {
 		System.err.println(information);
+	}
+
+	public static void printCoordinates(int boardLength, Point point) {
+		printCoordinates(boardLength, point, "");
+	}
+
+	public static void printCoordinates(int boardLength, Point point, String message) {
+		String pointString = "Point: " + (char) (point.x + 97) + ", " + (boardLength - point.y) + "  ";
+		System.out.println(pointString + message);
 	}
 
 	public static String[] getSupportedLanguages() {
