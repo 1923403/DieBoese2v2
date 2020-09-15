@@ -59,7 +59,7 @@ public class Minimax {
 		}
 		if (bestMove.x == -1) {
 			var randomMove = this.randomMove(allMoves);
-			ConsoleOutput.printCoordinates(board.length, randomMove, "randomly chosen...");
+			ConsoleOutput.printCoordinates(board.length, randomMove, ": randomly chosen...");
 			this.bestMoves.put(randomMove, Integer.MIN_VALUE);
 		} else {
 			ConsoleOutput.printCoordinates(board.length, bestMove, ": " + bestValue);

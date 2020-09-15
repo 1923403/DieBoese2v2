@@ -74,7 +74,6 @@ public class SetMove {
 
 	private void setMove(final char figure) {
 		ConsoleOutput.printCoordinates(board.length, myMove, ": '" + figure + "' got placed");
-
 		this.board[this.myMove.x][this.myMove.y] = figure;
 	}
 }
