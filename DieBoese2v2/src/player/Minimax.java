@@ -105,17 +105,7 @@ public class Minimax {
 	 * @return
 	 */
 	private ArrayList<ArrayList<Point>> createThreadList(ArrayList<Point> allMoves) {
-		var threadList = new ArrayList<ArrayList<Point>>();
-		// adds i lists to threadList, i = availableThreads
-		for (var i = 0; i < this.availableThreads; i++) {
-			threadList.add(new ArrayList<>());
-		}
-		for (var point : allMoves) {
-			var threadNumber = allMoves.indexOf(point) % this.availableThreads;
-			ArrayList<Point> currentList = threadList.get(threadNumber);
-			currentList.add(point);
-		}
-		return threadList;
+		return ThreadList.getThreadList(allMoves, availableThreads);
 	}
 
 	private int minimax(char[][] board, Point[] previousMoves, boolean isMaximizing,
