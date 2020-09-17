@@ -4,17 +4,26 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class ThreadList {
-	public static ArrayList<ArrayList<Point>> getThreadList(ArrayList<Point> allMoves, int availableThreads) {
-		var threadList = new ArrayList<ArrayList<Point>>();
-		// adds i lists to threadList, i = availableThreads
-		for (var i = 0; i < availableThreads; i++) {
-			threadList.add(new ArrayList<>());
+
+	private static final int availableThreads = Runtime.getRuntime().availableProcessors();
+	private static ArrayList<ArrayList<Point>> threadList;
+
+	public static ArrayList<ArrayList<Point>> getThreadList(final ArrayList<Point> allMoves) {
+		ThreadList.createThreadList();
+		ThreadList.addThreads(allMoves);
+		return ThreadList.threadList;
+	}
+
+	private static void addThreads(final ArrayList<Point> allMoves) {
+		for (final var point : allMoves) {
+			final var threadNumber = allMoves.indexOf(point) % ThreadList.availableThreads;
+			ThreadList.threadList.get(threadNumber).add(point);
 		}
-		for (var point : allMoves) {
-			var threadNumber = allMoves.indexOf(point) % availableThreads;
-			ArrayList<Point> currentList = threadList.get(threadNumber);
-			currentList.add(point);
-		}
-		return threadList;
+	}
+
+	private static void createThreadList() {
+		ThreadList.threadList = new ArrayList<>();
+		for (var i = 0; i < ThreadList.availableThreads; i++)
+			ThreadList.threadList.add(new ArrayList<>());
 	}
 }

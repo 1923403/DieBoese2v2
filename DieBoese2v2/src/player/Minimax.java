@@ -10,11 +10,11 @@ import model.Capture;
 import model.Turn;
 
 public class Minimax {
-	private volatile int alpha = Integer.MIN_VALUE;;
+	private volatile int alpha = Integer.MIN_VALUE;
 	private final int availableThreads = Runtime.getRuntime().availableProcessors();
 	private volatile HashMap<Point, Integer> bestMoves;
-	private final char myFigure, enemyFigure;
 	private volatile BoardEvaluation evaluation;
+	private final char myFigure, enemyFigure;
 	private ArrayList<Point> sortedPoints;
 	private final int squareSize = 2;
 	private final int wantedDepth = 5; // could be increased during the game
@@ -107,7 +107,7 @@ public class Minimax {
 	 * @return
 	 */
 	private ArrayList<ArrayList<Point>> createThreadList(ArrayList<Point> allMoves) {
-		return ThreadList.getThreadList(allMoves, availableThreads);
+		return ThreadList.getThreadList(allMoves);
 	}
 
 	private int minimax(char[][] board, Point[] previousMoves, boolean isMaximizing,
