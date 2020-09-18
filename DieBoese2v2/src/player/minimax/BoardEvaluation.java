@@ -1,4 +1,4 @@
-package player;
+package player.minimax;
 
 import java.awt.Point;
 import java.util.ArrayList;

@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import exceptions.InvalidMoveException;
 import model.Data;
+import player.minimax.Minimax;
 
 public class AI extends Player {
 	private Minimax minimax;
